@@ -1,8 +1,8 @@
-export interface Metadata {
-  title: string;
-  description: string;
+export interface PopupProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export interface VenuePageType {
-  params: Promise<{ venuesId: string }>;
+  params: Promise<{ venueId: string }>;
 }
