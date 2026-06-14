@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import './globals.css';
+import Script from 'next/script';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Home Page || Holidaze',
@@ -15,19 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-full flex flex-col">
-        <header>
-          <nav>
-            <Link href="/">Saved</Link>
-            <Link href="/">Search</Link>
-            <Link href="/">Bookings</Link>
-            <Link href="/">Login</Link>
-          </nav>
-        </header>
-        <main>{children}</main>
-        <footer>
-          <p>© 2026 Holidaze</p>
-        </footer>
+      <body className="min-h-screen flex flex-col">
+        <Script
+          src="https://kit.fontawesome.com/54f19440a6.js"
+          crossOrigin="anonymous"
+        />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
