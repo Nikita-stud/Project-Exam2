@@ -1,5 +1,32 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-primary: #e03a2f;
+  --color-secondary: #32b4e0;
+  --color-icons: #48e0a2;
+  --color-calm: #455a61;
+  --color-text: #101802;
+  --color-white: #f3fffb;
+
+  --font-heading: var(--font-lora), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+
+  --mobile-h1-size: 1.75rem;
+  --mobile-h2-size: 1.3125rem;
+  --mobile-text-and-highlight-size: 1rem;
+  --mobile-button-size: 1rem;
+
+  --desktop-h1-size: 2.375rem;
+  --desktop-h2-size: 1.75rem;
+  --desktop-text-and-highlight-size: 1.3125rem;
+  --desktop-button-size: 1.3125rem;
+
+  --line-height-default: 1.2;
+
+  --shadow-page: 0px 1px 21px 6px rgba(0, 0, 0, 0.25);
+  --shadow-footer: inset 1px 1px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
 * {
   transition:
     width 0.3s ease,
@@ -9,54 +36,140 @@
     font-size 0.3s ease;
 }
 
-:root {
-  --color-primary: #e03a2f;
-  --color-secondary: #32b4e0;
-  --color-icons: #48e0a2;
-  --color-calm: #455a61;
-  --color-text: #101802;
-  --color-white: #f3fffb;
-
-  --shadow-page: 0px 1px 21px 6px rgba(0, 0, 0, 0.25);
-  --shadow-footer: inset 1px 1px 5px 0px rgba(0, 0, 0, 0.25);
-}
-
 body {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   min-height: 100vh;
   background: var(--color-white);
   color: var(--color-text);
-  /* font-family: Arial, Helvetica, sans-serif; */
+  line-height: var(--line-height-default);
 }
 
+/* Header Mobile */
 header {
-  padding: 20px;
+  order: 2;
+  bottom: 0;
+  position: sticky;
+  height: 87px;
+  padding: 10px 20px 0 20px;
   background: var(--color-white);
   box-shadow: var(--shadow-page);
 }
+header nav {
+  display: flex;
+  width: 100%;
+  font-size: var(--mobile-text-and-highlight-size);
+}
+header nav a,
+header nav button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+i {
+  font-size: 20px;
+}
 
 main {
+  order: 1;
   padding: 20px;
-  /* display: grid;
-  place-items: center; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+p,
+input,
+button,
+a,
+span,
+nav {
+  font-family: var(--font-body);
 }
 
 footer {
   display: none;
 }
 
+button {
+  cursor: pointer;
+  line-height: 1;
+  font-family: var(--mobile-button-size);
+}
+
+/* Breakpoint  classes */
 @media (min-width: 744px) {
+  body {
+    grid-template-rows: auto 1fr auto;
+  }
   header {
-    padding: 30px;
+    order: 1;
+    bottom: none;
+    padding: 20px 50px;
+  }
+  header nav {
+    display: flex;
+    align-items: center;
+    width: auto;
+    gap: 20px;
+    font-size: var(--desktop-text-and-highlight-size);
+  }
+  header nav a,
+  header nav button {
+    flex: none;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .logo-header {
+    display: inline;
   }
   main {
+    order: 2;
     padding: 50px;
   }
   footer {
+    order: 3;
     display: block;
+    height: 277px;
     padding: 50px;
     background: var(--color-white);
     box-shadow: var(--shadow-footer);
+  }
+  footer nav div {
+    font-size: var(--desktop-text-and-highlight-size);
+  }
+
+  button {
+    font-size: var(--desktop-button-size);
+    font-weight: 600;
+  }
+}
+
+/* Utility classes */
+
+/* CTA utility classes */
+@utility continue-auth-cta {
+  @apply bg-[var(--color-primary)] text-[var(--color-white)] w-[350px] h-[58px] rounded-[10px];
+
+  @media (min-width: 744px) {
+    @apply w-[320px];
+  }
+}
+@utility login-cta {
+  @apply w-auto h-auto gap-1;
+
+  @media (min-width: 744px) {
+    @apply bg-[var(--color-primary)] text-[var(--color-white)] rounded-[10px] w-[179px] h-[48px];
   }
 }
