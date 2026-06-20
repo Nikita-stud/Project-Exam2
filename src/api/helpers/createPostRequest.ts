@@ -1,4 +1,4 @@
-export default function createPostRequest(user) {
+export default function createPostRequest(user: unknown) {
   return {
     method: 'POST',
     headers: {

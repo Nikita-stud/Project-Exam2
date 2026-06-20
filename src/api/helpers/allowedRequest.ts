@@ -1,6 +1,6 @@
-import { loadLocalStorage } from '../auth/loadLocalStorage.mjs';
+import { loadLocalStorage } from '../auth/loadLocalStorage';
 
-export default function allowedRequest(method, data) {
+export default function allowedRequest(method: string) {
   return {
     method: `${method}`,
     headers: {
