@@ -3,10 +3,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import AuthModal from '@/components/auth/AuthModal';
+
+const navLinks = [
+  { href: '/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
+  { href: '/search', label: 'Search', icon: 'fa-solid fa-magnifying-glass' },
+  { href: '/bookings', label: 'Bookings', icon: 'fa-regular fa-calendar' },
+];
 
 export default function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header>
@@ -21,15 +29,15 @@ export default function Header() {
           />
         </Link>
         <nav>
-          <Link href="/" className="flex flex-col items-center">
-            <i className="fa-regular fa-heart"></i> Saved
-          </Link>
-          <Link href="/" className="flex flex-col items-center gap-1">
-            <i className="fa-solid fa-magnifying-glass"></i> Search
-          </Link>
-          <Link href="/" className="flex flex-col items-center gap-1">
-            <i className="fa-regular fa-calendar"></i> Bookings
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`flex flex-col items-center gap-1 ${pathname === link.href ? 'font-bold' : 'font-normal'}`}
+            >
+              <i className={link.icon}></i> {link.label}
+            </Link>
+          ))}
           <button
             onClick={() => setIsPopupOpen(true)}
             className="login-cta flex flex-col items-center justify-center"
