@@ -3,12 +3,15 @@
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import type { PopupProps } from '@/types';
+import { useRouter } from 'next/navigation';
 
 export default function AuthModal({ isOpen, onClose }: PopupProps) {
   if (!isOpen) return null;
+  const router = useRouter();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    router.replace('/');
   };
 
   return createPortal(
@@ -29,17 +32,13 @@ export default function AuthModal({ isOpen, onClose }: PopupProps) {
           <label htmlFor="email">
             Email address: <i className="fa-solid fa-asterisk"></i>
           </label>
-          <input
-            id="email"
-            type="email"
-            required
-          />
+          <input id="email" type="email" required />
         </div>
         <button type="submit" className="continue-auth-cta mt-5 m-auto">
           Continue
         </button>
       </form>
     </section>,
-    document.body
+    document.body,
   );
 }
