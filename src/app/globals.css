@@ -76,7 +76,7 @@ i {
 
 main {
   order: 1;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 
 h1,
@@ -88,6 +88,17 @@ h6 {
   font-family: var(--font-heading);
 }
 
+h1 {
+  font-size: var(--mobile-h1-size);
+}
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--mobile-h2-size);
+}
+
 p,
 input,
 button,
@@ -95,6 +106,14 @@ a,
 span,
 nav {
   font-family: var(--font-body);
+}
+
+p,
+input,
+button,
+a,
+span {
+  font-size: var(--mobile-text-and-highlight-size);
 }
 
 footer {
@@ -112,6 +131,24 @@ button {
   body {
     grid-template-rows: auto 1fr auto;
   }
+  h1 {
+    font-size: var(--desktop-h1-size);
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: var(--desktop-h2-size);
+  }
+  p,
+  input,
+  button,
+  a,
+  span {
+    font-size: var(--desktop-text-and-highlight-size);
+  }
+
   header {
     order: 1;
     bottom: none;
@@ -136,7 +173,7 @@ button {
   }
   main {
     order: 2;
-    padding: 50px;
+    padding: 0 50px 50px 50px;
   }
   footer {
     order: 3;

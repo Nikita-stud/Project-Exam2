@@ -6,9 +6,8 @@ export default async function Home() {
   const venues = await fetchVenues();
 
   return (
-    <div>
-      <h1>Venues</h1>
-      <p>Best venues</p>
+    <section>
+      <h1>Book your stay</h1>
 
       {venues && venues.length > 0 ? (
         <ul style={{ listStyle: 'none', padding: 0 }}>
@@ -41,6 +40,6 @@ export default async function Home() {
       ) : (
         <p>No Venues found</p>
       )}
-    </div>
+    </section>
   );
 }
