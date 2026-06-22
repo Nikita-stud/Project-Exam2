@@ -1,4 +1,4 @@
-import { loadLocalStorage } from '../auth/loadLocalStorage';
+import loadLocalStorage from './loadLocalStorage';
 
 export default function allowedDataRequest(method: string, data: unknown) {
   return {
@@ -6,7 +6,7 @@ export default function allowedDataRequest(method: string, data: unknown) {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${loadLocalStorage('token')}`,
-      'X-Noroff-API-Key': `${process.env.NOROFF_API_KEY}`,
+      'X-Noroff-API-Key': `${process.env.NEXT_PUBLIC_NOROFF_API_KEY}`,
     },
     body: JSON.stringify(data),
   };
