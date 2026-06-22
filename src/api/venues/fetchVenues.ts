@@ -7,9 +7,16 @@ export default async function fetchVenues(): Promise<Venue[]> {
   });
 
   if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error(`Venues were not found.`);
+    }
     throw new Error(`Failed to fetch venues: ${response.statusText}`);
   }
 
   const result: VenuesResponse = await response.json();
+
+  if (!result.data) {
+    throw new Error('Venues data is not available');
+  }
   return result.data;
 }

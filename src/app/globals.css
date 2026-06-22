@@ -90,6 +90,7 @@ h6 {
 
 h1 {
   font-size: var(--mobile-h1-size);
+  font-weight: 600;
 }
 h2,
 h3,
@@ -124,6 +125,12 @@ button {
   cursor: pointer;
   line-height: 1;
   font-family: var(--mobile-button-size);
+}
+.grey {
+  color: var(--color-calm);
+}
+.card:hover {
+  box-shadow: var(--shadow-page);
 }
 
 /* Breakpoint  classes */
