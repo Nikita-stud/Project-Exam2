@@ -7,7 +7,7 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
   }
 
   return (
-    <section className="grid gap-[20px]">
+    <section className="grid gap-[20px] p-[20px] md:p-[50px]">
       {venues.map((venue) => (
         <VenueCard key={venue.id} venue={venue} />
       ))}
