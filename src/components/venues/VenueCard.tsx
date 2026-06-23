@@ -22,7 +22,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
               ''
             ) : (
               <p>
-                <i className="fa-solid fa-star"></i> {venue.rating}
+                <i className="fa-solid fa-star" suppressHydrationWarning></i> {venue.rating}
               </p>
             )}
           </div>
