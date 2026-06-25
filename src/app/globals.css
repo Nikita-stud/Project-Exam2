@@ -118,6 +118,20 @@ span {
   font-size: var(--mobile-text-and-highlight-size);
 }
 
+label {
+  color: var(--color-calm);
+}
+input {
+  color: var(--color-text);
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+input::placeholder {
+  color: var(--color-calm);
+}
+
 footer {
   display: none;
 }
@@ -159,8 +173,12 @@ button {
 
   header {
     order: 1;
-    bottom: none;
+    position: fixed;
+    top: 0;
+    bottom: unset;
+    width: 100%;
     padding: 20px 50px;
+    z-index: 1000;
   }
   header nav {
     display: flex;
@@ -181,6 +199,7 @@ button {
   }
   main {
     order: 2;
+    padding-top: 88px;
   }
   footer {
     order: 3;
