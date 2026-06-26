@@ -126,10 +126,11 @@ input {
 }
 input:focus {
   outline: none;
-  border: none;
+  border: 2px solid var(--color-secondary);
 }
 input::placeholder {
   color: var(--color-calm);
+  font-weight: 300;
 }
 
 footer {
@@ -143,6 +144,9 @@ button {
 }
 .grey {
   color: var(--color-calm);
+}
+.color-secondary {
+  color: var(--color-secondary);
 }
 .card:hover {
   box-shadow: var(--shadow-page);
@@ -223,10 +227,10 @@ button {
 
 /* CTA utility classes */
 @utility continue-auth-cta {
-  @apply bg-[var(--color-primary)] text-[var(--color-white)] w-[350px] h-[58px] rounded-[10px];
+  @apply bg-[var(--color-primary)] text-[var(--color-white)] w-full max-w-[350px] h-[58px] rounded-[10px];
 
   @media (min-width: 744px) {
-    @apply w-[320px];
+    @apply w-[320px] max-w-none;
   }
 }
 @utility login-cta {

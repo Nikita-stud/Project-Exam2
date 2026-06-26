@@ -1,6 +1,7 @@
 import { LOGIN_API_URL } from '../../constants/api';
 import createPostRequest from '../helpers/createPostRequest';
 import saveLocalStorage from '../helpers/saveLocalStorage';
+import type { LoginData } from '@/schemas/loginFormSchema';
 
 export default async function loginUser(user: unknown) {
   const postData = createPostRequest(user);
