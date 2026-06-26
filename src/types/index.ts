@@ -2,6 +2,9 @@ export interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
 }
+export interface LoginModalProps extends PopupProps {
+  onOpenRegister: () => void;
+}
 
 export interface VenuePageType {
   params: Promise<{ venueId: string }>;

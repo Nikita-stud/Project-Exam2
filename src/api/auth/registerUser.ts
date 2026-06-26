@@ -1,5 +1,6 @@
 import { REGISTER_API_URL } from '../../constants/api';
 import createPostRequest from '../helpers/createPostRequest';
+import type { RegisterData } from '@/schemas/registerFormSchema';
 
 export default async function registerUser(user: unknown) {
   const postData = createPostRequest(user);
