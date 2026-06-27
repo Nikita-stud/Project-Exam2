@@ -126,7 +126,6 @@ input {
 }
 input:focus {
   outline: none;
-  border: 2px solid var(--color-secondary);
 }
 input::placeholder {
   color: var(--color-calm);

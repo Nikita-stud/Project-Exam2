@@ -49,6 +49,7 @@ export default function Header() {
               <i className={link.icon}></i> {link.label}
             </Link>
           ))}
+
           <button
             onClick={() => setIsPopupOpen(true)}
             className="login-cta flex flex-col items-center justify-center"

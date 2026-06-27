@@ -3,15 +3,12 @@
 import { useState } from 'react';
 import { DayPicker, DateRange } from '@daypicker/react';
 import '@daypicker/react/style.css';
+import { useVenueContext } from '@/context/context';
 
 export default function VenueSearch() {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [formData, setFormData] = useState({
-    destination: '',
-    selected: undefined,
-    guests: '',
-  });
+  const { formData, setFormData } = useVenueContext();
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -19,12 +16,6 @@ export default function VenueSearch() {
 
     try {
       console.log('Search', formData);
-
-      // setFormData({
-      //   destination: ' ',
-      //   selected: undefined,
-      //   guests: ' ',
-      // });
     } finally {
       setSearching(false);
     }
