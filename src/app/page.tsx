@@ -6,7 +6,6 @@ import { VenueProvider } from '@/context/context';
 
 export default async function Home() {
   const venues = await fetchVenues();
-
   return (
     <>
       <VenueProvider>

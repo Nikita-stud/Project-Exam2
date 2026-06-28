@@ -2,7 +2,10 @@
 
 import { useState, useContext, createContext } from 'react';
 
-const VenueContext = createContext(null);
+const VenueContext = createContext({
+  formData: { destination: '', selected: undefined, guests: '' },
+  setFormData: () => {},
+});
 
 export function VenueProvider({ children }) {
   const [formData, setFormData] = useState({
@@ -19,9 +22,5 @@ export function VenueProvider({ children }) {
 }
 
 export function useVenueContext() {
-  const context = useContext(VenueContext);
-  if (!context) {
-    return;
-  }
-  return context;
+  return useContext(VenueContext);
 }

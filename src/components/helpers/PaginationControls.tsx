@@ -8,20 +8,24 @@ export default function PaginationControls({
   onPageChange: (page: number) => void;
 }) {
   return (
-    <div className="d-flex gap-2">
+    <div className="flex justify-between align-middle ">
       <button
-        className="btn btn-primary text-white"
+        className="bg-calm hover:opacity-90 text-white rounded-[10px] w-[179px] h-[48px] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed!"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1 || totalPages === 0}
       >
-        Previous
+        <i className="fa-solid fa-arrow-left"></i>
+        Prev
       </button>
+      <p className="m-auto">
+        <span className="underline">{currentPage}</span> of {totalPages}
+      </p>
       <button
-        className="btn btn-primary text-white"
+        className="bg-calm hover:opacity-90 text-white rounded-[10px] w-[179px] h-[48px] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed!"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages || totalPages === 0}
       >
-        Next
+        Next <i className="fa-solid fa-arrow-right"></i>
       </button>
     </div>
   );

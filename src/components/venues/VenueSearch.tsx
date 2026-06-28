@@ -8,6 +8,8 @@ import { useVenueContext } from '@/context/context';
 export default function VenueSearch() {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [searching, setSearching] = useState(false);
+
+  //allows me to get the state
   const { formData, setFormData } = useVenueContext();
 
   const handleSearch = async (e) => {
