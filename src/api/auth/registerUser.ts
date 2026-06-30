@@ -1,6 +1,5 @@
 import { REGISTER_API_URL } from '../../constants/api';
 import createPostRequest from '../helpers/createPostRequest';
-// import type { RegisterData } from '@/schemas/registerFormSchema';
 import type { RegisterUser } from '@/types';
 
 export default async function registerUser(user: RegisterUser) {

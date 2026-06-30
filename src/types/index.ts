@@ -5,8 +5,8 @@ export interface RegisterUser {
 }
 
 export interface LoginUser {
-  email: string;
-  password: string;
+  email: RegisterUser['email'];
+  password: RegisterUser['password'];
 }
 
 interface UserAvatar {
@@ -35,9 +35,6 @@ export interface LoginResponse {
 export interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
-}
-export interface LoginModalProps extends PopupProps {
-  onOpenRegister: () => void;
 }
 
 export interface VenuePageType {
