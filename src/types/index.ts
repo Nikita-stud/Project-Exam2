@@ -1,3 +1,37 @@
+export interface RegisterUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
+interface UserAvatar {
+  url: string;
+  alt: string;
+}
+
+interface UserBanner {
+  url: string;
+  alt: string;
+}
+
+export interface LoginResponseData {
+  name: string;
+  email: string;
+  avatar: UserAvatar;
+  banner: UserBanner;
+  accessToken: string;
+}
+
+export interface LoginResponse {
+  data: LoginResponseData;
+  meta: Record<string, never>;
+}
+
 export interface PopupProps {
   isOpen: boolean;
   onClose: () => void;

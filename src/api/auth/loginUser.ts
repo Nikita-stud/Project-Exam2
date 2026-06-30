@@ -1,9 +1,13 @@
 import { LOGIN_API_URL } from '../../constants/api';
 import createPostRequest from '../helpers/createPostRequest';
 import saveLocalStorage from '../helpers/saveLocalStorage';
-import type { LoginData } from '@/schemas/loginFormSchema';
+import type { LoginUser, LoginResponse } from '../../types';
 
-export default async function loginUser(user: unknown) {
+export default async function loginUser(
+  user: LoginUser,
+): Promise<LoginResponse> {
+  console.log('User login: ', user);
+
   const postData = createPostRequest(user);
   const response = await fetch(LOGIN_API_URL, postData);
   const json = await response.json();
@@ -18,5 +22,5 @@ export default async function loginUser(user: unknown) {
     saveLocalStorage('UserName', json.data.name);
   }
 
-  return json;
+  return json as LoginResponse;
 }

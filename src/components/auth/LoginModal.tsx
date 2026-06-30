@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LoginModalProps } from '@/types';
 import { useRouter } from 'next/navigation';
+import loginUser from '@/api/auth/loginUser';
 
 export default function LoginModal({
   isOpen,
@@ -12,12 +13,29 @@ export default function LoginModal({
   onOpenRegister,
 }: LoginModalProps) {
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
   const [showPassword, setShowPassword] = useState(false);
   if (!isOpen) return null;
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.replace('/');
+
+    try {
+      const response = loginUser(formData);
+
+      if (!response) {
+        throw new Error('Login failed');
+      }
+
+      setFormData({ email: '', password: '' });
+      router.replace('/');
+    } catch (error) {
+      throw new Error('Login failed');
+    }
   };
 
   const handleOpenRegister = () => {
@@ -26,7 +44,7 @@ export default function LoginModal({
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[1001] bg-text/60 " onClick={onClose}>
+    <div className="fixed inset-0 z-[1001] bg-black/60 " onClick={onClose}>
       <section
         className="z-[1002] fixed bg-[#fff] shadow-page p-5 flex flex-col overflow-y-auto
           w-full top-[87px] left-0 h-[calc(100%-87px)] rounded-t-[10px]
@@ -52,6 +70,7 @@ export default function LoginModal({
               type="email"
               placeholder="myemail@stud.noroff.no"
               required
+              value={setFormData.email}
               className="h-[58px] w-full border rounded-[10px] pl-5 color-calm"
             />
           </div>
@@ -66,6 +85,7 @@ export default function LoginModal({
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Your password"
                 required
+                value={setFormData.password}
                 className="h-14.5 w-full border rounded-[10px] pl-5 pr-12 color-calm"
               />
               <button
@@ -81,7 +101,7 @@ export default function LoginModal({
           </div>
           <button
             type="submit"
-            className="continue-auth-cta mt-5 m-auto font-bold"
+            className="continue-auth-cta mt-[30px] m-auto font-bold"
           >
             Login
           </button>

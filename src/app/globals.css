@@ -226,7 +226,7 @@ button {
 
 /* CTA utility classes */
 @utility continue-auth-cta {
-  @apply bg-[var(--color-primary)] text-[var(--color-white)] w-full max-w-[350px] h-[58px] rounded-[10px];
+  @apply bg-[var(--color-primary)] text-[var(--color-white)] w-full max-w-[380px] h-[58px] rounded-[10px];
 
   @media (min-width: 744px) {
     @apply w-[320px] max-w-none;

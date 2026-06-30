@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import LoginModal from '@/components/auth/LoginModal';
+import RegisterModal from '@/components/auth/RegisterModal';
 
 const navLinks = [
   { href: '/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
@@ -13,7 +14,9 @@ const navLinks = [
 ];
 
 export default function Header() {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [activePopup, setActivePopup] = useState<'login' | 'register' | null>(
+    null,
+  );
   const pathname = usePathname();
 
   // useEffect(() => {
@@ -51,15 +54,20 @@ export default function Header() {
           ))}
 
           <button
-            onClick={() => setIsPopupOpen(true)}
+            onClick={() => setActivePopup('login')}
             className="login-cta flex flex-col items-center justify-center"
           >
             <i className="fa-regular fa-user"></i> Login
           </button>
         </nav>
         <LoginModal
-          isOpen={isPopupOpen}
-          onClose={() => setIsPopupOpen(false)}
+          isOpen={activePopup === 'login'}
+          onClose={() => setActivePopup(null)}
+          onOpenRegister={() => setActivePopup('register')}
+        />
+        <RegisterModal
+          isOpen={activePopup === 'register'}
+          onClose={() => setActivePopup(null)}
         />
       </div>
     </header>
