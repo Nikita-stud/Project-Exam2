@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import LoginModal from '@/components/auth/LoginModal';
+import AuthModal from '@/components/auth/AuthModal';
 
 const navLinks = [
   { href: '/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
@@ -13,7 +13,8 @@ const navLinks = [
 ];
 
 export default function Header() {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const pathname = usePathname();
 
   // useEffect(() => {
@@ -51,16 +52,15 @@ export default function Header() {
           ))}
 
           <button
-            onClick={() => setIsPopupOpen(true)}
+            onClick={() => setIsOpen(true)}
             className="login-cta flex flex-col items-center justify-center"
           >
             <i className="fa-regular fa-user"></i> Login
           </button>
         </nav>
-        <LoginModal
-          isOpen={isPopupOpen}
-          onClose={() => setIsPopupOpen(false)}
-        />
+        {isOpen && (
+          <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        )}
       </div>
     </header>
   );
