@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import fetchVenue from '@/api/venues/fetchVenue';
-
 import type { VenuePageType } from '@/types';
+import authStore from '@/store/authStore';
+import EventBooking from '@/components/events/EventBooking';
 
 export default async function VenuePage({ params }: VenuePageType) {
   const { venueId } = await params;
+  const token = authStore.getState().token;
+
   const venue = await fetchVenue(venueId);
 
   return (
@@ -24,6 +27,7 @@ export default async function VenuePage({ params }: VenuePageType) {
       <p>
         <strong>Whats up:</strong> {venue.description}
       </p>
+      <EventBooking />
     </div>
   );
 }

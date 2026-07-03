@@ -25,6 +25,7 @@ export default function RootLayout({
         <Script
           src="https://kit.fontawesome.com/54f19440a6.js"
           crossOrigin="anonymous"
+          strategy="lazyOnload"
         />
         <Header />
         <main className="flex-1">{children}</main>

@@ -9,9 +9,9 @@ const VenueContext = createContext({
 
 export function VenueProvider({ children }) {
   const [formData, setFormData] = useState({
-    destination: ' ',
+    destination: '',
     selected: undefined,
-    guests: ' ',
+    guests: '',
   });
 
   return (

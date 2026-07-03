@@ -17,12 +17,15 @@ import {
 export default function AuthModal({ onClose }: PopupProps) {
   const [activePopup, setActivePopup] = useState<'login' | 'register'>('login');
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const loginForm = useForm<LoginData>({
     resolver: zodResolver(loginFormSchema),
+    mode: 'onBlur',
   });
   const registerForm = useForm<RegisterData>({
     resolver: zodResolver(registerFormSchema),
+    mode: 'onBlur',
   });
 
   const onError = (formErrors: FieldErrors<LoginData | RegisterData>) => {
@@ -36,20 +39,26 @@ export default function AuthModal({ onClose }: PopupProps) {
   };
 
   const onLoginSubmit = async (data: LoginData) => {
+    setIsSubmitting(true);
     try {
       await loginUser(data);
       onClose();
     } catch (error) {
       console.error('Login failed', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const onRegisterSubmit = async (data: RegisterData) => {
+    setIsSubmitting(true);
     try {
       await registerUser(data);
       switchPopup('login');
     } catch (error) {
       console.error('Registration failed', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -106,12 +115,16 @@ export default function AuthModal({ onClose }: PopupProps) {
                 id="name"
                 type="text"
                 placeholder="Your name"
+                aria-invalid={
+                  registerForm.formState.errors.name ? 'true' : 'false'
+                }
+                aria-describedby="name-error"
                 {...registerForm.register('name')}
                 className="h-[58px] w-full border rounded-[10px] pl-[20px] color-calm"
               />
               {registerForm.formState.errors.name && (
                 <p
-                  id="nameError"
+                  id="name-error"
                   role="alert"
                   className="text-primary absolute top-full end-0 text-sm mb-0"
                 >
@@ -129,6 +142,8 @@ export default function AuthModal({ onClose }: PopupProps) {
               id="email"
               type="email"
               placeholder="myemail@stud.noroff.no"
+              aria-invalid={errors.email ? 'true' : 'false'}
+              aria-describedby="email-error"
               {...(isLogin
                 ? loginForm.register('email')
                 : registerForm.register('email'))}
@@ -136,7 +151,7 @@ export default function AuthModal({ onClose }: PopupProps) {
             />
             {errors.email && (
               <p
-                id="emailError"
+                id="email-error"
                 role="alert"
                 className="text-primary absolute top-full end-0 text-sm mb-0"
               >
@@ -154,6 +169,8 @@ export default function AuthModal({ onClose }: PopupProps) {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Your password"
+                aria-invalid={errors.password ? 'true' : 'false'}
+                aria-describedby="password-error"
                 {...(isLogin
                   ? loginForm.register('password')
                   : registerForm.register('password'))}
@@ -161,7 +178,7 @@ export default function AuthModal({ onClose }: PopupProps) {
               />
               {errors.password && (
                 <p
-                  id="passwordError"
+                  id="password-error"
                   role="alert"
                   className="text-primary absolute top-full end-0 text-sm mb-0"
                 >
@@ -179,8 +196,42 @@ export default function AuthModal({ onClose }: PopupProps) {
               </button>
             </div>
           </div>
+
+          {activePopup === 'register' && (
+            <div className="flex flex-col gap-2 w-full max-w-125 mt-[5px]">
+              <p className="font-semibold">
+                Role{' '}
+                <i className="fa-solid fa-asterisk text-[10px]! align-super"></i>
+              </p>
+              <div className="flex gap-2">
+                <label className="flex flex-1 h-[58px] items-center justify-center border rounded-[10px] cursor-pointer font-medium has-[:checked]:bg-text has-[:checked]:text-white!">
+                  <input
+                    type="radio"
+                    name="role"
+                    className="sr-only"
+                    defaultChecked
+                    onChange={() =>
+                      registerForm.setValue('venueManager', false)
+                    }
+                  />
+                  User
+                </label>
+                <label className="flex flex-1 h-[58px] items-center justify-center border rounded-[10px] cursor-pointer font-medium has-[:checked]:bg-text has-[:checked]:text-white!">
+                  <input
+                    type="radio"
+                    name="role"
+                    className="sr-only"
+                    onChange={() => registerForm.setValue('venueManager', true)}
+                  />
+                  Venue Manager
+                </label>
+              </div>
+            </div>
+          )}
+
           <button
             type="submit"
+            disabled={isSubmitting}
             className="continue-auth-cta mt-[30px] m-auto font-bold"
           >
             {activePopup === 'login' ? 'Login' : 'Register'}
@@ -213,7 +264,8 @@ export default function AuthModal({ onClose }: PopupProps) {
           )}
         </div>
 
-        <div className="flex flex-col items-center mt-auto gap-1 text-gray-500">
+        <div className="flex-1 min-h-[50px]" />
+        <div className="flex flex-col items-center gap-1 text-gray-500">
           <p>All rights reserved</p>
           <p>
             Copyright {new Date().getFullYear()}
