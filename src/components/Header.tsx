@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import AuthModal from '@/components/auth/AuthModal';
+import AuthStore from '@/store/authStore';
 
 const navLinks = [
   { href: '/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
@@ -15,18 +16,10 @@ const navLinks = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const token = AuthStore((store) => store.token);
+  const clearAuth = AuthStore((store) => store.clearAuth);
+
   const pathname = usePathname();
-
-  // useEffect(() => {
-  //   const storedTheme = localStorage.getItem('app-theme');
-  //   if (storedTheme) {
-  //     setTheme(storedTheme);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem('app-theme', theme);
-  // }, []);
 
   return (
     <header>
@@ -50,13 +43,21 @@ export default function Header() {
               <i className={link.icon}></i> {link.label}
             </Link>
           ))}
-
-          <button
-            onClick={() => setIsOpen(true)}
-            className="login-cta flex flex-col items-center justify-center"
-          >
-            <i className="fa-regular fa-user"></i> Login
-          </button>
+          {token ? (
+            <button
+              onClick={clearAuth}
+              className="login-cta flex flex-col items-center justify-center"
+            >
+              <i className="fa-regular fa-user"></i> Logout
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsOpen(true)}
+              className="login-cta flex flex-col items-center justify-center"
+            >
+              <i className="fa-regular fa-user"></i> Login
+            </button>
+          )}
         </nav>
         {isOpen && (
           <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />

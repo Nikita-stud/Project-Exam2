@@ -1,7 +1,15 @@
+export interface AuthState {
+  token: string | null;
+  user: { name: string; email: string; venueManager: boolean } | null;
+  setAuth: (token: string, user: AuthState['user']) => void;
+  clearAuth: () => void;
+}
+
 export interface RegisterUser {
   name: string;
   email: string;
   password: string;
+  role: boolean;
 }
 
 export interface LoginUser {

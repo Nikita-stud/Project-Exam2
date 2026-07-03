@@ -1,7 +1,7 @@
 import { LOGIN_API_URL } from '../../constants/api';
 import createPostRequest from '../helpers/createPostRequest';
-import saveLocalStorage from '../helpers/saveLocalStorage';
 import type { LoginUser, LoginResponse } from '../../types';
+import AuthStore from '@/store/authStore';
 
 export default async function loginUser(
   user: LoginUser,
@@ -17,10 +17,12 @@ export default async function loginUser(
   }
 
   const token = json.data.accessToken;
-  if (token) {
-    saveLocalStorage('token', token);
-    saveLocalStorage('UserName', json.data.name);
-  }
 
-  return json as LoginResponse;
+  AuthStore.getState().setAuth(token, {
+    name: json.data.name,
+    email: json.data.email,
+    venueManager: json.data.venueManager,
+  });
+
+  return json;
 }
