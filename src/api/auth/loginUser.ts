@@ -6,11 +6,10 @@ import AuthStore from '@/store/authStore';
 export default async function loginUser(
   user: LoginUser,
 ): Promise<LoginResponse> {
-  console.log('User login: ', user);
-
   const postData = createPostRequest(user);
   const response = await fetch(LOGIN_API_URL, postData);
   const json = await response.json();
+  console.log('User login: ', json.data);
 
   if (!response.ok) {
     throw new Error(json.errors?.[0]?.message || 'Login failed');
