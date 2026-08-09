@@ -9,7 +9,7 @@ export interface RegisterUser {
   name: string;
   email: string;
   password: string;
-  role: boolean;
+  venueManager?: boolean;
 }
 
 export interface LoginUser {
@@ -104,3 +104,8 @@ export interface VenueResponse {
   data: Venue;
   meta: Record<string, never>;
 }
+
+export type LoginFormProps = {
+  onClose: () => void;
+  onSwitch: () => void;
+};
