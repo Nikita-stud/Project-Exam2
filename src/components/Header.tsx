@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+
 import AuthModal from '@/components/auth/AuthModal';
 import AuthStore from '@/store/authStore';
 
@@ -17,7 +18,10 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const token = AuthStore((store) => store.token);
-  const clearAuth = AuthStore((store) => store.clearAuth);
+  const avatarUrl =
+    AuthStore((store) => store.user?.avatar?.url) ?? '/no-photo.svg';
+  const avatarAlt =
+    AuthStore((store) => store.user?.avatar?.alt) ?? 'Profile image';
 
   const pathname = usePathname();
 
@@ -44,12 +48,19 @@ export default function Header() {
             </Link>
           ))}
           {token ? (
-            <button
-              onClick={clearAuth}
-              className="login-cta flex flex-col items-center justify-center"
+            <Link
+              href="/profile"
+              className={`login-cta flex flex-col items-center justify-center ${pathname === '/profile' ? 'font-bold' : 'font-normal'}`}
             >
-              <i className="fa-regular fa-user"></i> Logout
-            </button>
+              <Image
+                className="h-[20px] w-[20px] rounded-full"
+                src={avatarUrl}
+                alt={avatarAlt}
+                width={20}
+                height={20}
+              />{' '}
+              Profile
+            </Link>
           ) : (
             <button
               onClick={() => setIsOpen(true)}
