@@ -4,3 +4,9 @@ export const LOGIN_API_URL = BASE_API_URL + '/auth/login?_holidaze=true'; //_hol
 export const BOOKINGS_API_URL = BASE_API_URL + '/holidaze/bookings';
 export const VENUES_API_URL = BASE_API_URL + '/holidaze/venues';
 export const PROFILES_API_URL = BASE_API_URL + '/holidaze/profiles';
+
+export const USER_BOOKINGS_API_URL = (userName: string) =>
+  `${PROFILES_API_URL}/${userName}/bookings?_venue=true`;
+
+export const MANAGER_VENUES_API_URL = (userName: string) =>
+  `${PROFILES_API_URL}/${userName}/venues?_bookings=true`;

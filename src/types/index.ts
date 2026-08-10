@@ -1,6 +1,12 @@
 export interface AuthState {
   token: string | null;
-  user: { name: string; email: string; venueManager: boolean } | null;
+  user: {
+    name: string;
+    email: string;
+    venueManager: boolean;
+    avatar: UserAvatar;
+    banner: UserBanner;
+  } | null;
   setAuth: (token: string, user: AuthState['user']) => void;
   clearAuth: () => void;
 }
@@ -48,6 +54,9 @@ export interface PopupProps {
 export interface VenuePageType {
   params: Promise<{ venueId: string }>;
 }
+export interface BookingPageType {
+  params: Promise<{ userName: string }>;
+}
 
 interface Media {
   url?: string;
@@ -83,6 +92,17 @@ export interface Venue {
   updated: string;
   meta: VenueMeta;
   location: Location;
+  bookings?: VenueBooking[];
+  _count?: { bookings: number };
+}
+export interface Booking {
+  id: string;
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
+  created: string;
+  updated: string;
+  venue: Venue;
 }
 
 interface PageMeta {
@@ -108,4 +128,12 @@ export interface VenueResponse {
 export type LoginFormProps = {
   onClose: () => void;
   onSwitch: () => void;
+};
+export type UserBookingsResponse = {
+  data: Booking[];
+  meta: PageMeta;
+};
+export type ManagerVenuesResponse = {
+  data: Venue[];
+  meta: PageMeta;
 };

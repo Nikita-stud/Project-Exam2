@@ -21,6 +21,8 @@ export default async function loginUser(
     name: json.data.name,
     email: json.data.email,
     venueManager: json.data.venueManager,
+    avatar: json.data.avatar,
+    banner: json.data.banner,
   });
 
   return json;
