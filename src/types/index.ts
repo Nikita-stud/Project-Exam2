@@ -3,6 +3,7 @@ export interface AuthState {
   user: {
     name: string;
     email: string;
+    bio: string | null;
     venueManager: boolean;
     avatar: UserAvatar;
     banner: UserBanner;
