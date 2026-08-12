@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthStore from '@/store/authStore';
 
@@ -11,12 +11,24 @@ export default function ProtectedLayout({
 }) {
   const token = AuthStore((store) => store.token);
   const router = useRouter();
+  const [zustandLoad, setZustandLoad] = useState(() =>
+    AuthStore.persist.hasHydrated(),
+  );
 
   useEffect(() => {
-    if (!token) router.replace('/');
-  }, [token, router]);
+    const stopListen = AuthStore.persist.onFinishHydration(() =>
+      setZustandLoad(true),
+    );
+    return stopListen;
+  }, []);
 
-  if (!token) {
+  useEffect(() => {
+    if (zustandLoad && !token) {
+      router.replace('/');
+    }
+  }, [zustandLoad, token, router]);
+
+  if (!token || !zustandLoad) {
     return null;
   }
 

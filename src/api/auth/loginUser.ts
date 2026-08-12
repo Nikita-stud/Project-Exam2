@@ -20,6 +20,7 @@ export default async function loginUser(
   AuthStore.getState().setAuth(token, {
     name: json.data.name,
     email: json.data.email,
+    bio: json.data.bio,
     venueManager: json.data.venueManager,
     avatar: json.data.avatar,
     banner: json.data.banner,
