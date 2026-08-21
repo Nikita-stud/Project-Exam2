@@ -4,61 +4,77 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import AuthStore from '@/store/authStore';
+
 const serviceLinks = [
   { href: '/saved', label: 'Saved' },
   { href: '/profile', label: 'Profile' },
   { href: '/bookings', label: 'Bookings' },
 ];
 
-const discoverLinks = [
-  { href: '/search', label: 'Search' },
+const managerServiceLinks = [
+  { href: '/profile/venues/create', label: 'Create' },
+  { href: '/profile', label: 'Profile' },
+  { href: '/profile/venues/bookings', label: 'Bookings' },
 ];
+
+const discoverLinks = [{ href: '/search', label: 'Search' }];
+const managerDiscoverLinks = [{ href: '/profile/venues', label: 'Venues' }];
 
 export default function Footer() {
   const pathname = usePathname();
+  const user = AuthStore((store) => store.user);
 
   return (
     <footer className="relative">
       <div className="flex justify-between">
         <Link href="/">
           <Image
-            className="h-10 w-auto"
+            className="h-[50px] w-auto"
             src="/text-logo.png"
             alt="Logo"
             width={160}
             height={40}
           />
         </Link>
-        <nav className="flex gap-4">
+        <nav className="flex gap-[20px]">
           <div className="flex flex-col gap-[20px]">
             <p className="font-bold underline">Service</p>
-            {serviceLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={pathname === link.href ? 'font-bold' : 'font-normal'}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {(user?.venueManager ? managerServiceLinks : serviceLinks).map(
+              (link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={
+                    pathname === link.href ? 'font-bold' : 'font-normal'
+                  }
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </div>
           <div className="flex flex-col gap-[20px]">
             <p className="font-bold underline">Discover</p>
-            {discoverLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={pathname === link.href ? 'font-bold' : 'font-normal'}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {(user?.venueManager ? managerDiscoverLinks : discoverLinks).map(
+              (link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={
+                    pathname === link.href ? 'font-bold' : 'font-normal'
+                  }
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </div>
         </nav>
       </div>
       <p className="absolute bottom-[50px]">
-        <i className="fa-regular fa-copyright"></i> {new Date().getFullYear()}{' '}
-        Holidaze. All rights reserved.
+        <i className="fa-regular fa-copyright" aria-hidden="true"></i>{' '}
+        {new Date().getFullYear()} Holidaze. All rights reserved.
       </p>
     </footer>
   );

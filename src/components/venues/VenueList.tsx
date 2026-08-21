@@ -76,7 +76,8 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
             }
             className="flex items-center justify-center gap-2 bg-primary w-[320px] h-[58px] text-white rounded-[10px]"
           >
-            <i className="fa-regular fa-trash-can"></i> Clear filter
+            <i className="fa-regular fa-trash-can" aria-hidden="true"></i>{' '}
+            Clear filter
           </button>
         </div>
       )}

@@ -20,7 +20,7 @@ export default function AuthModal({ onClose }: PopupProps) {
       >
         <p className="flex cursor-pointer justify-end" onClick={onClose}>
           <span className="hidden">Close</span>
-          <i className="fa-solid fa-xmark text-[35px]!"></i>
+          <i className="fa-solid fa-xmark text-[35px]!" aria-hidden="true"></i>
         </p>
         <div className="flex flex-col items-center gap-4 mb-[20px]">
           <Image src="/auth-logo.png" alt="Logo" width={80} height={80} />
@@ -43,7 +43,10 @@ export default function AuthModal({ onClose }: PopupProps) {
           <p>All rights reserved</p>
           <p>
             Copyright {new Date().getFullYear()}
-            <i className="fa-solid fa-minus text-[10px]! align-[20%]"></i>{' '}
+            <i
+              className="fa-solid fa-minus text-[10px]! align-[20%]"
+              aria-hidden="true"
+            ></i>{' '}
             Holidaze
           </p>
         </div>

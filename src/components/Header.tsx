@@ -14,8 +14,24 @@ const navLinks = [
   { href: '/bookings', label: 'Bookings', icon: 'fa-regular fa-calendar' },
 ];
 
+const managerNavLinks = [
+  {
+    href: '/profile/venues/create',
+    label: 'Create',
+    icon: 'fa-solid fa-plus',
+  },
+  { href: '/profile/venues', label: 'Venues', icon: '' },
+  {
+    href: '/profile/venues/bookings',
+    label: 'Bookings',
+    icon: 'fa-regular fa-calendar',
+  },
+];
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const user = AuthStore((store) => store.user);
 
   const token = AuthStore((store) => store.token);
   const avatarUrl =
@@ -28,9 +44,9 @@ export default function Header() {
   return (
     <header>
       <div className="flex justify-between">
-        <Link href="/" className="hidden logo-header">
+        <Link href="/" className="logo-header">
           <Image
-            className="h-10 w-auto"
+            className="h-[50px] w-auto"
             src="/text-logo.png"
             alt="Logo"
             width={160}
@@ -38,19 +54,43 @@ export default function Header() {
           />
         </Link>
         <nav>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`flex flex-col items-center gap-1 ${pathname === link.href ? 'font-bold' : 'font-normal'}`}
-            >
-              <i className={link.icon}></i> {link.label}
-            </Link>
-          ))}
+          {(user?.venueManager ? managerNavLinks : navLinks).map((link) => {
+            const linkContent = (
+              <>
+                {link.label === 'Venues' ? (
+                  <Image src="/auth-logo.png" alt="" width={18} height={18} />
+                ) : (
+                  <i className={link.icon} aria-hidden="true"></i>
+                )}{' '}
+                <span>{link.label}</span>
+              </>
+            );
+
+            if (
+              !token &&
+              (link.label === 'Saved' || link.label === 'Bookings')
+            ) {
+              return (
+                <button key={link.href} onClick={() => setIsOpen(true)}>
+                  {linkContent}
+                </button>
+              );
+            }
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={pathname === link.href ? 'font-bold' : 'font-normal'}
+              >
+                {linkContent}
+              </Link>
+            );
+          })}
           {token ? (
             <Link
               href="/profile"
-              className={`login-cta flex flex-col items-center justify-center ${pathname === '/profile' ? 'font-bold' : 'font-normal'}`}
+              className={`login-cta justify-center ${pathname === '/profile' ? 'font-bold' : 'font-normal'}`}
             >
               <Image
                 className="h-[20px] w-[20px] rounded-full"
@@ -64,9 +104,9 @@ export default function Header() {
           ) : (
             <button
               onClick={() => setIsOpen(true)}
-              className="login-cta flex flex-col items-center justify-center"
+              className="login-cta justify-center"
             >
-              <i className="fa-regular fa-user"></i> Login
+              <i className="fa-regular fa-user" aria-hidden="true"></i> Login
             </button>
           )}
         </nav>

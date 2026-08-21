@@ -8,7 +8,7 @@ export default function MainHeroSection() {
         alt="Page landing image of a hotel room, "
         fill
         sizes="100vw"
-        loading="eager"
+        priority
         className="brightness-55 object-cover object-center"
       ></Image>
       <div className="absolute text-white bottom-[30%] left-[50px] max-w-[560px]">
@@ -22,6 +22,7 @@ export default function MainHeroSection() {
             alt=""
             role="representation"
             fill
+            sizes="101px"
             loading="eager"
             className="object-fill"
           />

@@ -47,7 +47,26 @@ export default function ManagerVenues({ name }: { name: string }) {
             <p>You have no venues yet.</p>
           </div>
         ) : (
-          venues.map((venue) => <div key={venue.id}>{venue.name}</div>)
+          <div className="grid grid-cols-2  gap-[20px]">
+            {venues.map((venue) => (
+              <div
+                key={venue.id}
+                className="border rounded-[10px] overflow-hidden"
+              >
+                <Link
+                  href={`/venue/${venue.id}`}
+                  className="relative w-full block h-[82px]"
+                >
+                  <Image
+                    src={venue.media[0]?.url ?? '/no-photo.svg'}
+                    alt={venue.media[0]?.alt ?? 'Image not found'}
+                    fill
+                    className="object-cover"
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
         )}
       </div>
 
@@ -66,7 +85,10 @@ export default function ManagerVenues({ name }: { name: string }) {
                   <i className={`${link.icon} text-[20px]`}></i>
                 )}
                 <span className="profile-links">{link.label}</span>
-                <i className="fa-regular fa-circle-right text-2xl"></i>
+                <i
+                  className="fa-regular fa-circle-right text-2xl"
+                  aria-hidden="true"
+                ></i>
               </span>
             </Link>
           ) : (
