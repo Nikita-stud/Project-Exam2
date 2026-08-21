@@ -64,7 +64,10 @@ export default function UserBookings({ name }: { name: string }) {
               <span className="flex justify-between w-full items-center">
                 <i className={`${link.icon} text-[20px]`}></i>
                 <span className="profile-links">{link.label}</span>
-                <i className="fa-regular fa-circle-right text-2xl"></i>
+                <i
+                  className="fa-regular fa-circle-right text-2xl"
+                  aria-hidden="true"
+                ></i>
               </span>
             </Link>
           ) : (

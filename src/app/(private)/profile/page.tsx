@@ -38,8 +38,8 @@ export default function ProfilePage() {
             <p className="text-[#455a61]">{user.email}</p>
             <p className="mt-[20px]">
               {user.bio !== null
-                ? '"Create your own bio in your edit profile page"'
-                : user.bio}
+                ? user.bio
+                : '"Create your own bio in your edit profile page"'}
             </p>
           </div>
           <div className="mt-[8px] absolute right-[20px]">

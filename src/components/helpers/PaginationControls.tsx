@@ -14,7 +14,7 @@ export default function PaginationControls({
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1 || totalPages === 0}
       >
-        <i className="fa-solid fa-arrow-left"></i>
+        <i className="fa-solid fa-arrow-left" aria-hidden="true"></i>
         Prev
       </button>
       <p className="m-auto">
@@ -25,7 +25,7 @@ export default function PaginationControls({
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages || totalPages === 0}
       >
-        Next <i className="fa-solid fa-arrow-right"></i>
+        Next <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </button>
     </div>
   );

@@ -32,7 +32,7 @@ export default function VenueSearch() {
       >
         <div className="relative border rounded-[10px] h-[58px] bg-[#fff] md:w-[200px] lg:w-[300px] md:z-10">
           <p className="absolute top-[30%] left-[20px]">
-            <i className="fa-solid fa-magnifying-glass">
+            <i className="fa-solid fa-magnifying-glass" aria-hidden="true">
               <span className="hidden">hidden</span>
             </i>
           </p>
@@ -56,7 +56,7 @@ export default function VenueSearch() {
         <div className="flex mt-[-1px] md:mt-0 md:-ml-2.5 md:relative md:z-30">
           <div className="flex-1 border relative rounded-l-[10px] h-[58px] bg-[#fff] md:flex-none md:w-[200px] lg:w-[332px]">
             <p className="absolute top-[30%] left-[20px]">
-              <i className="fa-regular fa-calendar">
+              <i className="fa-regular fa-calendar" aria-hidden="true">
                 <span className="hidden">hidden</span>
               </i>
             </p>
@@ -90,7 +90,7 @@ export default function VenueSearch() {
           </div>
           <div className="flex-1 border relative ml-[-1px] rounded-r-[10px] h-[58px] bg-[#fff] md:mt-0 md:-ml-2.5 md:z-10 md:rounded-[10px] md:flex-none md:w-[300px] lg:w-[352px]">
             <p className="absolute top-[30%] left-[20px]">
-              <i className="fa-regular fa-user">
+              <i className="fa-regular fa-user" aria-hidden="true">
                 <span className="hidden">hidden</span>
               </i>
             </p>
@@ -115,7 +115,10 @@ export default function VenueSearch() {
               disabled={searching}
               className="hidden md:block absolute right-[5px] top-1/2 -translate-y-1/2 w-[166px] h-[43px] bg-calm text-white rounded-[10px] hover:opacity-90 disabled:opacity-70"
             >
-              <i className="fa-solid fa-magnifying-glass pr-[8px]">
+              <i
+                className="fa-solid fa-magnifying-glass pr-[8px]"
+                aria-hidden="true"
+              >
                 <span className="hidden">hidden</span>
               </i>
               Search
@@ -127,7 +130,10 @@ export default function VenueSearch() {
           disabled={searching}
           className="mt-[10px] w-full h-[48px] bg-calm text-white rounded-[10px] md:hidden hover:opacity-90 disabled:opacity-70"
         >
-          <i className="fa-solid fa-magnifying-glass pr-[8px]">
+          <i
+            className="fa-solid fa-magnifying-glass pr-[8px]"
+            aria-hidden="true"
+          >
             <span className="hidden">hidden</span>
           </i>
           {searching ? 'Searching...' : 'Search'}

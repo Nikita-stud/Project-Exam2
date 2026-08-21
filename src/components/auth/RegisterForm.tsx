@@ -43,7 +43,10 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         <div className="relative flex flex-col gap-2 w-full max-w-125">
           <label htmlFor="name" className="font-semibold">
             Name{' '}
-            <i className="fa-solid fa-asterisk text-[10px]! align-super"></i>
+            <i
+              className="fa-solid fa-asterisk text-[10px]! align-super"
+              aria-hidden="true"
+            ></i>
           </label>
           <input
             id="name"
@@ -68,7 +71,10 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         <div className="relative flex flex-col gap-2 mt-[5px] w-full max-w-125">
           <label htmlFor="email" className="font-semibold">
             Email address{' '}
-            <i className="fa-solid fa-asterisk text-[10px]! align-super"></i>
+            <i
+              className="fa-solid fa-asterisk text-[10px]! align-super"
+              aria-hidden="true"
+            ></i>
           </label>
           <input
             id="email"
@@ -93,7 +99,10 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         <div className="flex flex-col gap-2 mt-[5px] w-full max-w-125">
           <label htmlFor="password" className="font-semibold">
             Password
-            <i className="fa-solid fa-asterisk text-[10px]! ml-1 align-super"></i>
+            <i
+              className="fa-solid fa-asterisk text-[10px]! ml-1 align-super"
+              aria-hidden="true"
+            ></i>
           </label>
           <div className="relative">
             <input
@@ -129,7 +138,10 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         <div className="flex flex-col gap-2 w-full max-w-125 mt-[5px]">
           <p className="font-semibold">
             Role{' '}
-            <i className="fa-solid fa-asterisk text-[10px]! align-super"></i>
+            <i
+              className="fa-solid fa-asterisk text-[10px]! align-super"
+              aria-hidden="true"
+            ></i>
           </p>
           <div className="flex gap-2">
             <label className="flex flex-1 h-[58px] items-center justify-center border rounded-[10px] cursor-pointer font-medium has-[:checked]:bg-text has-[:checked]:text-white!">

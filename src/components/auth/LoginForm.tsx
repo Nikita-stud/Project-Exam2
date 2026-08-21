@@ -40,7 +40,10 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
         <div className="relative flex flex-col gap-2 mt-[5px] w-full max-w-125">
           <label htmlFor="email" className="font-semibold">
             Email address{' '}
-            <i className="fa-solid fa-asterisk text-[10px]! align-super"></i>
+            <i
+              className="fa-solid fa-asterisk text-[10px]! align-super"
+              aria-hidden="true"
+            ></i>
           </label>
           <input
             id="email"
@@ -65,7 +68,10 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
         <div className="flex flex-col gap-2 mt-[5px] w-full max-w-125">
           <label htmlFor="password" className="font-semibold">
             Password
-            <i className="fa-solid fa-asterisk text-[10px]! ml-1 align-super"></i>
+            <i
+              className="fa-solid fa-asterisk text-[10px]! ml-1 align-super"
+              aria-hidden="true"
+            ></i>
           </label>
           <div className="relative">
             <input
