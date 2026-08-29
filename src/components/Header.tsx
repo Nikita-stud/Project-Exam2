@@ -9,9 +9,13 @@ import AuthModal from '@/components/auth/AuthModal';
 import AuthStore from '@/store/authStore';
 
 const navLinks = [
-  { href: '/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
+  { href: '/profile/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
   { href: '/search', label: 'Search', icon: 'fa-solid fa-magnifying-glass' },
-  { href: '/bookings', label: 'Bookings', icon: 'fa-regular fa-calendar' },
+  {
+    href: '/profile/bookings',
+    label: 'Bookings',
+    icon: 'fa-regular fa-calendar',
+  },
 ];
 
 const managerNavLinks = [
@@ -90,7 +94,7 @@ export default function Header() {
           {token ? (
             <Link
               href="/profile"
-              className={`login-cta justify-center ${pathname === '/profile' ? 'font-bold' : 'font-normal'}`}
+              className={`flex items-center justify-center gap-1 w-auto h-auto md:w-[179px] md:h-[48px] md:flex-row-reverse md:gap-2 md:px-3 text-black md:border md:rounded-[10px] ${pathname === '/profile' ? 'font-bold' : 'font-normal'}`}
             >
               <Image
                 className="h-[20px] w-[20px] rounded-full"
@@ -99,7 +103,7 @@ export default function Header() {
                 width={20}
                 height={20}
               />{' '}
-              Profile
+              {user?.name?.slice(0, 6)}
             </Link>
           ) : (
             <button

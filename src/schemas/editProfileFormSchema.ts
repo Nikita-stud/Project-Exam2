@@ -6,8 +6,8 @@ export const editProfileFormSchema = z.object({
       url: z
         .string()
         .url({ message: 'Avatar URL must be a valid URL' })
-        .optional(),
-      alt: z.string().max(120).default('Users avatar for the profile page'),
+        .or(z.literal('')),
+      alt: z.string().max(120).optional(),
     })
     .optional(),
   banner: z
@@ -15,8 +15,8 @@ export const editProfileFormSchema = z.object({
       url: z
         .string()
         .url({ message: 'Banner URL must be a valid URL' })
-        .optional(),
-      alt: z.string().max(120).default('Users banner for the profile page'),
+        .or(z.literal('')),
+      alt: z.string().max(120).optional(),
     })
     .optional(),
   bio: z

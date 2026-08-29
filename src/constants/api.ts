@@ -10,3 +10,6 @@ export const USER_BOOKINGS_API_URL = (userName: string) =>
 
 export const MANAGER_VENUES_API_URL = (userName: string) =>
   `${PROFILES_API_URL}/${userName}/venues?_bookings=true`;
+
+export const UPDATE_PROFILE_API_URL = (userName: string) =>
+  `${PROFILES_API_URL}/${userName}`;

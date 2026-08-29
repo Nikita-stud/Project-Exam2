@@ -12,6 +12,28 @@ export interface AuthState {
   clearAuth: () => void;
 }
 
+export interface VenueState {
+  items: Venue[];
+  saveVenue: (venue: Venue) => void;
+  removeVenue: (id: string) => void;
+  isSaved: (id: string) => boolean;
+}
+
+export interface Profile {
+  name: string;
+  email: string;
+  bio?: string;
+  avatar?: Media;
+  banner?: Media;
+  venueManager: boolean;
+}
+
+export interface ProfileUpdate {
+  bio?: string;
+  avatar?: Media;
+  banner?: Media;
+}
+
 export interface RegisterUser {
   name: string;
   email: string;
