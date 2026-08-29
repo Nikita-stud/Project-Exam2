@@ -25,9 +25,13 @@ export default function EventBooking() {
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="login-cta flex flex-col items-center justify-center"
+          className="bg-primary w-[166px] h-[43px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px]"
         >
-          <i className="fa-regular fa-user"></i> Login
+          Login
+          <i
+            className="fa-regular fa-circle-right text-xl"
+            aria-hidden="true"
+          ></i>
         </button>
       )}
       {venueManager && (

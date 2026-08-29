@@ -13,9 +13,10 @@ export default function AuthModal({ onClose }: PopupProps) {
   return createPortal(
     <div className="fixed inset-0 z-[1001] bg-black/60" onClick={onClose}>
       <section
-        className="z-[1002] fixed bg-[#fff] shadow-page p-5 flex flex-col overflow-y-auto
+        className={`z-[1002] fixed bg-[#fff] shadow-page p-5 flex flex-col overflow-y-auto
           w-full top-[87px] left-0 h-[calc(100%-87px)] rounded-t-[10px]
-          md:w-96 md:h-auto md:max-h-[90vh] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[10px]"
+          md:h-auto md:max-h-[90vh] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[10px]
+          ${activePopup === 'register' ? 'md:w-160' : 'md:w-96'}`}
         onClick={(e) => e.stopPropagation()}
       >
         <p className="flex cursor-pointer justify-end" onClick={onClose}>
@@ -23,7 +24,13 @@ export default function AuthModal({ onClose }: PopupProps) {
           <i className="fa-solid fa-xmark text-[35px]!" aria-hidden="true"></i>
         </p>
         <div className="flex flex-col items-center gap-4 mb-[20px]">
-          <Image src="/auth-logo.png" alt="Logo" width={80} height={80} />
+          <Image
+            src="/auth-logo.png"
+            alt="Logo"
+            width={80}
+            height={80}
+            className="w-12 h-12 md:w-20 md:h-20"
+          />
           <h2 className="font-bold">
             {activePopup === 'login' ? 'Login' : 'Register'}
           </h2>

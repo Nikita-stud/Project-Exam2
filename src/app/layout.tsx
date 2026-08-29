@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${lora.variable}`}>
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen min-w-100 flex flex-col">
         <Script
           src="https://kit.fontawesome.com/54f19440a6.js"
           crossOrigin="anonymous"

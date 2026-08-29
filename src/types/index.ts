@@ -103,6 +103,14 @@ interface Location {
   lng: number;
 }
 
+interface VenueOwner {
+  name: string;
+  email: string;
+  bio: string;
+  avatar: UserAvatar;
+  banner: UserBanner;
+}
+
 export interface Venue {
   id: string;
   name: string;
@@ -115,6 +123,7 @@ export interface Venue {
   updated: string;
   meta: VenueMeta;
   location: Location;
+  owner?: VenueOwner;
   bookings?: VenueBooking[];
   _count?: { bookings: number };
 }
