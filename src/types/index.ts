@@ -32,7 +32,6 @@ export interface ProfileUpdate {
   bio?: string;
   avatar?: Media;
   banner?: Media;
-  venueManager?: boolean;
 }
 
 export interface RegisterUser {

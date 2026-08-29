@@ -1,10 +1,12 @@
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import AuthStore from '@/store/authStore';
 import focusFirstError from '@/components/auth/ErrorField';
+import BackNav from '@/components/BackNav';
 import {
   editProfileFormSchema,
   type EditProfileData,
@@ -14,10 +16,13 @@ import { putProfileData } from '@/api/profile/putProfileData';
 export default function EditProfilePage() {
   const user = AuthStore((store) => store.user);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<EditProfileData>({
     resolver: zodResolver(editProfileFormSchema),
@@ -28,10 +33,23 @@ export default function EditProfilePage() {
     return null;
   }
 
+  const avatarUrl = watch('avatar.url');
+  const bannerUrl = watch('banner.url');
+  const bio = watch('bio');
+  const hasNoInput = !avatarUrl && !bannerUrl && !bio;
+  const hasErrors = Object.keys(errors).length > 0;
+
   const onSubmit = async (data: EditProfileData) => {
     setIsSubmitting(true);
+    if (data.avatar?.url === '') delete data.avatar;
+    if (data.banner?.url === '') delete data.banner;
+    if (!data.bio) delete data.bio;
     try {
-      await putProfileData(user.name, data);
+      const newData = await putProfileData(user.name, data);
+      if (newData) {
+        setIsSaved(true);
+        setTimeout(() => router.push('/profile'), 3000);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -39,6 +57,7 @@ export default function EditProfilePage() {
 
   return (
     <>
+      <BackNav />
       <h1 className="pl-[20px] pt-[20px] md:hidden">Edit Profile</h1>
       <div className="p-[20px] md:p-0">
         <section>
@@ -49,7 +68,7 @@ export default function EditProfilePage() {
               fill
               sizes="100vw"
               loading="eager"
-              className="object-fill rounded-[10px] md:rounded-[0px]"
+              className="object-cover rounded-[10px] md:rounded-[0px]"
             />
             <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[150px] h-[150px] md:left-[50px] md:translate-x-0 md:bottom-[-90px] md:w-[200px] md:h-[200px]">
               <Image
@@ -77,7 +96,7 @@ export default function EditProfilePage() {
         <div className="mt-[30px] md:px-[50px] md:mt-[130px]">
           <form
             onSubmit={handleSubmit(onSubmit, focusFirstError)}
-            className="flex flex-col gap-[15px] max-w-125"
+            className="flex flex-col gap-[15px] max-w-125 mx-auto"
           >
             <div className="flex flex-col gap-2 w-full">
               <span className="font-semibold color-calm opacity-80">
@@ -85,7 +104,7 @@ export default function EditProfilePage() {
               </span>
               <div
                 aria-hidden="true"
-                className="h-[58px] bg-input-disabled w-full border rounded-[10px] pl-[20px] flex items-center color-calm"
+                className="h-[58px] bg-input-disabled w-full border rounded-[10px] px-[20px] overflow-scroll flex items-center color-calm"
               >
                 {user?.name}
               </div>
@@ -97,7 +116,7 @@ export default function EditProfilePage() {
               </span>
               <div
                 aria-hidden="true"
-                className="h-[58px] bg-input-disabled w-full border rounded-[10px] pl-[20px] flex items-center color-calm"
+                className="h-[58px] bg-input-disabled w-full border rounded-[10px] px-[20px] overflow-scroll flex items-center color-calm"
               >
                 {user?.email}
               </div>
@@ -109,7 +128,7 @@ export default function EditProfilePage() {
               </span>
               <div
                 aria-hidden="true"
-                className="h-[58px] bg-input-disabled w-full border rounded-[10px] pl-[20px] flex items-center color-calm"
+                className="h-[58px] bg-input-disabled w-full border rounded-[10px] px-[20px] overflow-scroll flex items-center color-calm"
               >
                 ********
               </div>
@@ -126,7 +145,7 @@ export default function EditProfilePage() {
                 aria-invalid={errors.avatar?.url ? 'true' : 'false'}
                 aria-describedby="avatarUrl-error"
                 {...register('avatar.url')}
-                className="h-[58px] w-full border rounded-[10px] pl-[20px] color-calm"
+                className="h-[58px] w-full bg-[#fff] border rounded-[10px] px-[20px] color-calm"
               />
               {errors.avatar?.url && (
                 <p
@@ -150,7 +169,7 @@ export default function EditProfilePage() {
                 aria-invalid={errors.banner?.url ? 'true' : 'false'}
                 aria-describedby="bannerUrl-error"
                 {...register('banner.url')}
-                className="h-[58px] w-full border rounded-[10px] pl-[20px] color-calm"
+                className="h-[58px] bg-[#fff] w-full border rounded-[10px] px-[20px] color-calm"
               />
               {errors.banner?.url && (
                 <p
@@ -174,26 +193,38 @@ export default function EditProfilePage() {
                 aria-invalid={errors.bio ? 'true' : 'false'}
                 aria-describedby="bio-error"
                 {...register('bio')}
-                className="w-full border rounded-[10px] p-[20px] color-calm resize-none"
+                className="w-full border bg-[#fff] rounded-[10px] p-[20px] color-calm resize-none"
               />
               {errors.bio && (
                 <p
                   id="bio-error"
                   role="alert"
-                  className="text-primary absolute top-full end-0 text-sm mb-0"
+                  className="text-primary flex justify-end mt-[-8px] text-sm mb-[-20px]"
                 >
                   {errors.bio.message}
                 </p>
               )}
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="continue-auth-cta mt-[15px] font-bold"
-            >
-              Save
-            </button>
+            {isSaved ? (
+              <div className="p-[20px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse">
+                <p
+                  role="status"
+                  className="text-black font-bold text-center text-xl"
+                >
+                  Profile Updated Successfully!
+                </p>
+                <p className="m-auto  ">Redirecting to Profile Page...</p>
+              </div>
+            ) : (
+              <button
+                type="submit"
+                disabled={isSubmitting || hasNoInput || hasErrors}
+                className="continue-auth-cta m-auto mt-[15px] mb-[10px] font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? 'Saving...' : 'Save'}
+              </button>
+            )}
           </form>
         </div>
       </div>

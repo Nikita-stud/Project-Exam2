@@ -25,7 +25,7 @@ export default function ProfilePage() {
             fill
             sizes="100vw"
             loading="eager"
-            className="object-fill rounded-[10px] md:rounded-[0px]"
+            className="object-cover rounded-[10px] md:rounded-[0px]"
           />
           <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[150px] h-[150px] md:left-[50px] md:translate-x-0 md:bottom-[-90px] md:w-[200px] md:h-[200px]">
             <Image

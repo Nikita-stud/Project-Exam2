@@ -3,13 +3,19 @@ import { z } from 'zod';
 export const editProfileFormSchema = z.object({
   avatar: z
     .object({
-      url: z.string().url({ message: 'Avatar URL must be a valid URL' }),
+      url: z
+        .string()
+        .url({ message: 'Avatar URL must be a valid URL' })
+        .or(z.literal('')),
       alt: z.string().max(120).optional(),
     })
     .optional(),
   banner: z
     .object({
-      url: z.string().url({ message: 'Banner URL must be a valid URL' }),
+      url: z
+        .string()
+        .url({ message: 'Banner URL must be a valid URL' })
+        .or(z.literal('')),
       alt: z.string().max(120).optional(),
     })
     .optional(),
