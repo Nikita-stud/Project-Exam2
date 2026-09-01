@@ -6,6 +6,13 @@ import EventBooking from '@/components/events/EventBooking';
 import BookingDateGuests from '@/components/events/BookingDateGuests';
 import { VenueProvider } from '@/context/context';
 import BackNav from '@/components/ui/BackNav';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Venue Page || Holidaze',
+  description:
+    'Your venue is waiting for you. Book your next trip with us and experience the best of venues and sights.',
+};
 
 export default async function VenuePage({ params }: VenuePageType) {
   const { venueId } = await params;

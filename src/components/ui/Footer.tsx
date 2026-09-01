@@ -18,7 +18,7 @@ const managerServiceLinks = [
   { href: '/profile/venues/bookings', label: 'Bookings' },
 ];
 
-const discoverLinks = [{ href: '/search', label: 'Search' }];
+const discoverLinks = [{ href: '/', label: 'Search' }];
 const managerDiscoverLinks = [{ href: '/profile/venues', label: 'Venues' }];
 
 export default function Footer() {

@@ -44,11 +44,13 @@ export default function ProfileLinks({
             className="flex flex-col items-center"
           >
             <span className="flex justify-between w-full items-center">
-              {link.label === 'My Venues' ? (
-                <Image src="/auth-logo.png" alt="" width={20} height={20} />
-              ) : (
-                <i className={`${link.icon} text-[20px]`}></i>
-              )}
+              <span className="flex w-5 justify-center shrink-0">
+                {link.label === 'My Venues' ? (
+                  <Image src="/auth-logo.png" alt="" width={20} height={20} />
+                ) : (
+                  <i className={`${link.icon} text-[20px]`}></i>
+                )}
+              </span>
               <span className="profile-links">{link.label}</span>
               <i
                 className="fa-regular fa-circle-right text-2xl"
