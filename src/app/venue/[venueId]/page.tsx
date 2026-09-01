@@ -5,7 +5,7 @@ import type { VenuePageType } from '@/types';
 import EventBooking from '@/components/events/EventBooking';
 import BookingDateGuests from '@/components/events/BookingDateGuests';
 import { VenueProvider } from '@/context/context';
-import BackNav from '@/components/BackNav';
+import BackNav from '@/components/ui/BackNav';
 
 export default async function VenuePage({ params }: VenuePageType) {
   const { venueId } = await params;

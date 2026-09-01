@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import focusFirstError from '@/components/auth/ErrorField';
-import BackNav from '@/components/BackNav';
+import BackNav from '@/components/ui/BackNav';
 import {
   createVenueFormSchema,
   type CreateVenueData,
 } from '@/schemas/createVenueFormSchema';
-import { createVenue } from '@/api/venues/createVenue';
+import { createManagerVenue } from '@/api/venues/createManagerVenue';
 
 export default function CreateVenuePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,7 +73,7 @@ export default function CreateVenuePage() {
     setIsSubmitting(true);
     data.media = data.media.filter((item) => item.url !== '');
     try {
-      const newVenue = await createVenue(data);
+      const newVenue = await createManagerVenue(data);
       if (newVenue) {
         setIsSaved(true);
         setTimeout(() => router.push('/venues'), 3000);

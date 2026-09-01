@@ -2,7 +2,7 @@ import { VENUES_API_URL } from '../../constants/api';
 import type { Venue, VenuesResponse } from '../../types/index';
 
 export default async function fetchVenues(): Promise<Venue[]> {
-  const response = await fetch(VENUES_API_URL, {
+  const response = await fetch(`${VENUES_API_URL}?sort=created&sortOrder=desc`, {
     next: { revalidate: 60 },
   });
 
