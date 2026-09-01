@@ -21,8 +21,10 @@ export interface VenueState {
 
 export interface ManagerVenuesState {
   venues: Venue[] | null;
+  venue: Venue | null;
   user: string | null;
   setVenues: (userName: string, venues: Venue[]) => void;
+  setVenue: (userName: string, venue: Venue) => void;
 }
 
 export interface Profile {
@@ -115,6 +117,24 @@ interface VenueOwner {
   bio: string;
   avatar: UserAvatar;
   banner: UserBanner;
+}
+
+interface BookingCustomer {
+  name: string;
+  email: string;
+  bio?: string;
+  avatar?: UserAvatar;
+  banner?: UserBanner;
+}
+
+export interface VenueBooking {
+  id: string;
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
+  created: string;
+  updated: string;
+  customer?: BookingCustomer;
 }
 
 export interface Venue {

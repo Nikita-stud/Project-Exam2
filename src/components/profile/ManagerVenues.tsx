@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchManagerVenues } from '@/api/bookings/fetchManagerVenues';
+import { fetchManagerVenues } from '@/api/venues/fetchManagerVenues';
 import type { Venue } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
