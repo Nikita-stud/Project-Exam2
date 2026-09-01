@@ -27,8 +27,8 @@ export default function UserBookings({ name }: { name: string }) {
             className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] md:mb-[50px] md:py-[80px]"
           >
             <p>You have not bookings yet.</p>
-            <button className="login-cta flex items-center justify-center mt-[20px] hover:opacity-90">
-              <i className="fa-solid fa-magnifying-glass"></i>Search now
+            <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90">
+              Search now <i className="fa-solid fa-magnifying-glass"></i>
             </button>
           </Link>
         ) : (

@@ -38,10 +38,14 @@ export default function ProfilePage() {
             />
           </div>
         </div>
-        <section className="mt-[20px] flex justify-between items-start md:px-[50px] md:mt-[0px]">
+        <section className="relative mt-[20px] flex justify-between items-start md:px-[50px] md:mt-[0px]">
           <div className="min-w-0 wrap-break-word">
             <div className="md:ml-[215px]">
-              <h1>{user.name}</h1>
+              <h1 className="">
+                {user.name.length > 9
+                  ? `${user.name.slice(0, 9)}...`
+                  : user.name}
+              </h1>
               <p className="text-[#455a61]">{user.email}</p>
             </div>
             <p className="mt-[20px] md:mt-[50px]">
@@ -50,17 +54,20 @@ export default function ProfilePage() {
                 : '"Create your own bio in your edit profile page"'}
             </p>
           </div>
-          <div className="mt-[8px] absolute right-[20px] md:right-[50px] flex items-center gap-[10px]">
+          <div className="mt-[8px] absolute right-[20px] md:right-[50px] flex items-center ">
+            <h2 className="md:mr-[15px]">
+              {user.venueManager ? 'MANAGER' : 'USER'}
+            </h2>
             <button
               type="button"
               onClick={() => setIsOpen(true)}
               className="hidden md:inline-flex"
               aria-label="Open profile menu"
             >
-              <i className="fa-solid fa-gear text-[20px]" id="gear"></i>
+              <i className="fa-solid fa-gear text-[25px]" id="gear"></i>
             </button>
-            {user.venueManager ? <h2>MANAGER</h2> : <h2>USER</h2>}
           </div>
+
           {isOpen && (
             <ProfileLinks
               venueManager={user.venueManager}

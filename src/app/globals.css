@@ -108,6 +108,7 @@
 
   p,
   input,
+  textarea,
   button,
   a,
   span,
@@ -117,6 +118,7 @@
 
   p,
   input,
+  textarea,
   button,
   a,
   span {
@@ -126,13 +128,16 @@
   label {
     color: var(--color-calm);
   }
-  input {
+  input,
+  textarea {
     color: var(--color-text);
   }
-  input:focus {
+  input:focus,
+  textarea:focus {
     outline: none;
   }
-  input::placeholder {
+  input::placeholder,
+  textarea::placeholder {
     color: var(--color-calm);
     font-weight: 300;
   }
@@ -147,7 +152,7 @@
   button {
     cursor: pointer;
     line-height: 1;
-    font-family: var(--mobile-button-size);
+    font-size: var(--mobile-button-size);
   }
   .grey {
     color: var(--color-calm);
@@ -182,6 +187,7 @@
     }
     p,
     input,
+    textarea,
     button,
     a,
     span {
@@ -253,5 +259,23 @@
 
   @media (min-width: 744px) {
     @apply bg-[var(--color-primary)] text-[var(--color-white)] rounded-[10px] w-[179px] h-[48px];
+  }
+}
+.rdp-root.venue-search-calendar {
+  position: absolute;
+  top: 55px;
+  width: max-content;
+  --rdp-day-width: 36px;
+  --rdp-day-height: 36px;
+  --rdp-day_button-width: 34px;
+  --rdp-day_button-height: 34px;
+}
+
+@media (min-width: 744px) {
+  .rdp-root.venue-search-calendar {
+    --rdp-day-width: 44px;
+    --rdp-day-height: 44px;
+    --rdp-day_button-width: 42px;
+    --rdp-day_button-height: 42px;
   }
 }

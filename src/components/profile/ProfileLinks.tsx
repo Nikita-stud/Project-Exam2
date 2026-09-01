@@ -92,7 +92,7 @@ export default function ProfileLinks({
         document.body,
       )}
       {createPortal(
-        <div className="absolute top-[-250px] right-[-115px] z-[101]">
+        <div className="absolute top-[-250px] right-[-195px] z-[101]">
           <div className="absolute bg-white shadow-page rounded-[10px] p-[20px] top-[278px] mr-[128px] right-[50px] w-[220px]">
             <div className="absolute -top-[8px] right-[20px] w-[20px] h-[-90px] border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[8px] border-b-white"></div>
             {links}

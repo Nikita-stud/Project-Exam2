@@ -1,33 +1,74 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 import { DayPicker, DateRange } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import { useVenueContext } from '@/context/context';
 
 export default function VenueSearch() {
   const [calendarOpen, setCalendarOpen] = useState(false);
-  const [searching, setSearching] = useState(false);
+  const dateFieldRef = useRef<HTMLDivElement>(null);
 
   //allows me to get the state
   const { formData, setFormData } = useVenueContext();
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    setSearching(true);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-    try {
-      console.log('Search', formData);
-    } finally {
-      setSearching(false);
+  // hydrate the search state from a shared/bookmarked URL on first load
+  useEffect(() => {
+    const destination = searchParams.get('destination');
+    const guests = searchParams.get('guests');
+    if (destination || guests) {
+      setFormData({
+        ...formData,
+        destination: destination ?? formData.destination,
+        guests: guests ?? formData.guests,
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!calendarOpen) return;
+
+    const handleClickOutside = (e: PointerEvent) => {
+      if (!dateFieldRef.current?.contains(e.target as Node)) {
+        setCalendarOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
+  }, [calendarOpen]);
+
+  const syncUrl = useDebouncedCallback((destination, guests) => {
+    const params = new URLSearchParams(searchParams);
+    if (destination) {
+      params.set('destination', destination);
+    } else {
+      params.delete('destination');
+    }
+    if (guests) {
+      params.set('guests', guests);
+    } else {
+      params.delete('guests');
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }, 300);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    syncUrl.flush();
   };
 
   return (
     <div className="p-[10px] bg-white shadow-page md:absolute md:z-100 md:p-0 md:top-[400px] md:left-1/2 md:-translate-x-1/2">
       <form
-        method="POST"
-        onSubmit={(e) => handleSearch(e)}
+        onSubmit={handleSearch}
         className="md:flex md:items-stretch"
       >
         <div className="relative border rounded-[10px] h-[58px] bg-[#fff] md:w-[200px] lg:w-[300px] md:z-10">
@@ -47,14 +88,18 @@ export default function VenueSearch() {
             maxLength={30}
             placeholder="Search..."
             value={formData.destination}
-            onChange={(e) =>
-              setFormData({ ...formData, destination: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, destination: e.target.value });
+              syncUrl(e.target.value, formData.guests);
+            }}
             className="w-full px-[50px] truncate"
           />
         </div>
         <div className="flex mt-[-1px] md:mt-0 md:-ml-2.5 md:relative md:z-30">
-          <div className="flex-1 border relative rounded-l-[10px] h-[58px] bg-[#fff] md:flex-none md:w-[200px] lg:w-[332px]">
+          <div
+            ref={dateFieldRef}
+            className="flex-1 min-w-0 border relative rounded-l-[10px] h-[58px] bg-[#fff] md:flex-none md:w-[200px] lg:w-[332px]"
+          >
             <p className="absolute top-[30%] left-[20px]">
               <i className="fa-regular fa-calendar" aria-hidden="true">
                 <span className="hidden">hidden</span>
@@ -84,11 +129,11 @@ export default function VenueSearch() {
                 numberOfMonths={1}
                 min={1}
                 required
-                className="absolute z-50 top-[8px] left-0  p-[10px] bg-[#fff] border rounded-[10px] shadow-lg"
+                className="venue-search-calendar absolute z-50 top-[8px] left-0 max-w-[calc(100vw-2.5rem)] overflow-x-auto p-[10px] bg-[#fff] border rounded-[10px] shadow-lg"
               />
             )}
           </div>
-          <div className="flex-1 border relative ml-[-1px] rounded-r-[10px] h-[58px] bg-[#fff] md:mt-0 md:-ml-2.5 md:z-10 md:rounded-[10px] md:flex-none md:w-[300px] lg:w-[352px]">
+          <div className="flex-1 min-w-0 border relative ml-[-1px] rounded-r-[10px] h-[58px] bg-[#fff] md:mt-0 md:-ml-2.5 md:z-10 md:rounded-[10px] md:flex-none md:w-[300px] lg:w-[352px]">
             <p className="absolute top-[30%] left-[20px]">
               <i className="fa-regular fa-user" aria-hidden="true">
                 <span className="hidden">hidden</span>
@@ -105,14 +150,14 @@ export default function VenueSearch() {
               max={10}
               placeholder="0"
               value={formData.guests}
-              onChange={(e) =>
-                setFormData({ ...formData, guests: e.target.value })
-              }
+              onChange={(e) => {
+                setFormData({ ...formData, guests: e.target.value });
+                syncUrl(formData.destination, e.target.value);
+              }}
               className="w-full px-[50px] truncate"
             />
             <button
               type="submit"
-              disabled={searching}
               className="hidden md:block absolute right-[5px] top-1/2 -translate-y-1/2 w-[166px] h-[43px] bg-calm text-white rounded-[10px] hover:opacity-90 disabled:opacity-70"
             >
               <i
@@ -127,7 +172,6 @@ export default function VenueSearch() {
         </div>
         <button
           type="submit"
-          disabled={searching}
           className="mt-[10px] w-full h-[48px] bg-calm text-white rounded-[10px] md:hidden hover:opacity-90 disabled:opacity-70"
         >
           <i
@@ -136,7 +180,7 @@ export default function VenueSearch() {
           >
             <span className="hidden">hidden</span>
           </i>
-          {searching ? 'Searching...' : 'Search'}
+          Search
         </button>
       </form>
     </div>

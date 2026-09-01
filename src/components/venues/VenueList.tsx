@@ -41,7 +41,7 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
   }
 
   return (
-    <section className="grid gap-[20px] p-[20px] md:p-[50px]">
+    <section className="grid grid-cols-1 gap-[20px] p-[20px] md:p-[50px]">
       {currentItems.length > 0 ? (
         <>
           {currentItems.map((venue) => (
@@ -76,8 +76,8 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
             }
             className="flex items-center justify-center gap-2 bg-primary w-[320px] h-[58px] text-white rounded-[10px]"
           >
-            <i className="fa-regular fa-trash-can" aria-hidden="true"></i>{' '}
-            Clear filter
+            <i className="fa-regular fa-trash-can" aria-hidden="true"></i> Clear
+            filter
           </button>
         </div>
       )}
