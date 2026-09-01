@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import AuthStore from '@/store/authStore';
 import focusFirstError from '@/components/auth/ErrorField';
-import BackNav from '@/components/BackNav';
+import BackNav from '@/components/ui/BackNav';
 import {
   editProfileFormSchema,
   type EditProfileData,

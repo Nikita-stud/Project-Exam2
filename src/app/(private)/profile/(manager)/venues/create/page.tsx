@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import focusFirstError from '@/components/auth/ErrorField';
-import BackNav from '@/components/BackNav';
+import BackNav from '@/components/ui/BackNav';
 import {
   createVenueFormSchema,
   type CreateVenueData,

@@ -6,7 +6,7 @@ import AuthStore from '@/store/authStore';
 import { fetchManagerVenues } from '@/api/venues/fetchManagerVenues';
 import { cancelBooking } from '@/api/bookings/cancelBooking';
 import type { Venue } from '@/types';
-import BackNav from '@/components/BackNav';
+import BackNav from '@/components/ui/BackNav';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 
 export default function BookingsPage() {

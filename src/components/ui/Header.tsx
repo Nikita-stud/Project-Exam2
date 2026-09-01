@@ -72,7 +72,9 @@ export default function Header() {
 
             if (
               !token &&
-              (link.label === 'Saved' || link.label === 'Bookings')
+              (link.label === 'Saved' ||
+                link.label === 'Bookings' ||
+                link.label === 'Search')
             ) {
               return (
                 <button key={link.href} onClick={() => setIsOpen(true)}>

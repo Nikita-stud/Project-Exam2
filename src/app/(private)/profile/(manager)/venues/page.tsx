@@ -7,7 +7,7 @@ import AuthStore from '@/store/authStore';
 import ManagerVenuesStore from '@/store/managerVenuesStore';
 import { fetchManagerVenues } from '@/api/venues/fetchManagerVenues';
 import type { Venue } from '@/types';
-import ManagerNav from '@/components/ManagerNav';
+import ManagerNav from '@/components/ui/ManagerNav';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 
 export default function VenuesPage() {
