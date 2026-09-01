@@ -19,6 +19,12 @@ export interface VenueState {
   isSaved: (id: string) => boolean;
 }
 
+export interface ManagerVenuesState {
+  venues: Venue[] | null;
+  user: string | null;
+  setVenues: (userName: string, venues: Venue[]) => void;
+}
+
 export interface Profile {
   name: string;
   email: string;

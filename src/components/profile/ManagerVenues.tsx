@@ -27,8 +27,8 @@ export default function ManagerVenues({ name }: { name: string }) {
             className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] md:mb-[50px] md:py-[80px]"
           >
             <p>You have not created a venue yet.</p>
-            <button className="login-cta flex items-center justify-center mt-[20px] hover:opacity-90">
-              <i className="fa-solid fa-plus"></i>Create now
+            <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90">
+              Create now <i className="fa-solid fa-plus"></i>
             </button>
           </Link>
         ) : (

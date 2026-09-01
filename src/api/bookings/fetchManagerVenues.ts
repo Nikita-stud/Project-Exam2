@@ -12,6 +12,7 @@ export async function fetchManagerVenues(userName: string): Promise<Venue[]> {
   if (!response.ok) {
     throw new Error(`Failed to fetch bookings`);
   }
+  console.log('json.data', json.data);
 
   return json.data;
 }
