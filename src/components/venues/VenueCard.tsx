@@ -1,22 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import type { Venue } from '../../types/index';
 import Image from 'next/image';
 import Link from 'next/link';
-import VenueStore from '../../store/venueStore';
-import AuthStore from '../../store/authStore';
-import AuthModal from '../auth/AuthModal';
+import SaveVenueButton from './SaveVenueButton';
 
 export default function VenueCard({ venue }: { venue: Venue }) {
-  const isSaved = VenueStore((state) => state.isSaved(venue.id));
-  const saveVenue = VenueStore((state) => state.saveVenue);
-  const removeVenue = VenueStore((state) => state.removeVenue);
-  const token = AuthStore((store) => store.token);
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div className="card rounded-[10px] overflow-hidden p-[5px]">
+    <div className="card rounded-[10px] overflow-hidden">
       <div className="relative">
         <Link href={`/venue/${venue.id}`}>
           <Image
@@ -24,21 +15,17 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             alt={venue.media[0]?.alt || venue.name}
             width={350}
             height={174}
-            className="w-full h-[174px] object-cover rounded-[10px] border"
+            className="w-full h-[174px] object-cover rounded-[10px] border-[1px] border-black"
           />
-          <div className="pt-[5px]">
+          <div className="pt-[5px] p-[15px]">
             <div className="flex items-baseline justify-between">
               <h2 className="font-bold max-w-50 truncate overflow-hidden">
                 {venue.name}
               </h2>
-              {venue.rating === 0 ? (
-                ''
-              ) : (
-                <p>
-                  <i className="fa-solid fa-star" aria-hidden="true"></i>{' '}
-                  {venue.rating}
-                </p>
-              )}
+              <p>
+                <i className="fa-solid fa-star" aria-hidden="true"></i>{' '}
+                {venue.rating === 0 ? ' None' : venue.rating}
+              </p>
             </div>
             <p className="grey line-clamp-2">{venue.description}</p>
             <p className="grey">Max guests: {venue.maxGuests}</p>
@@ -49,29 +36,8 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             </p>
           </div>
         </Link>
-        <button
-          type="button"
-          onClick={() => {
-            if (!token) {
-              setIsOpen(true);
-              return;
-            }
-            if (isSaved) {
-              removeVenue(venue.id);
-            } else {
-              saveVenue(venue);
-            }
-          }}
-          className="absolute flex items-center  justify-center w-[50px] h-[50px] bg-calm  rounded-full top-[20px] right-[20px]"
-        >
-          <i
-            className={`fa-heart
-               ${isSaved ? 'fa-solid text-primary' : 'fa-regular text-white'}`}
-            aria-hidden="true"
-          ></i>
-        </button>
+        <SaveVenueButton venue={venue} />
       </div>
-      {isOpen && <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
     </div>
   );
 }

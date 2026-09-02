@@ -58,66 +58,73 @@ export default function BookingsPage() {
   };
 
   return (
-    <section className="pt-[20px] md:p-[50px]">
+    <>
       <BackNav />
-      <h1 className="pl-[20px] pb-[10px]">Bookings</h1>
-      {loading ? (
-        <>
-          <LoadingContainer />
-          <LoadingContainer />
-        </>
-      ) : null}
-      {!loading &&
-        (!hasBookings ? (
-          <div className="px-[20px]">
-            <Link
-              href={`/profile/venues/create`}
-              className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] mt-[10px] md:py-[80px]"
-            >
-              <p>There are no bookings yet.</p>
+      <section className="pt-[20px] md:p-[50px]">
+        <h1 className="pl-[20px] pb-[10px]">Bookings</h1>
+        {loading ? (
+          <>
+            <LoadingContainer />
+            <LoadingContainer />
+          </>
+        ) : null}
+        {!loading &&
+          (!hasBookings ? (
+            <div className="px-[20px]">
+              <Link
+                href={`/profile/venues/create`}
+                className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] mt-[10px] md:py-[80px]"
+              >
+                <p>There are no bookings yet.</p>
 
-              <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90">
-                Create Venue <i className="fa-solid fa-plus"></i>
-              </button>
-            </Link>
-          </div>
-        ) : (
-          <div className="px-[20px] pb-[30px] max-w-[450px] m-auto">
-            <div className="flex flex-col gap-[20px] mt-[10px]">
-              {venues.map((venue) =>
-                (venue.bookings ?? []).map((booking) => (
-                  <div
-                    key={booking.id}
-                    className="w-full h-[174px] border rounded-[10px] p-[20px] flex flex-col justify-between"
-                  >
-                    <div>
-                      <h2>{venue.name}</h2>
-                      <p className="text-calm">
-                        Booked by: {booking.customer?.name ?? 'Unknown'}
-                      </p>
-                      <p className="text-calm">
-                        {new Date(booking.dateFrom).toLocaleDateString()} –{' '}
-                        {new Date(booking.dateTo).toLocaleDateString()}
-                      </p>
-                      <p className="text-calm">Guests: {booking.guests}</p>
-                      <p className="text-calm">Booking ID: {booking.id}</p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => handleCancel(booking.id)}
-                      disabled={cancellingId === booking.id}
-                      className="bg-primary text-white h-[43px] rounded-[10px] font-bold hover:opacity-90 disabled:opacity-50"
-                    >
-                      {cancellingId === booking.id
-                        ? 'Cancelling...'
-                        : 'Cancel Booking'}
-                    </button>
-                  </div>
-                )),
-              )}
+                <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90">
+                  Create Venue <i className="fa-solid fa-plus"></i>
+                </button>
+              </Link>
             </div>
-          </div>
-        ))}
-    </section>
+          ) : (
+            <div className="px-[20px] pb-[30px] max-w-[450px] m-auto">
+              <div className="flex flex-col gap-[20px] mt-[10px]">
+                {venues.map((venue) =>
+                  (venue.bookings ?? []).map((booking) => (
+                    <div
+                      key={booking.id}
+                      className="w-full h-[174px] border rounded-[10px] p-[10px] bg-[#fff] flex flex-col justify-between"
+                    >
+                      <div className="flex flex-col gap-[10px]">
+                        <h2>{venue.name}</h2>
+                        <div className="flex justify-between gap-[5px]">
+                          {' '}
+                          <p className="text-calm ">
+                            Guest:
+                            <span className="font-bold">
+                              {booking.customer?.name}
+                            </span>
+                          </p>
+                          <p className="text-calm">Guests: {booking.guests}</p>
+                        </div>
+
+                        <p className="text-calm">
+                          {new Date(booking.dateFrom).toLocaleDateString()} –{' '}
+                          {new Date(booking.dateTo).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCancel(booking.id)}
+                        className="bg-primary text-white w-[166px] h-[43px] m-auto mt-[20px] rounded-[10px] font-bold hover:opacity-90 disabled:opacity-50"
+                      >
+                        {cancellingId === booking.id
+                          ? 'Cancelling...'
+                          : 'Cancel Booking'}
+                      </button>
+                    </div>
+                  )),
+                )}
+              </div>
+            </div>
+          ))}
+      </section>
+    </>
   );
 }

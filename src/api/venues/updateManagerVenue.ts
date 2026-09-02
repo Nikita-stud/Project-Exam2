@@ -7,15 +7,21 @@ export async function updateManagerVenue(
   venueId: string,
   venueData: CreateVenueData,
 ): Promise<Venue> {
-  const response = await fetch(
-    `${VENUES_API_URL}/${venueId}`,
-    allowedDataRequest('PUT', venueData),
-  );
-  const json = await response.json();
+  try {
+    const response = await fetch(
+      `${VENUES_API_URL}/${venueId}`,
+      allowedDataRequest('PUT', venueData),
+    );
+    const json = await response.json();
 
-  if (!response.ok) {
-    throw new Error(json.errors?.[0]?.message ?? 'Failed to update venue');
+    if (!response.ok) {
+      throw new Error(json.errors?.[0]?.message ?? 'Failed to update venue');
+    }
+
+    return json.data;
+  } catch (error) {
+    throw error instanceof Error
+      ? error
+      : new Error('Failed to update venue');
   }
-
-  return json.data;
 }

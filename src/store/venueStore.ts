@@ -21,6 +21,8 @@ const VenueStore = create<VenueState>()(
         })),
 
       isSaved: (id) => get().items.some((v) => v.id === id),
+
+      clearItems: () => set({ items: [] }),
     }),
     {
       name: 'venues',

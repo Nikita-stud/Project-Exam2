@@ -7,28 +7,36 @@ export async function putProfileData(
   name: string,
   userData: ProfileUpdate,
 ): Promise<Profile> {
-  const token = AuthStore.getState().token;
+  try {
+    const token = AuthStore.getState().token;
 
-  const response = await fetch(
-    UPDATE_PROFILE_API_URL(name),
-    allowedDataRequest('PUT', userData),
-  );
-  const json = await response.json();
+    const response = await fetch(
+      UPDATE_PROFILE_API_URL(name),
+      allowedDataRequest('PUT', userData),
+    );
+    const json = await response.json();
 
-  if (!response.ok) {
-    throw new Error(json.errors?.[0]?.message ?? `Failed to update profile`);
+    if (!response.ok) {
+      throw new Error(
+        json.errors?.[0]?.message ?? `Failed to update profile`,
+      );
+    }
+
+    if (token) {
+      AuthStore.getState().setAuth(token, {
+        name: json.data.name,
+        email: json.data.email,
+        bio: json.data.bio,
+        venueManager: json.data.venueManager,
+        avatar: json.data.avatar,
+        banner: json.data.banner,
+      });
+    }
+
+    return json.data;
+  } catch (error) {
+    throw error instanceof Error
+      ? error
+      : new Error('Failed to update profile');
   }
-
-  if (token) {
-    AuthStore.getState().setAuth(token, {
-      name: json.data.name,
-      email: json.data.email,
-      bio: json.data.bio,
-      venueManager: json.data.venueManager,
-      avatar: json.data.avatar,
-      banner: json.data.banner,
-    });
-  }
-
-  return json.data;
 }

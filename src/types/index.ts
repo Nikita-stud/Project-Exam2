@@ -17,6 +17,7 @@ export interface VenueState {
   saveVenue: (venue: Venue) => void;
   removeVenue: (id: string) => void;
   isSaved: (id: string) => boolean;
+  clearItems: () => void;
 }
 
 export interface ManagerVenuesState {
@@ -87,6 +88,11 @@ export interface VenuePageType {
 }
 export interface BookingPageType {
   params: Promise<{ userName: string }>;
+}
+
+export interface BookingSuccessPageType {
+  params: Promise<{ venueId: string }>;
+  searchParams: Promise<{ from?: string; to?: string; guests?: string }>;
 }
 
 interface Media {
@@ -195,3 +201,19 @@ export type ManagerVenuesResponse = {
   data: Venue[];
   meta: PageMeta;
 };
+
+export interface DateRange {
+  from: Date | undefined;
+  to?: Date | undefined;
+}
+
+export interface VenueFormData {
+  destination: string;
+  selected: DateRange | undefined;
+  guests: string;
+}
+
+export interface VenueContextType {
+  formData: VenueFormData;
+  setFormData: (formData: VenueFormData) => void;
+}
