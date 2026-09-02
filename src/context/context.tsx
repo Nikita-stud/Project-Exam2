@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext, ReactNode } from 'react';
+import type { VenueFormData, VenueContextType } from '@/types';
 
-const VenueContext = createContext({
+const VenueContext = createContext<VenueContextType>({
   formData: { destination: '', selected: undefined, guests: '' },
   setFormData: () => {},
 });
 
-export function VenueProvider({ children }) {
-  const [formData, setFormData] = useState({
+export function VenueProvider({ children }: { children: ReactNode }) {
+  const [formData, setFormData] = useState<VenueFormData>({
     destination: '',
     selected: undefined,
     guests: '',

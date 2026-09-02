@@ -10,7 +10,7 @@ import AuthStore from '@/store/authStore';
 
 const navLinks = [
   { href: '/profile/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
-  { href: '/search', label: 'Search', icon: 'fa-solid fa-magnifying-glass' },
+  { href: '/', label: 'Search', icon: 'fa-solid fa-magnifying-glass' },
   {
     href: '/profile/bookings',
     label: 'Bookings',

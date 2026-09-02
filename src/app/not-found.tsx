@@ -1,5 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '404 Page || Holidaze',
+  description:
+    'This page does not exist. Please check the URL or return to the home page.',
+};
 
 export default function NotFound() {
   return (
