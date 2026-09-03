@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import AuthStore from '@/store/authStore';
-import focusFirstError from '@/components/auth/ErrorField';
 import BackNav from '@/components/ui/BackNav';
 import {
   editProfileFormSchema,
@@ -104,7 +103,7 @@ export default function EditProfilePage() {
         </section>
         <div className="mt-[30px] md:px-[50px] md:mt-[130px]">
           <form
-            onSubmit={handleSubmit(onSubmit, focusFirstError)}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-[15px] max-w-125 mx-auto"
           >
             <div className="flex flex-col gap-2 w-full">

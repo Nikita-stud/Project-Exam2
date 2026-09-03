@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import registerUser from '@/api/auth/registerUser';
-import focusFirstError from './ErrorField';
 import {
   registerFormSchema,
   type RegisterData,
@@ -13,16 +12,26 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [canSubmit, setCanSubmit] = useState(true);
 
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<RegisterData>({
     resolver: zodResolver(registerFormSchema),
     mode: 'onBlur',
   });
+
+  const [name, email, password] = watch(['name', 'email', 'password']);
+  const isEmpty = !name || !email || !password;
+
+  useEffect(() => {
+    setErrorMessage(null);
+    setCanSubmit(true);
+  }, [name, email, password]);
 
   const onSubmit = async (data: RegisterData) => {
     setIsSubmitting(true);
@@ -35,6 +44,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
       setErrorMessage(
         error instanceof Error ? error.message : 'Registration failed',
       );
+      setCanSubmit(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -62,7 +72,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
       )}
       {!isSuccess && (
         <form
-          onSubmit={handleSubmit(onSubmit, focusFirstError)}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-1.25 md:items-start md:w-full"
         >
           <div className="relative flex flex-col gap-2 w-full max-w-125 md:max-w-none md:col-start-1 md:row-start-1">
@@ -193,8 +203,8 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
 
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="continue-auth-cta mt-[30px] m-auto font-bold md:col-span-2"
+            disabled={isSubmitting || isEmpty || !canSubmit}
+            className="continue-auth-cta mt-[30px] m-auto font-bold md:col-span-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Register
           </button>

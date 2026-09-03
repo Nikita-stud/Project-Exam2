@@ -3,7 +3,7 @@ import { z } from 'zod';
 const mediaItemSchema = z.object({
   url: z
     .string()
-    .url({ message: 'Image URL must be a valid URL' })
+    .url({ message: 'Image must be a valid URL' })
     .or(z.literal('')),
   alt: z.string().max(120).optional(),
 });
@@ -30,11 +30,12 @@ export const createVenueFormSchema = z.object({
     }),
   maxGuests: z
     .number({ message: 'Max guests is required' })
-    .int({ message: 'Max guests must be a whole number' })
-    .min(1, { message: 'Max guests must be at least 1' }),
+    .int({ message: 'Must be a whole number' })
+    .min(1, { message: 'Minimum 1 guest required' }),
   price: z
     .number({ message: 'Price is required' })
-    .positive({ message: 'Price must be greater than 0' }),
+    .positive({ message: 'Price must be greater than 0' })
+    .max(1000, { message: 'Price can not be greater than 1000' }),
   meta: z
     .object({
       wifi: z.boolean().optional(),
@@ -53,13 +54,13 @@ export const createVenueFormSchema = z.object({
       .string()
       .trim()
       .min(1, { message: 'City is required' })
-      .max(20, { message: 'No longer than 20 characters' })
+      .max(20, { message: 'Max 20 characters' })
       .regex(/^[A-Za-z\s]+$/, { message: 'Only letters allowed' }),
     zip: z
       .string()
       .trim()
       .min(1, { message: 'Post code is required' })
-      .max(20, { message: 'No longer than 20 characters' })
+      .max(20, { message: 'Max 20 characters' })
       .regex(/^[0-9]+$/, { message: 'Only numbers allowed' }),
     country: z
       .string()

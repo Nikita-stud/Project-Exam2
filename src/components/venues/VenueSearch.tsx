@@ -42,7 +42,8 @@ export default function VenueSearch() {
     };
 
     document.addEventListener('pointerdown', handleClickOutside);
-    return () => document.removeEventListener('pointerdown', handleClickOutside);
+    return () =>
+      document.removeEventListener('pointerdown', handleClickOutside);
   }, [calendarOpen]);
 
   const syncUrl = useDebouncedCallback((destination, guests) => {
@@ -60,17 +61,14 @@ export default function VenueSearch() {
     router.replace(`${pathname}?${params.toString()}`);
   }, 300);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     syncUrl.flush();
   };
 
   return (
     <div className="p-[10px] bg-white shadow-page md:absolute md:z-100 md:p-0 md:top-[400px] md:left-1/2 md:-translate-x-1/2">
-      <form
-        onSubmit={handleSearch}
-        className="md:flex md:items-stretch"
-      >
+      <form onSubmit={handleSearch} className="md:flex md:items-stretch">
         <div className="relative border rounded-[10px] h-[58px] bg-[#fff] md:w-[200px] lg:w-[300px] md:z-10">
           <p className="absolute top-[30%] left-[20px]">
             <i className="fa-solid fa-magnifying-glass" aria-hidden="true">
