@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Project Exam 2
+
+This is the final exam of that focuses on the general knowledge of React library within Next.js. The task was to build a working venues booking website, using modern solutions and knowledge gained throughout the courses.
+
+![Image of the upper part of the website](/img-readme.jpg)
+
+Explore the website by visiting the link - [PROD INC](https://js-frameworkca.netlify.app/)
+
+## Key Features
+
+- Build on Next.js with TypeScript
+- Register as user or venue manager
+- Zod for all form validation
+- Venu detail pages with a date picker for availability
+- Paginated venues listing, 10 per page
+- Manager can book stays and view their upcoming bookings
+- User can book stays and view their upcoming stay
+
+## Tech Stack
+
+- Language = TypeScript 5
+- Framework = Next.js 16 + React 19
+- State = Zustand
+- Forms = React Hook Form 7 + Zod 4
+- Styling = Tailwind CSS 4
+- Date picking: @daypicker/react
+- API = Noroff Holidaze
+- Hosting = Netlify
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js (v18 or later recommended)
+- npm
+
+### Installing
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/Nikita-stud/Project-Exam2
+```
+
+2. Install the dependencies:
+
+```bash
+npm install
+```
+
+3. Run the dependencies:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Available Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm run dev` - Starts the Next.js dev server
+- `npm run build` - Compiles TypeScript and bundles the app for production
+- `npm run start` - Serves the production build locally for testing
+- `npm run lint` - Runs ESLint
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Script Details
 
-## Learn More
+```json
+  "scripts": {
+    "dev": "rm -rf .next && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+NEXT_PUBLIC_NOROFF_API_KEY=[yourNoroffToken]
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Contact
 
-## Deploy on Vercel
+You can always contact us though official Noroff portal
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+@Nikita-stud

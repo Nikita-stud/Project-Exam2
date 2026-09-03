@@ -4,7 +4,6 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
-import focusFirstError from '@/components/auth/ErrorField';
 import BackNav from '@/components/ui/BackNav';
 import {
   createVenueFormSchema,
@@ -101,7 +100,7 @@ export default function CreateVenuePage() {
 
         <div className="mt-[30px] md:px-[50px] md:mt-[130px]">
           <form
-            onSubmit={handleSubmit(onSubmit, focusFirstError)}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-[20px] max-w-125 mx-auto"
           >
             {fields.map((field, index) => (

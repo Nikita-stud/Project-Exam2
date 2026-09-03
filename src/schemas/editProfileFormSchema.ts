@@ -5,7 +5,7 @@ export const editProfileFormSchema = z.object({
     .object({
       url: z
         .string()
-        .url({ message: 'Avatar URL must be a valid URL' })
+        .url({ message: 'Avatar must have a valid URL' })
         .or(z.literal('')),
       alt: z.string().max(120).optional(),
     })
@@ -14,7 +14,7 @@ export const editProfileFormSchema = z.object({
     .object({
       url: z
         .string()
-        .url({ message: 'Banner URL must be a valid URL' })
+        .url({ message: 'Banner must have a valid URL' })
         .or(z.literal('')),
       alt: z.string().max(120).optional(),
     })
@@ -22,7 +22,7 @@ export const editProfileFormSchema = z.object({
   bio: z
     .string()
     .trim()
-    .max(160, { message: 'Bio can not be longer than 160 characters' })
+    .max(160, { message: 'Bio cant be longer than 160 characters' })
     .optional(),
 });
 

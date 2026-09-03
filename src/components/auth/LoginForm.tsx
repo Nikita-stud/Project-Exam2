@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import loginUser from '@/api/auth/loginUser';
-import focusFirstError from './ErrorField';
 import { loginFormSchema, type LoginData } from '@/schemas/loginFormSchema';
 import { LoginFormProps } from '@/types';
 
@@ -11,15 +10,25 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [canSubmit, setCanSubmit] = useState(true);
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginData>({
     resolver: zodResolver(loginFormSchema),
     mode: 'onBlur',
   });
+
+  const [email, password] = watch(['email', 'password']);
+  const isEmpty = !email || !password;
+
+  useEffect(() => {
+    setErrorMessage(null);
+    setCanSubmit(true);
+  }, [email, password]);
 
   const onSubmit = async (data: LoginData) => {
     setIsSubmitting(true);
@@ -30,6 +39,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
       setTimeout(() => onClose(), 1500);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Login failed');
+      setCanSubmit(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -39,10 +49,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
     <>
       {isSuccess && (
         <div className="p-[20px] bg-icons border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse w-full max-w-125 mx-auto">
-          <p
-            role="status"
-            className="text-black font-bold text-center text-xl"
-          >
+          <p role="status" className="text-black font-bold text-center text-xl">
             Login Successful!
           </p>
         </div>
@@ -59,7 +66,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
       )}
       {!isSuccess && (
         <form
-          onSubmit={handleSubmit(onSubmit, focusFirstError)}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center"
         >
           <div className="relative flex flex-col gap-2 mt-[5px] w-full max-w-125">
@@ -131,8 +138,8 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
 
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="continue-auth-cta mt-[30px] m-auto font-bold"
+            disabled={isSubmitting || isEmpty || !canSubmit}
+            className="continue-auth-cta mt-[30px] m-auto font-bold disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Login
           </button>
