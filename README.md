@@ -2,7 +2,7 @@
 
 This is the final exam of that focuses on the general knowledge of React library within Next.js. The task was to build a working venues booking website, using modern solutions and knowledge gained throughout the courses.
 
-![Image of the upper part of the website](/screenshot.jpg)
+![Image of the upper part of the website](public/screenshot.jpg)
 
 Explore the website by visiting the link - [PROD INC](https://holidaze-home.netlify.app/)
 
