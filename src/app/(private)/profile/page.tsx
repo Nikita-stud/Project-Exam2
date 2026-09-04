@@ -4,7 +4,7 @@ import AuthStore from '@/store/authStore';
 import ManagerVenues from '@/components/profile/ManagerVenues';
 import UserBookings from '@/components/profile/UserBookings';
 import ProfileLinks from '@/components/profile/ProfileLinks';
-import Image from 'next/image';
+import ProfileHeroImages from '@/components/profile/ProfileHeroImages';
 
 export default function ProfilePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,26 +18,7 @@ export default function ProfilePage() {
   return (
     <div className="p-[20px] md:p-0">
       <section>
-        <div className="relative h-[200px] md:h-[260px]">
-          <Image
-            src={user.banner.url || '/no-photo.svg'}
-            alt={user.banner.alt || 'Profile banner'}
-            fill
-            sizes="100vw"
-            loading="eager"
-            className="object-cover rounded-[10px] md:rounded-[0px]"
-          />
-          <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[150px] h-[150px] md:left-[50px] md:translate-x-0 md:bottom-[-90px] md:w-[200px] md:h-[200px]">
-            <Image
-              src={user.avatar.url || '/no-photo.svg'}
-              alt={user.avatar.alt || 'Avatar image'}
-              fill
-              sizes="200px"
-              loading="eager"
-              className="object-fill rounded-full ring-[5px] ring-white md:ring-[10px]"
-            />
-          </div>
-        </div>
+        <ProfileHeroImages banner={user.banner} avatar={user.avatar} />
         <section className="relative mt-[20px] flex justify-between items-start md:px-[50px] md:mt-[0px]">
           <div className="min-w-0 wrap-break-word">
             <div className="md:ml-[215px]">

@@ -27,6 +27,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
 
   const [name, email, password] = watch(['name', 'email', 'password']);
   const isEmpty = !name || !email || !password;
+  const hasErrors = Object.keys(errors).length > 0;
 
   useEffect(() => {
     setErrorMessage(null);
@@ -203,7 +204,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
 
           <button
             type="submit"
-            disabled={isSubmitting || isEmpty || !canSubmit}
+            disabled={isSubmitting || isEmpty || hasErrors || !canSubmit}
             className="continue-auth-cta mt-[30px] m-auto font-bold md:col-span-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Register

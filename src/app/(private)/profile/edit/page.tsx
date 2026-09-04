@@ -1,21 +1,24 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
 import AuthStore from '@/store/authStore';
 import BackNav from '@/components/ui/BackNav';
 import {
   editProfileFormSchema,
-  type EditProfileData,
+  type EditProfileData as EditProfileFormData,
 } from '@/schemas/editProfileFormSchema';
 import { putProfileData } from '@/api/profile/putProfileData';
+import EditProfileData from '@/components/profile/EditProfileData';
+import ProfileHeroImages from '@/components/profile/ProfileHeroImages';
 
 export default function EditProfilePage() {
   const user = AuthStore((store) => store.user);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [canSubmit, setCanSubmit] = useState(true);
   const router = useRouter();
 
   const {
@@ -23,14 +26,10 @@ export default function EditProfilePage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<EditProfileData>({
+  } = useForm<EditProfileFormData>({
     resolver: zodResolver(editProfileFormSchema),
     mode: 'onBlur',
   });
-
-  if (!user) {
-    return null;
-  }
 
   const [avatarUrl, bannerUrl, bio] = watch([
     'avatar.url',
@@ -38,11 +37,21 @@ export default function EditProfilePage() {
     'bio',
   ]);
 
+  useEffect(() => {
+    setErrorMessage(null);
+    setCanSubmit(true);
+  }, [avatarUrl, bannerUrl, bio]);
+
+  if (!user) {
+    return null;
+  }
+
   const isEmpty = !avatarUrl && !bannerUrl && !bio;
   const hasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit = async (data: EditProfileData) => {
+  const onSubmit = async (data: EditProfileFormData) => {
     setIsSubmitting(true);
+    setErrorMessage(null);
     if (data.avatar?.url === '') delete data.avatar;
     if (data.banner?.url === '') delete data.banner;
     if (!data.bio) delete data.bio;
@@ -52,6 +61,11 @@ export default function EditProfilePage() {
         setIsSaved(true);
         setTimeout(() => router.push('/profile'), 3000);
       }
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : 'Failed to update profile',
+      );
+      setCanSubmit(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -63,26 +77,7 @@ export default function EditProfilePage() {
       <h1 className="pl-[20px] pt-[20px] md:hidden">Edit Profile</h1>
       <div className="p-[20px] md:p-0">
         <section>
-          <div className="relative h-[200px] md:h-[260px]">
-            <Image
-              src={user.banner.url || '/no-photo.svg'}
-              alt={user.banner.alt || 'Profile banner'}
-              fill
-              sizes="100vw"
-              loading="eager"
-              className="object-cover rounded-[10px] md:rounded-[0px]"
-            />
-            <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[150px] h-[150px] md:left-[50px] md:translate-x-0 md:bottom-[-90px] md:w-[200px] md:h-[200px]">
-              <Image
-                src={user.avatar.url || '/no-photo.svg'}
-                alt={user.avatar.alt || 'Avatar image'}
-                fill
-                sizes="200px"
-                loading="eager"
-                className="object-fill rounded-full ring-[5px] ring-white md:ring-[10px]"
-              />
-            </div>
-          </div>
+          <ProfileHeroImages banner={user.banner} avatar={user.avatar} />
           <section className="relative mt-[20px] mr-[-15px] flex justify-between items-start md:px-[50px] md:mt-[0px] ">
             <div className="min-w-0 wrap-break-word">
               <div className="md:ml-[215px]">
@@ -101,48 +96,14 @@ export default function EditProfilePage() {
             </div>
           </section>
         </section>
-        <div className="mt-[30px] md:px-[50px] md:mt-[130px]">
+        <div className="mt-[30px] md:px-[50px] md:mt-[50px]">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-[15px] max-w-125 mx-auto"
+            className="flex flex-col gap-[15px] max-w-125 mx-auto md:max-w-none md:grid md:grid-cols-3 md:gap-x-6 md:gap-y-[15px] md:items-start md:w-full"
           >
-            <div className="flex flex-col gap-2 w-full">
-              <span className="font-semibold color-calm opacity-80">
-                Username
-              </span>
-              <div
-                aria-hidden="true"
-                className="h-[58px] bg-input-disabled w-full border rounded-[10px] px-[20px] overflow-scroll flex items-center color-calm"
-              >
-                {user?.name}
-              </div>
-            </div>
+            <EditProfileData name={user.name} email={user.email} />
 
-            <div className="flex flex-col gap-2 w-full">
-              <span className="font-semibold color-calm opacity-80">
-                Email address
-              </span>
-              <div
-                aria-hidden="true"
-                className="h-[58px] bg-input-disabled w-full border rounded-[10px] px-[20px] overflow-scroll flex items-center color-calm"
-              >
-                {user?.email}
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 w-full">
-              <span className="font-semibold color-calm opacity-80">
-                Password
-              </span>
-              <div
-                aria-hidden="true"
-                className="h-[58px] bg-input-disabled w-full border rounded-[10px] px-[20px] overflow-scroll flex items-center color-calm"
-              >
-                ********
-              </div>
-            </div>
-
-            <div className="relative flex flex-col gap-2 w-full">
+            <div className="relative flex flex-col gap-2 w-full md:col-start-1 md:row-start-2">
               <label htmlFor="avatarUrl" className="font-semibold color-calm">
                 Avatar image
               </label>
@@ -166,7 +127,7 @@ export default function EditProfilePage() {
               )}
             </div>
 
-            <div className="relative flex flex-col gap-2 w-full">
+            <div className="relative flex flex-col gap-2 w-full md:col-start-2 md:row-start-2">
               <label htmlFor="bannerUrl" className="font-semibold">
                 Banner image
               </label>
@@ -190,7 +151,7 @@ export default function EditProfilePage() {
               )}
             </div>
 
-            <div className="relative flex flex-col gap-2 w-full">
+            <div className="relative flex flex-col gap-2 w-full md:col-start-3 md:row-start-2">
               <label htmlFor="bio" className="font-semibold">
                 Bio
               </label>
@@ -214,8 +175,16 @@ export default function EditProfilePage() {
               )}
             </div>
 
+            {errorMessage && (
+              <div className="p-[20px] bg-primary/10 border border-primary rounded-[10px] flex flex-col gap-[10px] justify-center align-middle md:col-start-3">
+                <p role="alert" className="text-primary font-bold text-center">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
+
             {isSaved ? (
-              <div className="p-[20px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse">
+              <div className="p-[20px] mb-[20px] mt-[10px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse md:col-start-3 md:mb-[50px]">
                 <p
                   role="status"
                   className="text-black font-bold text-center text-xl"
@@ -227,10 +196,14 @@ export default function EditProfilePage() {
             ) : (
               <button
                 type="submit"
-                disabled={isSubmitting || isEmpty || hasErrors}
-                className="continue-auth-cta m-auto mt-[15px] mb-[10px] font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSubmitting || isEmpty || hasErrors || !canSubmit}
+                className="continue-auth-cta flex items-center justify-center gap-[10px] m-auto mt-[15px] mb-[10px] font-bold disabled:opacity-50 disabled:cursor-not-allowed md:col-start-3 md:mx-0 md:justify-self-end md:mt-[10px] md:mb-[50px]"
               >
                 {isSubmitting ? 'Saving...' : 'Save'}
+                <i
+                  className="fa-regular fa-floppy-disk text-[20px]"
+                  aria-hidden="true"
+                ></i>
               </button>
             )}
           </form>
