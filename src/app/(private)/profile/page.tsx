@@ -29,7 +29,7 @@ export default function ProfilePage() {
               </h1>
               <p className="text-[#455a61]">{user.email}</p>
             </div>
-            <p className="mt-[20px] md:mt-[50px]">
+            <p className="mt-[30px] md:mt-[50px]">
               {user.bio !== null
                 ? user.bio
                 : '"Create your own bio in your edit profile page"'}
