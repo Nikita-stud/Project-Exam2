@@ -24,6 +24,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
 
   const [email, password] = watch(['email', 'password']);
   const isEmpty = !email || !password;
+  const hasErrors = Object.keys(errors).length > 0;
 
   useEffect(() => {
     setErrorMessage(null);
@@ -138,7 +139,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
 
           <button
             type="submit"
-            disabled={isSubmitting || isEmpty || !canSubmit}
+            disabled={isSubmitting || isEmpty || hasErrors || !canSubmit}
             className="continue-auth-cta mt-[30px] m-auto font-bold disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Login
