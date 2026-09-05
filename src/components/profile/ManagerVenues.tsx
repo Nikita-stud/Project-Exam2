@@ -3,25 +3,35 @@ import { fetchManagerVenues } from '@/api/venues/fetchManagerVenues';
 import type { Venue } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
+import { LoadingContainer } from '@/components/ui/LoadingContainer';
 
 export default function ManagerVenues({ name }: { name: string }) {
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let active = true;
-    fetchManagerVenues(name).then((data) => {
-      if (active) setVenues(data);
-    });
-    return () => {
-      active = false;
+    const fetchVenues = async () => {
+      try {
+        const data = await fetchManagerVenues(name);
+        setVenues(data);
+      } finally {
+        setLoading(false);
+      }
     };
+    fetchVenues();
   }, [name]);
 
   return (
     <>
       <h3 className="font-semibold md:mb-[20px]">My Venues</h3>
       <div className="mt-[10px]">
-        {venues.length === 0 ? (
+        {loading ? (
+          <>
+            <LoadingContainer />
+            <LoadingContainer />
+          </>
+        ) : null}
+        {!loading && (venues.length === 0 ? (
           <Link
             href={`/profile/venues/create`}
             className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] md:mb-[50px] md:py-[80px]"
@@ -52,7 +62,7 @@ export default function ManagerVenues({ name }: { name: string }) {
               </div>
             ))}
           </div>
-        )}
+        ))}
       </div>
     </>
   );

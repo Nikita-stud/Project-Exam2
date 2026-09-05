@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+const STRING_REGEX = /^[A-Za-z_]+$/;
+const NUMBER_REGEX = /^[0-9]+$/;
+
 const mediaItemSchema = z.object({
   url: z
     .string()
@@ -20,7 +23,7 @@ export const createVenueFormSchema = z.object({
     .string()
     .trim()
     .min(1, { message: 'Venue name is required' })
-    .max(100, { message: 'Venue name can not be longer than 100 characters' }),
+    .max(50, { message: 'Venue name can not be longer than 50 characters' }),
   description: z
     .string()
     .trim()
@@ -49,24 +52,25 @@ export const createVenueFormSchema = z.object({
       .string()
       .trim()
       .min(1, { message: 'Address is required' })
-      .max(200),
+      .max(100, { message: 'Max 100 characters' }),
     city: z
       .string()
       .trim()
       .min(1, { message: 'City is required' })
       .max(20, { message: 'Max 20 characters' })
-      .regex(/^[A-Za-z\s]+$/, { message: 'Only letters allowed' }),
+      .regex(STRING_REGEX, { message: 'Only letters allowed' }),
     zip: z
       .string()
       .trim()
       .min(1, { message: 'Post code is required' })
       .max(20, { message: 'Max 20 characters' })
-      .regex(/^[0-9]+$/, { message: 'Only numbers allowed' }),
+      .regex(NUMBER_REGEX, { message: 'Only numbers allowed' }),
     country: z
       .string()
       .trim()
       .min(1, { message: 'Country is required' })
-      .max(100),
+      .max(30, { message: 'Max 30 characters' })
+      .regex(STRING_REGEX, { message: 'Only letters allowed' }),
   }),
 });
 

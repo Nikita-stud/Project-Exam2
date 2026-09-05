@@ -4,6 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import loginUser from '@/api/auth/loginUser';
 import { loginFormSchema, type LoginData } from '@/schemas/loginFormSchema';
 import { LoginFormProps } from '@/types';
+import ErrorMessage from '@/components/helpers/ErrorMessage';
+import FieldError from '@/components/helpers/FieldError';
 
 export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -55,16 +57,10 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
           </p>
         </div>
       )}
-      {errorMessage && (
-        <div className="p-[20px] bg-primary/10 border border-primary rounded-[10px] flex flex-col gap-2 justify-center align-middle w-full max-w-125 mx-auto">
-          <p
-            role="alert"
-            className="text-primary font-bold text-center text-xl"
-          >
-            {errorMessage}
-          </p>
-        </div>
-      )}
+      <ErrorMessage
+        message={errorMessage}
+        className="w-full max-w-125 mx-auto"
+      />
       {!isSuccess && (
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -87,15 +83,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
               {...register('email')}
               className="h-[58px] w-full border rounded-[10px] pl-5 color-calm"
             />
-            {errors.email && (
-              <p
-                id="email-error"
-                role="alert"
-                className="text-primary absolute top-full end-0 text-sm mb-0"
-              >
-                {errors.email.message}
-              </p>
-            )}
+            <FieldError id="email-error" message={errors.email?.message} />
           </div>
 
           <div className="flex flex-col gap-2 mt-[5px] w-full max-w-125">
@@ -116,15 +104,10 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
                 {...register('password')}
                 className="h-14.5 w-full border rounded-[10px] pl-5 pr-12 color-calm"
               />
-              {errors.password && (
-                <p
-                  id="password-error"
-                  role="alert"
-                  className="text-primary absolute top-full end-0 text-sm mb-0"
-                >
-                  {errors.password.message}
-                </p>
-              )}
+              <FieldError
+                id="password-error"
+                message={errors.password?.message}
+              />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
