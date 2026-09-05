@@ -7,9 +7,9 @@ import { usePathname } from 'next/navigation';
 import AuthStore from '@/store/authStore';
 
 const serviceLinks = [
-  { href: '/saved', label: 'Saved' },
+  { href: '/profile/saved', label: 'Saved' },
   { href: '/profile', label: 'Profile' },
-  { href: '/bookings', label: 'Bookings' },
+  { href: '/profile/bookings', label: 'Bookings' },
 ];
 
 const managerServiceLinks = [

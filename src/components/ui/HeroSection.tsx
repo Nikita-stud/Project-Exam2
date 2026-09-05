@@ -51,7 +51,7 @@ export default function HeroSection() {
       className={`hidden md:flex justify-between  ${user?.venueManager ? 'bg-[linear-gradient(to_right,#1B627A_0%,#4BB0CE_96%)]' : 'bg-[linear-gradient(to_right,#1F6B52_0%,#48E0A2_96%)]'} h-[260px] px-[50px]`}
     >
       <div className="flex flex-col gap-[10px] pt-[120px]">
-        <h2 className={user?.venueManager ? 'text-white' : 'text-black'}>
+        <h2 className="font-bold {user?.venueManager ? 'text-white' : 'text-black'}">
           {title}
         </h2>
         <h2 className={user?.venueManager ? 'text-white' : 'text-black'}>
@@ -63,14 +63,16 @@ export default function HeroSection() {
       >
         <div>
           <p className="flex justify-end">
-            {user?.venueManager ? bookingsCount : 'NOthing'}
+            {user?.venueManager ? bookingsCount : 'None'}
           </p>
           <p>Active bookings</p>
         </div>
-        <div className="border-[3px] border-white h-[68px] mt-[-18px] rounded-[10px]"></div>
+        <div
+          className={`border-[3px] ${user?.venueManager ? 'border-white' : 'border-dark'}  h-[68px] mt-[-18px] rounded-[10px]`}
+        ></div>
         <div>
           <p className="flex justify-start">
-            {user?.venueManager ? venuesCount : 'NOthing'}
+            {user?.venueManager ? venuesCount : 'Nothing'}
           </p>
           <p>{user?.venueManager ? 'Venues' : 'Saved'}</p>
         </div>

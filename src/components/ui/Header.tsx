@@ -9,8 +9,8 @@ import AuthModal from '@/components/auth/AuthModal';
 import AuthStore from '@/store/authStore';
 
 const navLinks = [
-  { href: '/profile/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
   { href: '/', label: 'Search', icon: 'fa-solid fa-magnifying-glass' },
+  { href: '/profile/saved', label: 'Saved', icon: 'fa-regular fa-heart' },
   {
     href: '/profile/bookings',
     label: 'Bookings',

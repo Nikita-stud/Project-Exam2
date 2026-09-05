@@ -65,7 +65,7 @@ export default function BookingPage() {
           (bookings.length === 0 ? (
             <div className="px-[20px]">
               <Link
-                href={`/search`}
+                href={`/`}
                 className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] mt-[10px] md:py-[80px]"
               >
                 <p>You have not bookings yet.</p>
