@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
 import BackNav from '@/components/ui/BackNav';
 import {
@@ -62,6 +63,8 @@ export default function CreateVenuePage() {
     'media',
   ]);
 
+  const [debouncedImageUrl] = useDebounce(firstImageUrl, 500);
+
   const isEmpty =
     !name ||
     !description ||
@@ -116,28 +119,31 @@ export default function CreateVenuePage() {
       <BackNav />
       <h1 className="pl-[20px] pt-[20px] md:hidden">Create Venue</h1>
       <div className="p-[20px] md:p-0">
-        <div className="relative h-[200px] mb-[-5px] md:h-[260px]">
-          <Image
-            src={
-              firstImageUrl && firstImageUrl !== brokenImageUrl
-                ? firstImageUrl
-                : '/no-photo.svg'
-            }
-            alt={'New venue image'}
-            fill
-            sizes="100vw"
-            loading="eager"
-            onError={() => setBrokenImageUrl(firstImageUrl)}
-            className="object-cover rounded-[10px] md:rounded-[0px] "
-          />
-        </div>
+        <div className="md:px-[50px] md:mt-[50px] md:grid md:grid-cols-6 md:gap-x-[30px] md:gap-y-[20px] md:items-stretch">
+          <div className="relative h-[200px] mb-[-5px] md:mb-0 md:h-full md:w-full md:col-start-1 md:col-span-3 md:row-start-1">
+            <Image
+              src={
+                /^https?:\/\/./.test(debouncedImageUrl ?? '') &&
+                debouncedImageUrl !== brokenImageUrl
+                  ? debouncedImageUrl
+                  : '/no-photo.svg'
+              }
+              alt={'New venue image'}
+              fill
+              sizes="(min-width: 744px) 50vw, 100vw"
+              loading="eager"
+              onError={() => setBrokenImageUrl(debouncedImageUrl)}
+              className="object-cover rounded-[10px]"
+            />
+          </div>
 
-        <div className="mt-[30px] md:px-[50px] md:mt-[130px]">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-[20px] max-w-125 mx-auto"
+            className="flex flex-col gap-[20px] max-w-125 mx-auto mt-[30px] md:contents"
           >
-            <section className="bg-calm/20 flex flex-col gap-[20px] p-[20px] rounded-[10px] pb-[20px]">
+            <section className="bg-calm/20 flex flex-col gap-[20px] p-[20px] rounded-[10px] pb-[20px] md:col-start-5 md:col-span-2 md:row-start-2">
+              <h3 className="font-semibold color-calm mb-[10px]">Images</h3>
+
               {fields.map((field, index) => (
                 <div
                   key={field.id}
@@ -183,16 +189,18 @@ export default function CreateVenuePage() {
                   />
                 </div>
               ))}
-              <button
-                type="button"
-                onClick={() => append({ url: '', alt: '' })}
-                className="self-end px-[15px] py-[8px] border rounded-[10px] text-sm font-semibold bg-calm text-white"
-              >
-                + Add more images?
-              </button>
+              {fields.length < 5 && (
+                <button
+                  type="button"
+                  onClick={() => append({ url: '', alt: '' })}
+                  className="self-end px-[15px] py-[8px] border rounded-[10px] text-sm font-semibold bg-calm text-white"
+                >
+                  + Add more images?
+                </button>
+              )}
             </section>
 
-            <section className="bg-calm/20 flex flex-col gap-[20px] p-[20px] rounded-[10px] pb-[30px]">
+            <section className="bg-calm/20 flex flex-col gap-[20px] p-[20px] rounded-[10px] pb-[30px] md:col-start-4 md:col-span-3 md:row-start-1">
               <div className="relative flex flex-col gap-2 w-full">
                 <h3 className="font-semibold color-calm mb-[10px]">
                   Venue Details
@@ -296,7 +304,7 @@ export default function CreateVenuePage() {
               </div>
             </section>
 
-            <section className="bg-calm/20 p-[20px] rounded-[10px]">
+            <section className="bg-calm/20 p-[20px] rounded-[10px] md:col-start-3 md:col-span-2 md:row-start-2">
               <div className="flex flex-col gap-2 w-full">
                 <h3 className="font-semibold color-calm mb-[10px]">Included</h3>
                 <div className="grid grid-cols-2 gap-[10px]">
@@ -336,7 +344,7 @@ export default function CreateVenuePage() {
               </div>
             </section>
 
-            <section className="bg-calm/20 flex flex-col gap-[20px] p-[20px] rounded-[10px] pb-[30px]">
+            <section className="bg-calm/20 flex flex-col gap-[20px] p-[20px] rounded-[10px] pb-[30px] md:col-start-1 md:col-span-2 md:row-start-2">
               <div className="relative flex flex-col gap-2 w-full">
                 <h3 className="font-semibold color-calm mb-[10px]">Location</h3>
 
@@ -435,10 +443,13 @@ export default function CreateVenuePage() {
               </div>
             </section>
 
-            <ErrorMessage message={errorMessage} />
+            <ErrorMessage
+              message={errorMessage}
+              className="md:col-start-1 md:col-span-6 md:row-start-3"
+            />
 
             {isSaved ? (
-              <div className="p-[20px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse">
+              <div className="p-[20px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse md:col-start-1 md:col-span-6 md:row-start-4 md:mb-[50px]">
                 <p
                   role="status"
                   className="text-black font-bold text-center text-xl"
@@ -448,18 +459,18 @@ export default function CreateVenuePage() {
                 <p className="m-auto  ">Redirecting to Venues Page...</p>
               </div>
             ) : (
-              <div className="flex gap-[15px] mt-[15px] mb-[10px]">
+              <div className="flex justify-end gap-[15px] mt-[15px] mb-[10px] md:col-start-1 md:col-span-6 md:row-start-4 md:mb-[50px]">
                 <button
                   type="button"
                   onClick={() => router.push('/profile')}
-                  className="flex-1 h-[58px] border rounded-[10px] font-bold color-calm"
+                  className="flex-1 h-[58px] border rounded-[10px] font-bold color-calm md:flex-none md:h-[48px] md:w-[179px]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting || hasErrors || isEmpty || !canSubmit}
-                  className="continue-auth-cta flex-1 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="continue-auth-cta flex-1 font-bold disabled:opacity-50 md:flex-none md:h-[48px] md:w-[179px] disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Creating...' : 'Create'}
                 </button>
