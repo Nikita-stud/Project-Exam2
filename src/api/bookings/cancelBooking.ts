@@ -7,12 +7,8 @@ export async function cancelBooking(bookingId: string): Promise<void> {
       `${BOOKINGS_API_URL}/${bookingId}`,
       allowedRequest('DELETE'),
     );
-
     if (!response.ok) {
-      const json = await response.json().catch(() => null);
-      throw new Error(
-        json?.errors?.[0]?.message ?? 'Failed to cancel booking',
-      );
+      throw new Error('Failed to cancel booking');
     }
   } catch (error) {
     throw error instanceof Error

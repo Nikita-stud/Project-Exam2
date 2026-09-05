@@ -1,5 +1,5 @@
 import { VENUES_API_URL } from '../../constants/api';
-import type { Venue, VenuesResponse } from '../../types/index';
+import type { Venue } from '../../types/index';
 
 export default async function fetchVenues(): Promise<Venue[]> {
   try {
@@ -10,22 +10,14 @@ export default async function fetchVenues(): Promise<Venue[]> {
       },
     );
 
+    const json = await response.json();
+
     if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error(`Venues were not found.`);
-      }
-      throw new Error(`Failed to fetch venues: ${response.statusText}`);
+      throw new Error(`Failed to fetch Venues`);
     }
 
-    const result: VenuesResponse = await response.json();
-
-    if (!result.data) {
-      throw new Error('Venues data is not available');
-    }
-    return result.data;
+    return json.data;
   } catch (error) {
-    throw error instanceof Error
-      ? error
-      : new Error('Failed to fetch venues');
+    throw error instanceof Error ? error : new Error('Failed to fetch venues');
   }
 }
