@@ -12,6 +12,8 @@ import {
 import { putProfileData } from '@/api/profile/putProfileData';
 import EditProfileData from '@/components/profile/EditProfileData';
 import ProfileHeroImages from '@/components/profile/ProfileHeroImages';
+import ErrorMessage from '@/components/helpers/ErrorMessage';
+import FieldError from '@/components/helpers/FieldError';
 
 export default function EditProfilePage() {
   const user = AuthStore((store) => store.user);
@@ -116,15 +118,10 @@ export default function EditProfilePage() {
                 {...register('avatar.url')}
                 className="h-[58px] w-full bg-[#fff] border rounded-[10px] px-[20px] color-calm"
               />
-              {errors.avatar?.url && (
-                <p
-                  id="avatarUrl-error"
-                  role="alert"
-                  className="text-primary absolute top-full end-0 text-sm mb-0"
-                >
-                  {errors.avatar.url.message}
-                </p>
-              )}
+              <FieldError
+                id="avatarUrl-error"
+                message={errors.avatar?.url?.message}
+              />
             </div>
 
             <div className="relative flex flex-col gap-2 w-full md:col-start-2 md:row-start-2">
@@ -140,15 +137,10 @@ export default function EditProfilePage() {
                 {...register('banner.url')}
                 className="h-[58px] bg-[#fff] w-full border rounded-[10px] px-[20px] color-calm"
               />
-              {errors.banner?.url && (
-                <p
-                  id="bannerUrl-error"
-                  role="alert"
-                  className="text-primary absolute top-full end-0 text-sm mb-0"
-                >
-                  {errors.banner.url.message}
-                </p>
-              )}
+              <FieldError
+                id="bannerUrl-error"
+                message={errors.banner?.url?.message}
+              />
             </div>
 
             <div className="relative flex flex-col gap-2 w-full md:col-start-3 md:row-start-2">
@@ -164,24 +156,14 @@ export default function EditProfilePage() {
                 {...register('bio')}
                 className="w-full border bg-[#fff] rounded-[10px] p-[20px] color-calm resize-none"
               />
-              {errors.bio && (
-                <p
-                  id="bio-error"
-                  role="alert"
-                  className="text-primary flex justify-end mt-[-8px] text-sm mb-[-20px]"
-                >
-                  {errors.bio.message}
-                </p>
-              )}
+              <FieldError
+                id="bio-error"
+                message={errors.bio?.message}
+                variant="textarea"
+              />
             </div>
 
-            {errorMessage && (
-              <div className="p-[20px] bg-primary/10 border border-primary rounded-[10px] flex flex-col gap-[10px] justify-center align-middle md:col-start-3">
-                <p role="alert" className="text-primary font-bold text-center">
-                  {errorMessage}
-                </p>
-              </div>
-            )}
+            <ErrorMessage message={errorMessage} className="md:col-start-3" />
 
             {isSaved ? (
               <div className="p-[20px] mb-[20px] mt-[10px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse md:col-start-3 md:mb-[50px]">

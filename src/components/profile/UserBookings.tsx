@@ -3,25 +3,35 @@ import { Booking } from '@/types';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { LoadingContainer } from '@/components/ui/LoadingContainer';
 
 export default function UserBookings({ name }: { name: string }) {
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let active = true;
-    fetchUserBookings(name).then((data) => {
-      if (active) setBookings(data);
-    });
-    return () => {
-      active = false;
+    const fetchBookings = async () => {
+      try {
+        const data = await fetchUserBookings(name);
+        setBookings(data);
+      } finally {
+        setLoading(false);
+      }
     };
+    fetchBookings();
   }, [name]);
 
   return (
     <>
       <h3 className="font-semibold md:mb-[20px]">My Booking</h3>
       <div className="mt-[10px]">
-        {bookings.length === 0 ? (
+        {loading ? (
+          <>
+            <LoadingContainer />
+            <LoadingContainer />
+          </>
+        ) : null}
+        {!loading && (bookings.length === 0 ? (
           <Link
             href={`/search`}
             className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] md:mb-[50px] md:py-[80px]"
@@ -53,7 +63,7 @@ export default function UserBookings({ name }: { name: string }) {
               </div>
             ))}
           </div>
-        )}
+        ))}
       </div>
     </>
   );
