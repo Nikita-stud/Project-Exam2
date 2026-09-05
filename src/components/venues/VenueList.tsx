@@ -41,12 +41,14 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
   }
 
   return (
-    <section className="grid grid-cols-1 gap-[20px] p-[20px] md:p-[50px]">
+    <section className="p-[20px] md:p-[50px]">
       {currentItems.length > 0 ? (
         <>
-          {currentItems.map((venue) => (
-            <VenueCard key={venue.id} venue={venue} />
-          ))}
+          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[50px] lg:grid-cols-3">
+            {currentItems.map((venue) => (
+              <VenueCard key={venue.id} venue={venue} />
+            ))}
+          </div>
           <PaginationControls
             currentPage={currentPage}
             totalPages={totalPages}
