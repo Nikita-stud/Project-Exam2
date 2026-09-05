@@ -33,14 +33,7 @@ export default function ManagerNav({
           />
         </div>
 
-        <div className="flex justify-between mt-[10px]">
-          <button
-            type="button"
-            className="flex-1 flex items-center justify-center gap-2 bg-[#fff] max-w-[166px] h-[43px] border text-dark rounded-[10px] font-medium hover:opacity-90"
-          >
-            Unread
-            <i className="fa-regular fa-message"></i>
-          </button>
+        <div className="flex justify-end mt-[10px]">
           <Link
             href="/profile/venues/create"
             className="flex-1 flex items-center justify-center gap-2 bg-primary border-black max-w-[166px] h-[43px] text-white rounded-[10px] font-medium hover:opacity-90"

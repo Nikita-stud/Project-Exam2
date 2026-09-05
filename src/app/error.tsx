@@ -19,8 +19,8 @@ export default function Error({
         src="/auth-logo.png"
         alt="Logo"
         loading="eager"
-        width={100}
-        height={100}
+        width={120}
+        height={130}
         className="w-[120px] h-[130px]"
       />
       <h1 className="text-dark mt-[20px]">Something went wrong!</h1>
