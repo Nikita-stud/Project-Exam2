@@ -1,13 +1,6 @@
 import { BOOKINGS_API_URL } from '@/constants/api';
 import allowedDataRequest from '../helpers/allowedDataRequest';
-import type { Booking } from '@/types';
-
-export interface CreateBookingData {
-  dateFrom: string;
-  dateTo: string;
-  guests: number;
-  venueId: string;
-}
+import type { Booking, CreateBookingData } from '@/types';
 
 export async function createBooking(
   bookingData: CreateBookingData,

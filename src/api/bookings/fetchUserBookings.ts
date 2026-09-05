@@ -1,6 +1,6 @@
 import { USER_BOOKINGS_API_URL } from '@/constants/api';
 import allowedRequest from '../helpers/allowedRequest';
-import type { Booking, UserBookingsResponse } from '@/types';
+import type { Booking } from '@/types';
 
 export async function fetchUserBookings(userName: string): Promise<Booking[]> {
   try {
@@ -8,7 +8,7 @@ export async function fetchUserBookings(userName: string): Promise<Booking[]> {
       USER_BOOKINGS_API_URL(userName),
       allowedRequest('GET'),
     );
-    const json: UserBookingsResponse = await response.json();
+    const json = await response.json();
 
     if (!response.ok) {
       throw new Error(`Failed to fetch bookings`);

@@ -82,12 +82,15 @@ export interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
 }
+export interface CreateBookingData {
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
+  venueId: string;
+}
 
 export interface VenuePageType {
   params: Promise<{ venueId: string }>;
-}
-export interface BookingPageType {
-  params: Promise<{ userName: string }>;
 }
 
 export interface BookingSuccessPageType {
@@ -169,37 +172,9 @@ export interface Booking {
   venue: Venue;
 }
 
-interface PageMeta {
-  isFirstPage: boolean;
-  isLastPage: boolean;
-  currentPage: number;
-  previousPage: number | null;
-  nextPage: number | null;
-  pageCount: number;
-  totalCount: number;
-}
-
-export interface VenuesResponse {
-  data: Venue[];
-  meta: PageMeta;
-}
-
-export interface VenueResponse {
-  data: Venue;
-  meta: Record<string, never>;
-}
-
 export type LoginFormProps = {
   onClose: () => void;
   onSwitch: () => void;
-};
-export type UserBookingsResponse = {
-  data: Booking[];
-  meta: PageMeta;
-};
-export type ManagerVenuesResponse = {
-  data: Venue[];
-  meta: PageMeta;
 };
 
 export interface DateRange {
