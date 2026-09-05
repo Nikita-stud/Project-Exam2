@@ -127,7 +127,7 @@ export default function VenuesPage() {
                           ></i>
                         </Link>
                         <Link
-                          href={`/profile/venues/${venue.id}/edit`}
+                          href={`/profile/venues/edit/${venue.id}`}
                           onClick={() =>
                             user && setManagerVenue(user.name, venue)
                           }
