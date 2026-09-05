@@ -8,6 +8,7 @@ import { fetchUserBookings } from '@/api/bookings/fetchUserBookings';
 import { cancelBooking } from '@/api/bookings/cancelBooking';
 import type { Booking } from '@/types';
 import BackNav from '@/components/ui/BackNav';
+import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 
 export default function BookingPage() {
@@ -51,8 +52,9 @@ export default function BookingPage() {
   return (
     <>
       <BackNav />
+      <HeroSection />
       <section className="pt-[20px] md:p-[50px]">
-        <h1 className="pl-[20px] pb-[10px]">Upcoming Bookings</h1>
+        <h1 className="pl-[20px] pb-[10px] md:hidden">Upcoming Bookings</h1>
         {loading ? (
           <>
             <LoadingContainer />
@@ -68,7 +70,7 @@ export default function BookingPage() {
               >
                 <p>You have not bookings yet.</p>
 
-                <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90">
+                <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90 md:w-[320px] md:h-[58px]">
                   Search now <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
               </Link>
