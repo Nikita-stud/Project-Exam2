@@ -63,7 +63,7 @@ export default function HeroSection() {
       >
         <div>
           <p className="flex justify-end">
-            {user?.venueManager ? bookingsCount : 'None'}
+            {user?.venueManager ? bookingsCount : '0'}
           </p>
           <p>Active bookings</p>
         </div>
@@ -72,7 +72,7 @@ export default function HeroSection() {
         ></div>
         <div>
           <p className="flex justify-start">
-            {user?.venueManager ? venuesCount : 'Nothing'}
+            {user?.venueManager ? venuesCount : '0'}
           </p>
           <p>{user?.venueManager ? 'Venues' : 'Saved'}</p>
         </div>

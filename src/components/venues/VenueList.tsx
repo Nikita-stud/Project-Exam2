@@ -11,7 +11,7 @@ import PaginationControls from '../helpers/PaginationControls';
 export default function VenueList({ venues }: { venues: Venue[] }) {
   const context = useVenueContext();
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
   if (!venues || venues.length === 0) {
