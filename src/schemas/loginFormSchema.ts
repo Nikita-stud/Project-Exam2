@@ -5,14 +5,15 @@ export const loginFormSchema = z.object({
     .string()
     .trim()
     .toLowerCase()
-    .max(100, { message: 'Email can not be longer than 100 characters' })
+    .max(100, { message: 'Email max 100 characters' })
     .email('Invalid email format')
     .endsWith('@stud.noroff.no', {
-      message: 'Email must be a stud.noroff.no email address',
+      message: 'Must be stud.noroff.no address',
     }),
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters' }),
+    .min(8, { message: 'Password must be at least 8 characters' })
+    .max(40, { message: 'Password can be max 40 characters' }),
 });
 
 export type LoginData = z.infer<typeof loginFormSchema>;

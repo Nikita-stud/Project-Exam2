@@ -22,7 +22,7 @@ export const editProfileFormSchema = z.object({
   bio: z
     .string()
     .trim()
-    .max(160, { message: 'Bio cant be longer than 160 characters' })
+    .max(160, { message: 'Bio can be max 160 characters' })
     .optional(),
 });
 

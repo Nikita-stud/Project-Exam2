@@ -44,7 +44,7 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
     <section className="p-[20px] md:p-[50px]">
       {currentItems.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[50px] lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-[20px] mb-[20px] md:grid-cols-2 md:gap-[50px] md:mb-[50px] lg:grid-cols-3">
             {currentItems.map((venue) => (
               <VenueCard key={venue.id} venue={venue} />
             ))}
