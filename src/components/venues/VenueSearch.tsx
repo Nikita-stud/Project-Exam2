@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
-import { DayPicker, DateRange } from '@daypicker/react';
+import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
 

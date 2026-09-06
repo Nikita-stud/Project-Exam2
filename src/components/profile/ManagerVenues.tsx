@@ -57,6 +57,9 @@ export default function ManagerVenues({ name }: { name: string }) {
                     alt={venue.media[0]?.alt ?? 'Image not found'}
                     fill
                     className="object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/no-photo.svg';
+                    }}
                   />
                 </Link>
               </div>

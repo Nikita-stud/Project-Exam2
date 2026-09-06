@@ -90,6 +90,9 @@ export default function VenuesPage() {
                           width={350}
                           height={174}
                           className="w-full h-[174px] object-cover rounded-[10px]"
+                          onError={(e) => {
+                            e.currentTarget.src = '/no-photo.svg';
+                          }}
                         />
                         {(venue._count?.bookings ?? 0) > 0 && (
                           <div className="absolute flex items-center justify-center w-[50px] h-[50px] bg-primary rounded-full top-[20px] right-[20px]">

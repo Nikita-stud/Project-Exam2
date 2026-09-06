@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import VenueStore from '@/store/venueStore';
-import VenueList from '@/components/venues/VenueList';
+import VenueCard from '@/components/venues/VenueCard';
 import BackNav from '@/components/ui/BackNav';
 import HeroSection from '@/components/ui/HeroSection';
 
@@ -29,7 +29,11 @@ export default function SavedVenuesPage() {
             </Link>
           </div>
         ) : (
-          <VenueList venues={items} />
+          <div className="grid grid-cols-1 gap-[20px] px-[20px] md:grid-cols-2 md:gap-[50px] md:px-0 lg:grid-cols-3">
+            {items.map((venue) => (
+              <VenueCard key={venue.id} venue={venue} />
+            ))}
+          </div>
         )}
       </section>
     </>

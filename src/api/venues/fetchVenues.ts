@@ -4,7 +4,7 @@ import type { Venue } from '../../types/index';
 export default async function fetchVenues(): Promise<Venue[]> {
   try {
     const response = await fetch(
-      `${VENUES_API_URL}?sort=created&sortOrder=desc`,
+      `${VENUES_API_URL}?sort=created&sortOrder=desc&_bookings=true`,
       {
         next: { revalidate: 60 },
       },

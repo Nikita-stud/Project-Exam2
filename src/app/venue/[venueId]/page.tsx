@@ -23,7 +23,7 @@ export default async function VenuePage({ params }: VenuePageType) {
       <div className="p-[20px] md:p-[50px]">
         <div className="relative mb-[20px] w-full">
           <Image
-            src={venue.media[0]?.url || ''}
+            src={venue.media[0]?.url || '/no-photo.svg'}
             alt={venue.media[0]?.alt || venue.name}
             width={350}
             height={260}

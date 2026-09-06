@@ -16,6 +16,9 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             width={350}
             height={174}
             className="w-full h-[174px] object-cover rounded-[10px] border-[1px] border-black"
+            onError={(e) => {
+              e.currentTarget.src = '/no-photo.svg';
+            }}
           />
           <div className="pt-[5px] p-[15px] flex flex-col flex-1">
             <div className="flex items-baseline justify-between">
