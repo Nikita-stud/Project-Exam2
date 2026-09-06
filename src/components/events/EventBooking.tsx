@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthStore from '@/store/authStore';
-import { useVenueContext } from '@/context/context';
+import SearchStore from '@/store/searchStore';
 import { createBooking } from '@/api/bookings/createBooking';
 import AuthModal from '../auth/AuthModal';
 import Link from 'next/link';
@@ -15,7 +15,7 @@ export default function EventBooking({ venueId }: { venueId: string }) {
 
   const token = AuthStore((store) => store.token);
   const venueManager = AuthStore((store) => store.user?.venueManager);
-  const { formData } = useVenueContext();
+  const formData = SearchStore((store) => store.formData);
   const router = useRouter();
 
   const handleBooking = async () => {
@@ -56,7 +56,6 @@ export default function EventBooking({ venueId }: { venueId: string }) {
 
   return (
     <>
-      {' '}
       {errorMessage && (
         <p role="alert" className="text-primary font-bold mb-[10px]">
           {errorMessage}

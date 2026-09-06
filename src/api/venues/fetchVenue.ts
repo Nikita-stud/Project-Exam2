@@ -6,7 +6,7 @@ export default async function fetchVenue(id: string): Promise<Venue> {
     const response = await fetch(
       `${VENUES_API_URL}/${id}?_owner=true&_bookings=true`,
       {
-        next: { revalidate: 3600 },
+        cache: 'no-store',
       },
     );
 

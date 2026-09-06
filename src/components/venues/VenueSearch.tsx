@@ -5,31 +5,25 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { DayPicker, DateRange } from '@daypicker/react';
 import '@daypicker/react/style.css';
-import { useVenueContext } from '@/context/context';
+import SearchStore from '@/store/searchStore';
 
 export default function VenueSearch() {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const dateFieldRef = useRef<HTMLDivElement>(null);
 
-  //allows me to get the state
-  const { formData, setFormData } = useVenueContext();
+  const formData = SearchStore((store) => store.formData);
+  const setFormData = SearchStore((store) => store.setFormData);
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // hydrate the search state from a shared/bookmarked URL on first load
   useEffect(() => {
-    const destination = searchParams.get('destination');
-    const guests = searchParams.get('guests');
-    if (destination || guests) {
-      setFormData({
-        ...formData,
-        destination: destination ?? formData.destination,
-        guests: guests ?? formData.guests,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setFormData({
+      destination: searchParams.get('destination') ?? '',
+      guests: searchParams.get('guests') ?? '',
+      selected: undefined,
+    });
   }, []);
 
   useEffect(() => {
@@ -58,7 +52,7 @@ export default function VenueSearch() {
     } else {
       params.delete('guests');
     }
-    router.replace(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, 300);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {

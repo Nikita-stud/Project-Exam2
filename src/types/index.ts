@@ -188,7 +188,8 @@ export interface VenueFormData {
   guests: string;
 }
 
-export interface VenueContextType {
+export interface SearchState {
   formData: VenueFormData;
   setFormData: (formData: VenueFormData) => void;
+  resetFormData: () => void;
 }
