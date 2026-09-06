@@ -83,6 +83,9 @@ export default function BookingsPage() {
                                 width={25}
                                 height={25}
                                 className="h-[25px] w-[25px] rounded-full mr-[0px]"
+                                onError={(e) => {
+                                  e.currentTarget.src = '/no-photo.svg';
+                                }}
                               />
                               <p className="text-calm ">
                                 <span className="font-bold">

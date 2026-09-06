@@ -62,6 +62,9 @@ export default function UserBookings({ name }: { name: string }) {
                       alt={booking.venue.media[0]?.alt ?? 'Image not found'}
                       fill
                       className="object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/no-photo.svg';
+                      }}
                     />
                   </Link>
                 </div>

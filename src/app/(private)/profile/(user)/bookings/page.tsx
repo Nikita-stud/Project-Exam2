@@ -90,6 +90,9 @@ export default function BookingPage() {
                         width={350}
                         height={174}
                         className="w-full border h-[174px] object-cover rounded-[10px]"
+                        onError={(e) => {
+                          e.currentTarget.src = '/no-photo.svg';
+                        }}
                       />
                       <h2 className="mt-[10px]">{booking.venue.name}</h2>
                       <p className="text-calm">
