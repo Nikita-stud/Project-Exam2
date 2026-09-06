@@ -13,7 +13,7 @@ export default function ProtectedLayout({
   const router = useRouter();
 
   const zustandLoad = useSyncExternalStore(
-    AuthStore.persist.onFinishHydration,
+    (callback) => AuthStore.persist.onFinishHydration(callback),
     () => AuthStore.persist.hasHydrated(),
     () => false,
   );
