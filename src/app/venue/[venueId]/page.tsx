@@ -22,7 +22,7 @@ export default async function VenuePage({ params }: VenuePageType) {
   return (
     <>
       <BackNav />
-      <div className="p-[20px] ">
+      <div className="p-[20px] md:p-[50px]">
         <div className="relative mb-[20px] w-full">
           <Image
             src={venue.media[0]?.url || ''}
@@ -38,7 +38,7 @@ export default async function VenuePage({ params }: VenuePageType) {
         <section>
           <VenueProvider>
             <div className="flex items-baseline justify-between mb-[10px]">
-              <h1>{venue.name}</h1>
+              <h1>{venue.name || 'No name'}</h1>
               <p>
                 <i className="fa-solid fa-star" aria-hidden="true"></i>{' '}
                 {venue.rating === 0 ? ' None' : venue.rating}
