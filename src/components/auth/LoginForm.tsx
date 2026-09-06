@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { usePathname, useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import loginUser from '@/api/auth/loginUser';
 import { loginFormSchema, type LoginData } from '@/schemas/loginFormSchema';
@@ -8,6 +9,8 @@ import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
 
 export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,6 +42,9 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
     try {
       await loginUser(data);
       setIsSuccess(true);
+      if (/^\/venue\/[^/]+$/.test(pathname)) {
+        router.refresh();
+      }
       setTimeout(() => onClose(), 1500);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Login failed');

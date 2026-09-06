@@ -117,12 +117,12 @@ export default function VenuesPage() {
                       </Link>
                       <div className="flex justify-between gap-[20px] mt-[10px]">
                         <Link
-                          href="/profile/venues/bookings"
+                          href={`/venue/${venue.id}`}
                           className="flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full border rounded-[10px] hover:opacity-90"
                         >
-                          Bookings
+                          View
                           <i
-                            className="fa-regular fa-calendar ml-[10px]"
+                            className="fa-regular fa-eye ml-[10px]"
                             aria-hidden="true"
                           ></i>
                         </Link>
