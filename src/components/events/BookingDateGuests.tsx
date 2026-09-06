@@ -3,19 +3,28 @@
 import { useEffect, useRef, useState } from 'react';
 import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
-import { useVenueContext } from '@/context/context';
+import SearchStore from '@/store/searchStore';
 import AuthStore from '@/store/authStore';
+import type { VenueBooking } from '@/types';
 
 export default function BookingDateGuests({
   maxGuests,
+  bookings,
 }: {
   maxGuests: number;
+  bookings?: VenueBooking[];
 }) {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const dateFieldRef = useRef<HTMLDivElement>(null);
-  const { formData, setFormData } = useVenueContext();
+  const formData = SearchStore((store) => store.formData);
+  const setFormData = SearchStore((store) => store.setFormData);
+  const resetFormData = SearchStore((store) => store.resetFormData);
   const token = AuthStore((store) => store.token);
   const venueManager = AuthStore((store) => store.user?.venueManager);
+
+  useEffect(() => {
+    resetFormData();
+  }, []);
 
   useEffect(() => {
     if (!calendarOpen) return;
@@ -30,6 +39,15 @@ export default function BookingDateGuests({
     return () =>
       document.removeEventListener('pointerdown', handleClickOutside);
   }, [calendarOpen]);
+
+  const ifBooked: { from: Date; to: Date }[] = [];
+
+  for (const booking of bookings ?? []) {
+    ifBooked.push({
+      from: new Date(booking.dateFrom),
+      to: new Date(booking.dateTo),
+    });
+  }
 
   if (!token || venueManager) {
     return null;
@@ -66,7 +84,7 @@ export default function BookingDateGuests({
             selected={formData.selected}
             onSelect={(e) => setFormData({ ...formData, selected: e })}
             excludeDisabled
-            disabled={{ before: new Date() }}
+            disabled={[{ before: new Date() }, ...ifBooked]}
             numberOfMonths={1}
             min={1}
             required
@@ -89,7 +107,7 @@ export default function BookingDateGuests({
           name="guests"
           min={1}
           max={maxGuests}
-          placeholder="How many guests?"
+          placeholder={`Max ${maxGuests} guests`}
           value={formData.guests}
           onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
           className="w-full px-[50px] truncate"

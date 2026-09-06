@@ -22,13 +22,13 @@ export default async function BookingSuccessPage({
   return (
     <>
       <BackNav />
-      <div className="p-[20px] flex flex-col items-center text-center">
+      <div className="p-[20px]">
         <Image
           src="/success-icon.png"
           alt="Success Icon"
           width={80}
           height={80}
-          className="mb-[20px]"
+          className="mb-[20px] m-auto"
         />
         <h1 className="mb-[20px]">Your booking has been confirmed</h1>
         <Image
@@ -36,22 +36,31 @@ export default async function BookingSuccessPage({
           alt={venue.media[0]?.alt || venue.name}
           width={350}
           height={260}
-          className="w-full h-[260px] object-cover rounded-[10px] mb-[20px]"
+          className="w-full h-[260px] object-cover rounded-[10px] mb-[20px] border-[1px] border-black"
         />
-        <h2 className="mb-[10px]">Successful reservation</h2>
-        <p className="mb-[20px]">
-          Your trip to {venue.name} has been booked
-          <br />
-          {from} – {to}
-          <br />
-          Guests: {guests}
-        </p>
-        <Link
-          href="/"
-          className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center hover:opacity-90"
-        >
-          Back to Home
-        </Link>
+        <div>
+          <h2 className="my-[20px]">Successful reservation</h2>
+          <p>
+            Your trip to <span className="font-bold">{venue.name}</span> has
+            been booked
+          </p>
+          <p className="mt-[20px] font-bold">
+            {from}
+            <i className="fa-solid fa-minus align-[-5%]" aria-hidden="true"></i>
+            {to}
+          </p>
+          <p className="mt-[10px]">
+            Guests: <span className="font-bold">{guests}</span>
+          </p>
+        </div>
+        <div className="flex justify-center mb-[10px] md:mb-[40px]">
+          <Link
+            href="/"
+            className="login-cta mt-[20px] bg-primary w-full max-w-[350px] h-[58px] rounded-[10px] text-white flex items-center justify-center hover:opacity-90"
+          >
+            Back to Home
+          </Link>
+        </div>
       </div>
     </>
   );

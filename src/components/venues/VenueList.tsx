@@ -3,13 +3,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useVenueContext } from '@/context/context';
+import SearchStore from '@/store/searchStore';
 import type { Venue } from '../../types/index';
 import VenueCard from './VenueCard';
 import PaginationControls from '../helpers/PaginationControls';
 
 export default function VenueList({ venues }: { venues: Venue[] }) {
-  const context = useVenueContext();
+  const formData = SearchStore((store) => store.formData);
+  const resetFormData = SearchStore((store) => store.resetFormData);
 
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,18 +19,12 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
     return <p>No Venues found</p>;
   }
 
-  const filtered = context
-    ? venues.filter((venue) => {
-        const destination = context.formData.destination.trim().toLowerCase();
-        const matchesName = venue.name
-          .trim()
-          .toLowerCase()
-          .includes(destination);
-        const matchesGuests =
-          venue.maxGuests >= Number(context.formData.guests);
-        return matchesName && matchesGuests;
-      })
-    : venues;
+  const filtered = venues.filter((venue) => {
+    const destination = formData.destination.trim().toLowerCase();
+    const matchesName = venue.name.trim().toLowerCase().includes(destination);
+    const matchesGuests = venue.maxGuests >= Number(formData.guests);
+    return matchesName && matchesGuests;
+  });
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -69,13 +64,7 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
           <h3>We could not find a match</h3>
           <p>Lets clear your filers and start over</p>
           <button
-            onClick={() =>
-              context.setFormData({
-                destination: '',
-                selected: undefined,
-                guests: '',
-              })
-            }
+            onClick={resetFormData}
             className="flex items-center justify-center gap-2 bg-primary w-[320px] h-[58px] text-white rounded-[10px]"
           >
             <i className="fa-regular fa-trash-can" aria-hidden="true"></i> Clear
