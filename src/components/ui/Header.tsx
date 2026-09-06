@@ -34,9 +34,7 @@ const managerNavLinks = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
   const user = AuthStore((store) => store.user);
-
   const token = AuthStore((store) => store.token);
   const avatarUrl =
     AuthStore((store) => store.user?.avatar?.url) ?? '/no-photo.svg';
@@ -44,6 +42,13 @@ export default function Header() {
     AuthStore((store) => store.user?.avatar?.alt) ?? 'Profile image';
 
   const pathname = usePathname();
+
+  let links = navLinks;
+  if (user?.venueManager) {
+    links = managerNavLinks;
+  } else if (!token) {
+    links = navLinks.filter((link) => link.label === 'Search');
+  }
 
   return (
     <header>
@@ -58,7 +63,7 @@ export default function Header() {
           />
         </Link>
         <nav>
-          {(user?.venueManager ? managerNavLinks : navLinks).map((link) => {
+          {links.map((link) => {
             const linkContent = (
               <>
                 {link.label === 'Venues' ? (
@@ -69,19 +74,6 @@ export default function Header() {
                 <span>{link.label}</span>
               </>
             );
-
-            if (
-              !token &&
-              (link.label === 'Saved' ||
-                link.label === 'Bookings' ||
-                link.label === 'Search')
-            ) {
-              return (
-                <button key={link.href} onClick={() => setIsOpen(true)}>
-                  {linkContent}
-                </button>
-              );
-            }
 
             return (
               <Link

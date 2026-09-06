@@ -11,7 +11,7 @@ import PaginationControls from '../helpers/PaginationControls';
 export default function VenueList({ venues }: { venues: Venue[] }) {
   const context = useVenueContext();
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
   if (!venues || venues.length === 0) {
@@ -44,7 +44,7 @@ export default function VenueList({ venues }: { venues: Venue[] }) {
     <section className="p-[20px] md:p-[50px]">
       {currentItems.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[50px] lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-[20px] mb-[20px] md:grid-cols-2 md:gap-[50px] md:mb-[50px] lg:grid-cols-3">
             {currentItems.map((venue) => (
               <VenueCard key={venue.id} venue={venue} />
             ))}

@@ -76,8 +76,8 @@ export default function BookingPage() {
               </Link>
             </div>
           ) : (
-            <div className="px-[20px] pb-[30px] max-w-[450px] m-auto">
-              <div className="flex flex-col gap-[20px] mt-[10px]">
+            <div className="px-[20px] pb-[30px] max-w-[450px] mx-auto md:px-0 md:max-w-none">
+              <div className="grid grid-cols-1 gap-[20px] mt-[10px] md:grid-cols-2 md:gap-[50px] lg:grid-cols-3">
                 {bookings.map((booking) => (
                   <div key={booking.id} className="overflow-hidden">
                     <Link
@@ -111,13 +111,13 @@ export default function BookingPage() {
                       >
                         {cancellingId === booking.id
                           ? 'Cancelling...'
-                          : 'Cancel Booking'}
+                          : 'Cancel'}
                       </button>
                       <Link
                         href={`/venue/${booking.venue.id}`}
                         className="flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full bg-calm text-white rounded-[10px] hover:opacity-90"
                       >
-                        More Details
+                        Details
                       </Link>
                     </div>
                   </div>

@@ -7,21 +7,23 @@ export const registerFormSchema = z.object({
     .string()
     .trim()
     .min(1, { message: 'Name is required' })
-    .max(50, { message: 'Name can not be longer than 50 characters' })
+    .max(50, { message: 'Name can be max 50 characters' })
     .regex(STRING_REGEX, {
-      message: 'Name can only contain letters and underscores',
+      message: 'Only use letters and underscore',
     }),
   email: z
     .string()
     .trim()
-    .max(100, { message: 'Email can not be longer than 100 characters' })
+    .toLowerCase()
+    .max(100, { message: 'Email max 100 characters' })
     .email('Invalid email format')
     .endsWith('@stud.noroff.no', {
-      message: 'Email must be a stud.noroff.no email address',
+      message: 'Must be stud.noroff.no address',
     }),
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters' }),
+    .min(8, { message: 'Password must be at least 8 characters' })
+    .max(40, { message: 'Password can be max 40 characters' }),
   venueManager: z.boolean().optional(),
 });
 
