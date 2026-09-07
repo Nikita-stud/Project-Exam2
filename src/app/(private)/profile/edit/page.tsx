@@ -57,6 +57,7 @@ export default function EditProfilePage() {
     if (data.avatar?.url === '') delete data.avatar;
     if (data.banner?.url === '') delete data.banner;
     if (!data.bio) delete data.bio;
+
     try {
       const newData = await putProfileData(user.name, data);
       if (newData) {
