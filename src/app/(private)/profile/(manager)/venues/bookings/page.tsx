@@ -30,10 +30,15 @@ export default function BookingsPage() {
     fetchVenues();
   }, [user]);
 
+  let bookingsCount = 0;
+  for (const venue of venues) {
+    bookingsCount += venue._count?.bookings ?? 0;
+  }
+
   return (
     <>
       <BackNav />
-      <HeroSection />
+      <HeroSection bookingsCount={bookingsCount} venuesCount={venues.length} />
       <section className="pt-[20px] md:p-[50px]">
         <h1 className="pl-[20px] pb-[10px] md:hidden">View Bookings</h1>
         {loading ? (

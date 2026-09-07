@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 export default async function VenuePage({ params }: VenuePageType) {
   const { venueId } = await params;
   const venue = await fetchVenue(venueId);
+  const galleryImages = venue.media.filter((image) => image.url).slice(0, 5);
 
   return (
     <>
@@ -23,8 +24,8 @@ export default async function VenuePage({ params }: VenuePageType) {
       <div className="p-[20px] md:p-[50px]">
         <div className="relative mb-[20px] w-full">
           <Image
-            src={venue.media[0]?.url || '/no-photo.svg'}
-            alt={venue.media[0]?.alt || venue.name}
+            src={galleryImages[0]?.url || '/no-photo.svg'}
+            alt={galleryImages[0]?.alt || venue.name}
             width={350}
             height={260}
             sizes="100vw"
@@ -32,6 +33,25 @@ export default async function VenuePage({ params }: VenuePageType) {
           />
           <SaveVenueButton venue={venue} />
         </div>
+
+        {galleryImages.length > 1 && (
+          <div className="flex justify-between gap-[10px] mb-[20px]">
+            {galleryImages.slice(1).map((image, index) => (
+              <div
+                key={index}
+                className="relative flex-1 h-[70px] md:h-[120px]"
+              >
+                <Image
+                  src={image.url || '/no-photo.svg'}
+                  alt={image.alt || venue.name}
+                  fill
+                  sizes="25vw"
+                  className="object-cover rounded-[10px]"
+                />
+              </div>
+            ))}
+          </div>
+        )}
 
         <section>
           <div className="flex items-baseline justify-between mb-[10px]">
@@ -41,10 +61,6 @@ export default async function VenuePage({ params }: VenuePageType) {
               {venue.rating === 0 ? ' None' : venue.rating}
             </p>
           </div>
-          <BookingDateGuests
-            maxGuests={venue.maxGuests}
-            bookings={venue.bookings}
-          />
           <div className="flex my-[20px]">
             <Image
               src={venue.owner?.avatar.url || '/no-photo.svg'}
@@ -81,9 +97,17 @@ export default async function VenuePage({ params }: VenuePageType) {
               </p>
             </div>
           </section>
-          <div className="flex justify-end mt-[20px] mb-[10px]">
-            <EventBooking venueId={venue.id} />
-          </div>
+          <section className="bg-calm/20 flex flex-col gap-[20px] px-[20px] my-[20px] rounded-[10px] pb-[20px]">
+            <div className="mt-[20px] mb-[-20px]">
+              <BookingDateGuests
+                maxGuests={venue.maxGuests}
+                bookings={venue.bookings}
+              />
+            </div>
+            <div className="flex justify-end">
+              <EventBooking venueId={venue.id} />
+            </div>
+          </section>
         </section>
       </div>
     </>

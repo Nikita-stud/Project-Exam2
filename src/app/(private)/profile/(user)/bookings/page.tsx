@@ -38,12 +38,13 @@ export default function BookingPage() {
     if (!user) {
       return;
     }
-
     setCancellingId(bookingId);
+
     try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       await cancelBooking(bookingId);
-      const bookings = await fetchUserBookings(user.name);
-      setBookings(bookings);
+
+      setBookings((prev) => prev.filter((b) => b.id !== bookingId));
     } finally {
       setCancellingId(null);
     }
@@ -52,7 +53,7 @@ export default function BookingPage() {
   return (
     <>
       <BackNav />
-      <HeroSection />
+      <HeroSection bookingsCount={bookings.length} />
       <section className="pt-[20px] md:p-[50px]">
         <h1 className="pl-[20px] pb-[10px] md:hidden">Upcoming Bookings</h1>
         {loading ? (
@@ -79,7 +80,14 @@ export default function BookingPage() {
             <div className="px-[20px] pb-[30px] max-w-[450px] mx-auto md:px-0 md:max-w-none">
               <div className="grid grid-cols-1 gap-[20px] mt-[10px] md:grid-cols-2 md:gap-[50px] lg:grid-cols-3">
                 {bookings.map((booking) => (
-                  <div key={booking.id} className="overflow-hidden">
+                  <div
+                    key={booking.id}
+                    className={`overflow-hidden transition-all duration-2000 ${
+                      cancellingId === booking.id
+                        ? 'opacity-0 scale-50'
+                        : 'opacity-100'
+                    }`}
+                  >
                     <Link
                       href={`/venue/${booking.venue.id}`}
                       className="block relative"
@@ -115,12 +123,20 @@ export default function BookingPage() {
                         {cancellingId === booking.id
                           ? 'Cancelling...'
                           : 'Cancel'}
+                        <i
+                          className="fa-solid fa-xmark ml-[5px] mt-[2px]"
+                          aria-hidden="true"
+                        ></i>
                       </button>
                       <Link
                         href={`/venue/${booking.venue.id}`}
-                        className="flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full bg-calm text-white rounded-[10px] hover:opacity-90"
+                        className="flex items-center justify-center align-top max-w-[166px] h-[43px] font-bold w-full bg-calm text-white rounded-[10px] hover:opacity-90"
                       >
                         Details
+                        <i
+                          className="fa-solid fa-circle-info ml-[5px]"
+                          aria-hidden="true"
+                        ></i>
                       </Link>
                     </div>
                   </div>

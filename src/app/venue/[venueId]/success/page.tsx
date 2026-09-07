@@ -22,44 +22,58 @@ export default async function BookingSuccessPage({
   return (
     <>
       <BackNav />
-      <div className="p-[20px]">
-        <Image
-          src="/success-icon.png"
-          alt="Success Icon"
-          width={80}
-          height={80}
-          className="mb-[20px] m-auto"
-        />
-        <h1 className="mb-[20px]">Your booking has been confirmed</h1>
-        <Image
-          src={venue.media[0]?.url || '/no-photo.svg'}
-          alt={venue.media[0]?.alt || venue.name}
-          width={350}
-          height={260}
-          className="w-full h-[260px] object-cover rounded-[10px] mb-[20px] border-[1px] border-black"
-        />
-        <div>
-          <h2 className="my-[20px]">Successful reservation</h2>
-          <p>
-            Your trip to <span className="font-bold">{venue.name}</span> has
-            been booked
-          </p>
-          <p className="mt-[20px] font-bold">
-            {from}
-            <i className="fa-solid fa-minus align-[-5%]" aria-hidden="true"></i>
-            {to}
-          </p>
-          <p className="mt-[10px]">
-            Guests: <span className="font-bold">{guests}</span>
-          </p>
-        </div>
-        <div className="flex justify-center mb-[10px] md:mb-[40px]">
-          <Link
-            href="/"
-            className="login-cta mt-[20px] bg-primary w-full max-w-[350px] h-[58px] rounded-[10px] text-white flex items-center justify-center hover:opacity-90"
-          >
-            Back to Home
-          </Link>
+      <div className="p-[20px] md:p-[0px]">
+        <div className="md:px-[50px] md:my-[50px] md:grid md:grid-cols-2 md:gap-x-[30px] md:gap-y-[20px] md:items-stretch">
+          <Image
+            src="/success-icon.png"
+            alt="Success Icon"
+            loading="eager"
+            width={80}
+            height={80}
+            className="mb-[20px] m-auto md:col-start-2 md:row-start-1"
+          />
+          <h1 className="mb-[20px] md:col-start-2 md:row-start-2">
+            Your booking has been confirmed
+          </h1>
+          <div className="relative h-[260px] mb-[20px] md:mb-0 md:h-full md:col-start-1 md:row-start-1 md:row-span-4">
+            <Image
+              src={venue.media[0]?.url || '/no-photo.svg'}
+              alt={venue.media[0]?.alt || venue.name}
+              fill
+              sizes="(min-width: 744px) 50vw, 100vw"
+              className="object-cover rounded-[10px] border-[1px] border-black"
+            />
+          </div>
+          <div className="md:col-start-2 md:row-start-3">
+            <h2 className="my-[20px]">Successful reservation</h2>
+            <p>
+              Your trip to <span className="font-bold">{venue.name}</span> has
+              been booked
+            </p>
+            <p className="mt-[20px] font-bold">
+              {from}
+              <i
+                className="fa-solid fa-minus align-[-5%]"
+                aria-hidden="true"
+              ></i>
+              {to}
+            </p>
+            <p className="mt-[10px]">
+              Guests: <span className="font-bold">{guests}</span>
+            </p>
+          </div>
+          <div className="flex justify-center mb-[10px] md:mb-0  md:col-start-2 md:row-start-4 ">
+            <Link
+              href="/"
+              className="login-cta mt-[20px] bg-primary w-full max-w-[350px] h-[58px] rounded-[10px] text-white flex items-center justify-center hover:opacity-90"
+            >
+              Back to Home
+              <i
+                className="fa-regular fa-circle-right ml-[5px]"
+                aria-hidden="true"
+              ></i>
+            </Link>
+          </div>
         </div>
       </div>
     </>

@@ -54,7 +54,7 @@ export default function UserBookings({ name }: { name: string }) {
                   className="border rounded-[10px] overflow-hidden"
                 >
                   <Link
-                    href={`/venue/${booking.id}`}
+                    href={`/venue/${booking.venue.id}`}
                     className="relative w-full block h-[82px] md:h-[225px]"
                   >
                     <Image

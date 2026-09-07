@@ -1,17 +1,18 @@
 'use client';
-import { useEffect, useState } from 'react';
 import AuthStore from '@/store/authStore';
 import VenueStore from '@/store/venueStore';
 import { usePathname } from 'next/navigation';
-import { fetchManagerVenues } from '@/api/venues/fetchManagerVenues';
-import { fetchUserBookings } from '@/api/bookings/fetchUserBookings';
 
-export default function HeroSection() {
+export default function HeroSection({
+  bookingsCount = 0,
+  venuesCount = 0,
+}: {
+  bookingsCount?: number;
+  venuesCount?: number;
+}) {
   const pathname = usePathname();
   const user = AuthStore((store) => store.user);
   const savedCount = VenueStore((store) => store.items.length);
-  const [bookingsCount, setBookingsCount] = useState(0);
-  const [venuesCount, setVenuesCount] = useState(0);
 
   let title = '';
 
@@ -25,43 +26,6 @@ export default function HeroSection() {
   } else if (pathname === '/profile/saved') {
     title = 'Saved Venues';
   }
-
-  useEffect(() => {
-    if (!user) {
-      return;
-    }
-
-    if (user.venueManager) {
-      const getManagerCounts = async () => {
-        try {
-          const venues = await fetchManagerVenues(user.name);
-
-          let count = 0;
-          for (const venue of venues) {
-            count += venue._count?.bookings ?? 0;
-          }
-
-          setBookingsCount(count);
-          setVenuesCount(venues.length);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
-      getManagerCounts();
-    } else {
-      const getUserBookingsCount = async () => {
-        try {
-          const bookings = await fetchUserBookings(user.name);
-          setBookingsCount(bookings.length);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
-      getUserBookingsCount();
-    }
-  }, [user]);
 
   return (
     <section
