@@ -40,9 +40,14 @@ export default function VenuesPage() {
     return venue.name.trim().toLowerCase().includes(searched);
   });
 
+  let bookingsCount = 0;
+  for (const venue of venues) {
+    bookingsCount += venue._count?.bookings ?? 0;
+  }
+
   return (
     <>
-      <HeroSection />
+      <HeroSection bookingsCount={bookingsCount} venuesCount={venues.length} />
       <section className="pt-[175px] md:p-[50px] md:mt-[-10px]">
         <ManagerNav searchValue={search} onSearchChange={setSearch} />
         <h1 className="pl-[20px] pb-[10px] md:hidden">Manage Venues</h1>
@@ -107,7 +112,7 @@ export default function VenuesPage() {
                             <i
                               className="fa-solid fa-star"
                               aria-hidden="true"
-                            ></i>{' '}
+                            ></i>
                             {venue.rating === 0 ? ' None' : venue.rating}
                           </p>
                         </div>
@@ -125,7 +130,7 @@ export default function VenuesPage() {
                         >
                           View
                           <i
-                            className="fa-regular fa-eye ml-[10px]"
+                            className="fa-regular fa-eye ml-[5px]"
                             aria-hidden="true"
                           ></i>
                         </Link>
@@ -138,7 +143,7 @@ export default function VenuesPage() {
                         >
                           Edit
                           <i
-                            className="fa-regular fa-pen-to-square ml-[10px]"
+                            className="fa-regular fa-pen-to-square ml-[8px] mt-[-2px]"
                             aria-hidden="true"
                           ></i>
                         </Link>

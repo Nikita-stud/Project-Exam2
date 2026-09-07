@@ -1,18 +1,36 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import AuthStore from '@/store/authStore';
 import VenueStore from '@/store/venueStore';
+import { fetchUserBookings } from '@/api/bookings/fetchUserBookings';
 import VenueCard from '@/components/venues/VenueCard';
 import BackNav from '@/components/ui/BackNav';
 import HeroSection from '@/components/ui/HeroSection';
 
 export default function SavedVenuesPage() {
+  const user = AuthStore((store) => store.user);
   const items = VenueStore((state) => state.items);
+  const [bookingsCount, setBookingsCount] = useState(0);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    const fetchBookings = async () => {
+      const bookings = await fetchUserBookings(user.name);
+      setBookingsCount(bookings.length);
+    };
+
+    fetchBookings();
+  }, [user]);
 
   return (
     <>
       <BackNav />
-      <HeroSection />
+      <HeroSection bookingsCount={bookingsCount} />
       <section className="pt-[20px] md:p-[50px]">
         <h1 className="pl-[20px] md:hidden">Saved Venues</h1>
         {items.length === 0 ? (
