@@ -8,7 +8,6 @@ import ProfileHeroImages from '@/components/profile/ProfileHeroImages';
 
 export default function ProfilePage() {
   const [isOpen, setIsOpen] = useState(false);
-
   const user = AuthStore((store) => store.user);
 
   if (!user) {

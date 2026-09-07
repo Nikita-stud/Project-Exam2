@@ -53,7 +53,7 @@ export default function BookingDateGuests({
     return null;
   }
   return (
-    <div className="flex flex-col gap-[10px] mb-[20px]  md:flex-row">
+    <div className="flex flex-col gap-[10px] mb-[20px]  md:flex-row ">
       <div
         ref={dateFieldRef}
         className="flex-1 border relative rounded-[10px] min-h-[58px] bg-[#fff] md:flex-none md:w-[200px] lg:w-[332px]"
@@ -70,7 +70,7 @@ export default function BookingDateGuests({
           type="button"
           id="booking-date"
           onClick={() => setCalendarOpen(!calendarOpen)}
-          className="w-full px-[50px] truncate text-left"
+          className="w-full px-[50px] truncate text-left "
         >
           {formData.selected?.from ? (
             `${formData.selected.from.toLocaleDateString()} – ${formData.selected.to?.toLocaleDateString() ?? '...'}`
@@ -88,7 +88,7 @@ export default function BookingDateGuests({
             numberOfMonths={1}
             min={1}
             required
-            className="venue-search-calendar absolute z-50 top-[8px] left-0 max-w-[calc(100vw-2.5rem)] overflow-x-auto p-[10px] bg-white border rounded-[10px] shadow-lg"
+            className="venue-search-calendar absolute z-50 top-[8px] left-0 max-w-[calc(100vw-2.5rem)] overflow-x-auto p-[10px] rounded-[10px] shadow-lg"
           />
         )}
       </div>

@@ -28,7 +28,7 @@ export default function Footer() {
   return (
     <footer className="relative">
       <div className="flex justify-between">
-        <Link href="/">
+        <Link href="/" className="focus:outline-none">
           <Image
             className="h-[50px] w-auto"
             src="/text-logo.png"

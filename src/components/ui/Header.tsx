@@ -53,7 +53,7 @@ export default function Header() {
   return (
     <header>
       <div className="flex justify-between">
-        <Link href="/" className="logo-header">
+        <Link href="/" className="logo-header focus:outline-none">
           <Image
             className="h-[50px] w-auto"
             src="/text-logo.png"
