@@ -61,34 +61,40 @@ export default function EventBooking({ venueId }: { venueId: string }) {
           {errorMessage}
         </p>
       )}
-      {token && !venueManager ? (
-        <button
-          onClick={handleBooking}
-          disabled={isSubmitting}
-          className="bg-primary w-[166px] h-[43px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px] disabled:opacity-50 md:w-[320px] md:h-[58px]"
-        >
-          {isSubmitting ? 'Booking...' : 'Book now'}
-        </button>
-      ) : !token ? (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="bg-primary w-[179px] h-[48px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px] md:w-[320px] md:h-[58px]"
-        >
-          Login
-          <i
-            className="fa-regular fa-circle-right text-xl"
-            aria-hidden="true"
-          ></i>
-        </button>
-      ) : null}
-      {venueManager && (
-        <Link
-          href="/profile/venues"
-          className="bg-primary w-[166px] h-[43px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px] md:w-[320px] md:h-[58px] "
-        >
-          Back to venues
-        </Link>
-      )}
+      <div className="flex justify-center">
+        {token && !venueManager ? (
+          <button
+            onClick={handleBooking}
+            disabled={isSubmitting}
+            className="bg-primary w-[166px] h-[43px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px] disabled:opacity-50 md:w-[320px] md:h-[58px]"
+          >
+            {isSubmitting ? 'Booking...' : 'Book now'}
+          </button>
+        ) : !token ? (
+          <button
+            onClick={() => setIsOpen(true)}
+            className="bg-primary w-[320px] h-[58px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px]"
+          >
+            Login
+            <i
+              className="fa-regular fa-circle-right text-xl"
+              aria-hidden="true"
+            ></i>
+          </button>
+        ) : null}
+        {venueManager && (
+          <Link
+            href="/profile/venues"
+            className="bg-primary w-[320px] h-[58px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px]"
+          >
+            Back to venues
+            <i
+              className="fa-regular fa-circle-right text-xl"
+              aria-hidden="true"
+            ></i>
+          </Link>
+        )}
+      </div>
       {isOpen && <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />}
     </>
   );

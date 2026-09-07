@@ -31,15 +31,24 @@ export default function VenueList() {
     loadVenues();
   }, []);
 
+  const { from, to } = formData.selected ?? {};
+
   const filtered = venues.filter((venue) => {
     const destination = formData.destination.trim().toLowerCase();
     const matchesName = venue.name.trim().toLowerCase().includes(destination);
-    const matchesGuests = venue.maxGuests >= Number(formData.guests);
-    return matchesName && matchesGuests;
+    const matchesGuests = Number(formData.guests) <= venue.maxGuests;
+    const matchesDates =
+      !from ||
+      !to ||
+      !venue.bookings?.some((booking) => {
+        const bookingStart = new Date(booking.dateFrom);
+        const bookingEnd = new Date(booking.dateTo);
+        return from < bookingEnd && to > bookingStart;
+      });
+    return matchesName && matchesGuests && matchesDates;
   });
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
-
   if (currentPage > totalPages && totalPages > 0) {
     setCurrentPage(1);
   }

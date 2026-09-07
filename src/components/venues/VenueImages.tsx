@@ -1,0 +1,70 @@
+'use client';
+import { useState } from 'react';
+import Image from 'next/image';
+import type { Venue } from '@/types';
+import SaveVenueButton from './SaveVenueButton';
+
+export default function VenueImages({
+  venue,
+  images,
+}: {
+  venue: Venue;
+  images: Venue['media'];
+}) {
+  const [position, setPosition] = useState(0);
+  const activeImage = images[position];
+
+  const goBack = () => {
+    if (position === 0) {
+      setPosition(images.length - 1);
+    } else {
+      setPosition(position - 1);
+    }
+  };
+
+  const showNext = () => {
+    if (position === images.length - 1) {
+      setPosition(0);
+    } else {
+      setPosition(position + 1);
+    }
+  };
+
+  return (
+    <div className="relative w-full mb-[20px]">
+      <Image
+        src={activeImage?.url || '/no-photo.svg'}
+        alt={activeImage?.alt || venue.name}
+        width={350}
+        height={260}
+        sizes="100vw"
+        className="w-full h-[260px] object-cover rounded-[10px] lg:h-[463px]"
+      />
+      <SaveVenueButton venue={venue} />
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={goBack}
+            className="absolute flex items-center justify-center w-[50px] h-[50px] bg-calm rounded-full top-1/2 -translate-y-1/2 left-[20px]"
+          >
+            <i
+              className="fa-solid fa-chevron-left text-white"
+              aria-hidden="true"
+            ></i>
+          </button>
+          <button
+            type="button"
+            onClick={showNext}
+            className="absolute flex items-center justify-center w-[50px] h-[50px] bg-calm rounded-full top-1/2 -translate-y-1/2 right-[20px]"
+          >
+            <i
+              className="fa-solid fa-chevron-right text-white"
+              aria-hidden="true"
+            ></i>
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
