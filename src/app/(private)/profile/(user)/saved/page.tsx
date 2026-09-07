@@ -34,7 +34,7 @@ export default function SavedVenuesPage() {
       <section className="pt-[20px] md:p-[50px]">
         <h1 className="pl-[20px] md:hidden">Saved Venues</h1>
         {items.length === 0 ? (
-          <div className="px-[20px]">
+          <div className="px-[20px] my-[20px]">
             <Link
               href={`/`}
               className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] mt-[10px] md:py-[80px]"

@@ -53,10 +53,10 @@ export default function BookingDateGuests({
     return null;
   }
   return (
-    <div className="flex flex-col gap-[10px] mb-[20px]  md:flex-row ">
+    <div className="flex flex-col gap-[10px] mb-[20px]">
       <div
         ref={dateFieldRef}
-        className="flex-1 border relative rounded-[10px] min-h-[58px] bg-[#fff] md:flex-none md:w-[200px] lg:w-[332px]"
+        className="flex-1 border relative rounded-[10px] min-h-[58px] bg-[#fff]"
       >
         <p className="absolute top-[30%] left-[20px]">
           <i className="fa-regular fa-calendar" aria-hidden="true">
@@ -92,7 +92,7 @@ export default function BookingDateGuests({
           />
         )}
       </div>
-      <div className="flex-1 border relative rounded-[10px] min-h-[58px] bg-[#fff] md:flex-none md:w-[300px] lg:w-[352px]">
+      <div className="flex-1 border relative rounded-[10px] min-h-[58px] bg-[#fff]">
         <p className="absolute top-[30%] left-[20px]">
           <i className="fa-regular fa-user" aria-hidden="true">
             <span className="hidden">hidden</span>
