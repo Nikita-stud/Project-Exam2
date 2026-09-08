@@ -4,12 +4,26 @@ import type { Venue } from '../../types/index';
 import Image from 'next/image';
 import Link from 'next/link';
 import SaveVenueButton from './SaveVenueButton';
+import SearchStore from '@/store/searchStore';
 
 export default function VenueCard({ venue }: { venue: Venue }) {
+  const formData = SearchStore((store) => store.formData);
+
+  const query = new URLSearchParams();
+  if (formData.selected?.from && formData.selected?.to) {
+    query.set('from', formData.selected.from.toISOString());
+    query.set('to', formData.selected.to.toISOString());
+  }
+  if (formData.guests) {
+    query.set('guests', formData.guests);
+  }
+  const queryString = query.toString();
+  const href = `/venue/${venue.id}${queryString ? `?${queryString}` : ''}`;
+
   return (
     <div className="card rounded-[10px] overflow-hidden">
       <div className="relative h-full flex flex-col">
-        <Link href={`/venue/${venue.id}`} className="flex flex-col flex-1">
+        <Link href={href} className="flex flex-col flex-1">
           <Image
             src={venue.media[0]?.url || '/no-photo.svg'}
             alt={venue.media[0]?.alt || venue.name || 'No Image'}

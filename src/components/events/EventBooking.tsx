@@ -57,11 +57,11 @@ export default function EventBooking({ venueId }: { venueId: string }) {
   return (
     <>
       {errorMessage && (
-        <p role="alert" className="text-primary font-bold mb-[10px]">
+        <p role="alert" className="text-primary font-bold mb-[10px] text-center">
           {errorMessage}
         </p>
       )}
-      <div className="flex justify-center">
+      <div className="flex justify-center lg:justify-end">
         {token && !venueManager ? (
           <button
             onClick={handleBooking}

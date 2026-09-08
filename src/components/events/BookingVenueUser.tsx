@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
@@ -21,9 +22,21 @@ export default function BookingVenueUser({
   const resetFormData = SearchStore((store) => store.resetFormData);
   const token = AuthStore((store) => store.token);
   const venueManager = AuthStore((store) => store.user?.venueManager);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     resetFormData();
+
+    const from = searchParams.get('from');
+    const to = searchParams.get('to');
+    const guests = searchParams.get('guests');
+
+    if (from && to) {
+      setFormData({ selected: { from: new Date(from), to: new Date(to) } });
+    }
+    if (guests) {
+      setFormData({ guests });
+    }
   }, []);
 
   useEffect(() => {
@@ -49,10 +62,10 @@ export default function BookingVenueUser({
     return null;
   }
   return (
-    <div className="flex flex-col gap-[10px] mb-[20px]">
+    <div className="flex flex-col gap-[10px] mb-[20px] lg:flex-row">
       <div
         ref={dateFieldRef}
-        className="flex-1 border relative rounded-[10px] min-h-[58px] bg-[#fff]"
+        className="flex-1 lg:flex-[7] border relative rounded-[10px] min-h-[58px] bg-[#fff]"
       >
         <p className="absolute top-[30%] left-[20px]">
           <i className="fa-regular fa-calendar" aria-hidden="true">
@@ -97,7 +110,7 @@ export default function BookingVenueUser({
           />
         )}
       </div>
-      <div className="flex-1 border relative rounded-[10px] min-h-[58px] bg-[#fff]">
+      <div className="flex-1 lg:flex-[3] border relative rounded-[10px] min-h-[58px] bg-[#fff]">
         <p className="absolute top-[30%] left-[20px]">
           <i className="fa-regular fa-user" aria-hidden="true">
             <span className="hidden">hidden</span>

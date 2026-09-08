@@ -129,7 +129,7 @@ export default function BookingPage() {
                         ></i>
                       </button>
                       <Link
-                        href={`/venue/${booking.venue.id}`}
+                        href={`/profile/bookings/${booking.id}`}
                         className="flex items-center justify-center align-top max-w-[166px] h-[43px] font-bold w-full bg-calm text-white rounded-[10px] hover:opacity-90"
                       >
                         Details
