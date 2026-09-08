@@ -35,46 +35,53 @@ export default function ProfileLinks({
   ];
 
   const links = (
-    <div className="flex flex-col justify-between gap-[30px] mt-[30px] mb-[10px]">
-      {navLinks.map((link) =>
-        link.label !== 'Logout' ? (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="flex flex-col items-center"
-          >
-            <span className="flex justify-between w-full items-center">
-              <span className="flex w-5 justify-center shrink-0">
-                {link.label === 'My Venues' ? (
-                  <Image src="/auth-logo.png" alt="" width={20} height={20} />
-                ) : (
-                  <i className={`${link.icon} text-[20px]`}></i>
-                )}
-              </span>
-              <span className="profile-links">{link.label}</span>
-              <i
-                className="fa-regular fa-circle-right text-2xl"
-                aria-hidden="true"
-              ></i>
-            </span>
-          </Link>
-        ) : (
-          <button
-            key={link.href}
-            onClick={logout}
-            className="flex flex-col items-center"
-          >
-            <span className="flex justify-between w-full items-center">
-              <i className={`${link.icon} text-[20px] text-[#e03a2f]`}></i>
-              <span className="profile-links ml-[-60px] text-[#e03a2f]">
-                {link.label}
-              </span>
-              <i className="opacity-0"></i>
-            </span>
-          </button>
-        ),
-      )}
-    </div>
+    <nav>
+      <ul className="flex flex-col justify-between gap-[30px] mt-[30px] mb-[10px]">
+        {navLinks.map((link) => (
+          <li key={link.href}>
+            {link.label !== 'Logout' ? (
+              <Link
+                href={link.href}
+                className="flex w-full flex-col items-center"
+              >
+                <span className="flex justify-between w-full items-center">
+                  <span className="flex w-5 justify-center shrink-0">
+                    {link.label === 'My Venues' ? (
+                      <Image
+                        src="/auth-logo.png"
+                        alt=""
+                        width={20}
+                        height={20}
+                      />
+                    ) : (
+                      <i className={`${link.icon} text-[20px]`}></i>
+                    )}
+                  </span>
+                  <span className="profile-links">{link.label}</span>
+                  <i
+                    className="fa-regular fa-circle-right text-2xl"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+              </Link>
+            ) : (
+              <button
+                onClick={logout}
+                className="flex w-full flex-col items-center"
+              >
+                <span className="flex justify-between w-full items-center">
+                  <i className={`${link.icon} text-[20px] text-[#e03a2f]`}></i>
+                  <span className="profile-links ml-[-60px] text-[#e03a2f]">
+                    {link.label}
+                  </span>
+                  <i className="opacity-0"></i>
+                </span>
+              </button>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 
   if (!onClose) {

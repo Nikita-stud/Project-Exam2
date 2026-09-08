@@ -62,9 +62,16 @@
     z-index: 1000;
   }
   header nav {
-    display: flex;
     width: 100%;
     font-size: var(--mobile-text-and-highlight-size);
+  }
+  header nav ul {
+    display: flex;
+    width: 100%;
+  }
+  header nav li {
+    display: flex;
+    flex: 1;
   }
   header nav a,
   header nav button {
@@ -204,11 +211,17 @@
       z-index: 1000;
     }
     header nav {
+      width: auto;
+      font-size: var(--desktop-text-and-highlight-size);
+    }
+    header nav ul {
       display: flex;
       align-items: center;
       width: auto;
       gap: 20px;
-      font-size: var(--desktop-text-and-highlight-size);
+    }
+    header nav li {
+      flex: none;
     }
     header nav a,
     header nav button {
