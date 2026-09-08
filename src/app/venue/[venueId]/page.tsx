@@ -77,7 +77,7 @@ export default async function VenuePage({ params }: VenuePageType) {
               </section>
             </section>
 
-            <section className="bg-calm/20 flex flex-col gap-[20px] px-[20px] my-[20px] rounded-[10px] pb-[20px] lg:w-[405px] lg:mt-auto lg:self-end">
+            <section className="bg-calm/20 flex flex-col gap-[20px] px-[20px] my-[20px] rounded-[10px] pb-[20px] lg:w-full lg:mt-auto">
               <div className="mt-[20px] mb-[-20px]">
                 <BookingVenueUser
                   maxGuests={venue.maxGuests}
