@@ -40,35 +40,41 @@ export default function Footer() {
         <nav className="flex gap-[20px]">
           <div className="flex flex-col gap-[20px]">
             <p className="font-bold underline">Service</p>
-            {(user?.venueManager ? managerServiceLinks : serviceLinks).map(
-              (link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={
-                    pathname === link.href ? 'font-bold' : 'font-normal'
-                  }
-                >
-                  {link.label}
-                </Link>
-              ),
-            )}
+            <ul className="flex flex-col gap-[20px]">
+              {(user?.venueManager ? managerServiceLinks : serviceLinks).map(
+                (link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={
+                        pathname === link.href ? 'font-bold' : 'font-normal'
+                      }
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ),
+              )}
+            </ul>
           </div>
           <div className="flex flex-col gap-[20px]">
             <p className="font-bold underline">Discover</p>
-            {(user?.venueManager ? managerDiscoverLinks : discoverLinks).map(
-              (link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={
-                    pathname === link.href ? 'font-bold' : 'font-normal'
-                  }
-                >
-                  {link.label}
-                </Link>
-              ),
-            )}
+            <ul className="flex flex-col gap-[20px]">
+              {(user?.venueManager ? managerDiscoverLinks : discoverLinks).map(
+                (link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={
+                        pathname === link.href ? 'font-bold' : 'font-normal'
+                      }
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ),
+              )}
+            </ul>
           </div>
         </nav>
       </div>

@@ -63,50 +63,58 @@ export default function Header() {
           />
         </Link>
         <nav>
-          {links.map((link) => {
-            const linkContent = (
-              <>
-                {link.label === 'Venues' ? (
-                  <Image src="/auth-logo.png" alt="" width={18} height={18} />
-                ) : (
-                  <i className={link.icon} aria-hidden="true"></i>
-                )}{' '}
-                <span>{link.label}</span>
-              </>
-            );
+          <ul>
+            {links.map((link) => {
+              const linkContent = (
+                <>
+                  {link.label === 'Venues' ? (
+                    <Image src="/auth-logo.png" alt="" width={18} height={18} />
+                  ) : (
+                    <i className={link.icon} aria-hidden="true"></i>
+                  )}{' '}
+                  <span>{link.label}</span>
+                </>
+              );
 
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={pathname === link.href ? 'font-bold' : 'font-normal'}
-              >
-                {linkContent}
-              </Link>
-            );
-          })}
-          {token ? (
-            <Link
-              href="/profile"
-              className={`flex items-center justify-center gap-1 w-auto h-auto md:w-[179px] md:h-[48px] md:flex-row-reverse md:gap-2 md:px-3 text-black md:border md:rounded-[10px] ${pathname === '/profile' ? 'font-bold' : 'font-normal'}`}
-            >
-              <Image
-                className="h-[20px] w-[20px] rounded-full"
-                src={avatarUrl}
-                alt={avatarAlt}
-                width={20}
-                height={20}
-              />{' '}
-              {user?.name?.slice(0, 6)}
-            </Link>
-          ) : (
-            <button
-              onClick={() => setIsOpen(true)}
-              className="login-cta justify-center"
-            >
-              <i className="fa-regular fa-user" aria-hidden="true"></i> Login
-            </button>
-          )}
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={
+                      pathname === link.href ? 'font-bold' : 'font-normal'
+                    }
+                  >
+                    {linkContent}
+                  </Link>
+                </li>
+              );
+            })}
+            <li>
+              {token ? (
+                <Link
+                  href="/profile"
+                  className={`flex items-center justify-center gap-1 w-auto h-auto md:w-[179px] md:h-[48px] md:flex-row-reverse md:gap-2 md:px-3 text-black md:border md:rounded-[10px] ${pathname === '/profile' ? 'font-bold' : 'font-normal'}`}
+                >
+                  <Image
+                    className="h-[20px] w-[20px] rounded-full"
+                    src={avatarUrl}
+                    alt={avatarAlt}
+                    width={20}
+                    height={20}
+                  />{' '}
+                  {user?.name?.slice(0, 6)}
+                </Link>
+              ) : (
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="login-cta justify-center"
+                >
+                  <i className="fa-regular fa-user" aria-hidden="true"></i>{' '}
+                  Login
+                </button>
+              )}
+            </li>
+          </ul>
         </nav>
         {isOpen && (
           <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
