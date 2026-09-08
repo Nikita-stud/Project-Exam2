@@ -1,6 +1,6 @@
 import VenueList from '@/components/venues/VenueList';
 import MainHeroSection from '@/components/ui/MainHeroSection';
-import VenueSearch from '@/components/venues/VenueSearch';
+import VenuesSearchLandingPage from '@/components/venues/VenuesSearchLandingPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <VenueSearch />
+      <VenuesSearchLandingPage />
       <h1 className="pl-[20px] pt-[10px] md:hidden">Book your stay</h1>
       <MainHeroSection />
       <VenueList />

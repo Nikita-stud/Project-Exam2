@@ -190,6 +190,6 @@ export interface VenueFormData {
 
 export interface SearchState {
   formData: VenueFormData;
-  setFormData: (formData: VenueFormData) => void;
+  setFormData: (info: Partial<VenueFormData>) => void;
   resetFormData: () => void;
 }
