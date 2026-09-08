@@ -7,23 +7,21 @@ import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
 
-export default function VenueSearch() {
+export default function VenuesSearchLandingPage() {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const dateFieldRef = useRef<HTMLDivElement>(null);
 
   const formData = SearchStore((store) => store.formData);
   const setFormData = SearchStore((store) => store.setFormData);
+  const resetFormData = SearchStore((store) => store.resetFormData);
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    setFormData({
-      destination: searchParams.get('destination') ?? '',
-      guests: searchParams.get('guests') ?? '',
-      selected: undefined,
-    });
+    resetFormData();
+    router.replace(pathname, { scroll: false });
   }, []);
 
   useEffect(() => {
@@ -81,7 +79,7 @@ export default function VenueSearch() {
             placeholder="Search..."
             value={formData.destination}
             onChange={(e) => {
-              setFormData({ ...formData, destination: e.target.value });
+              setFormData({ destination: e.target.value });
               syncUrl(e.target.value, formData.guests);
             }}
             className="w-full px-[50px] truncate"
@@ -115,13 +113,22 @@ export default function VenueSearch() {
               <DayPicker
                 mode="range"
                 selected={formData.selected}
-                onSelect={(e) => setFormData({ ...formData, selected: e })}
+                onSelect={(e) => setFormData({ selected: e })}
                 excludeDisabled
                 disabled={{ before: new Date() }}
                 numberOfMonths={1}
                 min={1}
+                showOutsideDays
                 required
-                className="venue-search-calendar absolute z-50 top-[8px] left-0 max-w-[calc(100vw-2.5rem)] overflow-x-auto p-[10px] bg-[#fff] border rounded-[10px] shadow-lg"
+                modifiersClassNames={{
+                  selected: 'booking-selected',
+                  today: 'booking-today',
+                  range_start: 'booking-range-start',
+                  range_middle: 'booking-range-middle',
+                  range_end: 'booking-range-end',
+                  disabled: 'booking-disabled',
+                }}
+                className="venue-search-calendar"
               />
             )}
           </div>
@@ -143,7 +150,7 @@ export default function VenueSearch() {
               placeholder="0"
               value={formData.guests}
               onChange={(e) => {
-                setFormData({ ...formData, guests: e.target.value });
+                setFormData({ guests: e.target.value });
                 syncUrl(formData.destination, e.target.value);
               }}
               className="w-full px-[50px] truncate"

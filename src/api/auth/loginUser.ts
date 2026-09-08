@@ -15,15 +15,16 @@ export default async function loginUser(
       throw new Error(json.errors?.[0]?.message || 'Login failed');
     }
 
-    const token = json.data.accessToken;
+    const { accessToken, name, email, bio, venueManager, avatar, banner } =
+      json.data;
 
-    AuthStore.getState().setAuth(token, {
-      name: json.data.name,
-      email: json.data.email,
-      bio: json.data.bio,
-      venueManager: json.data.venueManager,
-      avatar: json.data.avatar,
-      banner: json.data.banner,
+    AuthStore.getState().setAuth(accessToken, {
+      name,
+      email,
+      bio,
+      venueManager,
+      avatar,
+      banner,
     });
 
     return json;

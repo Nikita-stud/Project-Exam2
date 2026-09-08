@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { SearchState } from '../types';
+import type { SearchState, VenueFormData } from '../types';
 
 const initialFormData = {
   destination: '',
@@ -8,13 +8,10 @@ const initialFormData = {
 };
 
 const SearchStore = create<SearchState>()((set) => ({
-  formData: {
-    destination: '',
-    selected: undefined,
-    guests: '',
-  },
+  formData: initialFormData,
 
-  setFormData: (formData) => set({ formData }),
+  setFormData: (info: Partial<VenueFormData>) =>
+    set((data) => ({ formData: { ...data.formData, ...info } })),
 
   resetFormData: () => set({ formData: initialFormData }),
 }));

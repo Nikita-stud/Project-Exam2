@@ -2,7 +2,7 @@ import Image from 'next/image';
 import fetchVenue from '@/api/venues/fetchVenue';
 import type { VenuePageType } from '@/types';
 import EventBooking from '@/components/events/EventBooking';
-import BookingDateGuests from '@/components/events/BookingDateGuests';
+import BookingVenueUser from '@/components/events/BookingVenueUser';
 import BackNav from '@/components/ui/BackNav';
 import VenueImages from '@/components/venues/VenueImages';
 import { Metadata } from 'next';
@@ -79,7 +79,7 @@ export default async function VenuePage({ params }: VenuePageType) {
 
             <section className="bg-calm/20 flex flex-col gap-[20px] px-[20px] my-[20px] rounded-[10px] pb-[20px] lg:w-[405px] lg:mt-auto lg:self-end">
               <div className="mt-[20px] mb-[-20px]">
-                <BookingDateGuests
+                <BookingVenueUser
                   maxGuests={venue.maxGuests}
                   bookings={venue.bookings}
                 />

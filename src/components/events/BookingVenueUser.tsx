@@ -7,7 +7,7 @@ import SearchStore from '@/store/searchStore';
 import AuthStore from '@/store/authStore';
 import type { VenueBooking } from '@/types';
 
-export default function BookingDateGuests({
+export default function BookingVenueUser({
   maxGuests,
   bookings,
 }: {
@@ -40,14 +40,10 @@ export default function BookingDateGuests({
       document.removeEventListener('pointerdown', handleClickOutside);
   }, [calendarOpen]);
 
-  const ifBooked: { from: Date; to: Date }[] = [];
-
-  for (const booking of bookings ?? []) {
-    ifBooked.push({
-      from: new Date(booking.dateFrom),
-      to: new Date(booking.dateTo),
-    });
-  }
+  const ifBooked = (bookings ?? []).map((selected) => ({
+    from: new Date(selected.dateFrom),
+    to: new Date(selected.dateTo),
+  }));
 
   if (!token || venueManager) {
     return null;
@@ -82,13 +78,22 @@ export default function BookingDateGuests({
           <DayPicker
             mode="range"
             selected={formData.selected}
-            onSelect={(e) => setFormData({ ...formData, selected: e })}
+            onSelect={(e) => setFormData({ selected: e })}
             excludeDisabled
             disabled={[{ before: new Date() }, ...ifBooked]}
             numberOfMonths={1}
             min={1}
+            showOutsideDays
             required
-            className="venue-search-calendar absolute z-50 top-[8px] left-0 max-w-[calc(100vw-2.5rem)] overflow-x-auto p-[10px] rounded-[10px] shadow-lg"
+            modifiersClassNames={{
+              selected: 'booking-selected',
+              today: 'booking-today',
+              range_start: 'booking-range-start',
+              range_middle: 'booking-range-middle',
+              range_end: 'booking-range-end',
+              disabled: 'booking-disabled',
+            }}
+            className="venue-search-calendar"
           />
         )}
       </div>
@@ -109,7 +114,7 @@ export default function BookingDateGuests({
           max={maxGuests}
           placeholder={`Max ${maxGuests} guests`}
           value={formData.guests}
-          onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+          onChange={(e) => setFormData({ guests: e.target.value })}
           className="w-full px-[50px] truncate"
         />
       </div>
