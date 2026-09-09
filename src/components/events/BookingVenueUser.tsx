@@ -15,7 +15,7 @@ export default function BookingVenueUser({
   maxGuests: number;
   bookings?: VenueBooking[];
 }) {
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const dateFieldRef = useRef<HTMLDivElement>(null);
   const formData = SearchStore((store) => store.formData);
   const setFormData = SearchStore((store) => store.setFormData);

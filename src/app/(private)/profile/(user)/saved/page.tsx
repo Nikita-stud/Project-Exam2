@@ -12,7 +12,7 @@ import HeroSection from '@/components/ui/HeroSection';
 export default function SavedVenuesPage() {
   const user = AuthStore((store) => store.user);
   const items = VenueStore((state) => state.items);
-  const [bookingsCount, setBookingsCount] = useState(0);
+  const [bookingsCount, setBookingsCount] = useState<number>(0);
 
   useEffect(() => {
     if (!user) {

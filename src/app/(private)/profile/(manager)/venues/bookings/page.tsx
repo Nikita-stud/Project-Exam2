@@ -9,7 +9,7 @@ import type { Venue } from '@/types';
 import BackNav from '@/components/ui/BackNav';
 import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function BookingsPage() {
   const user = AuthStore((store) => store.user);

@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 
 import AuthModal from '@/components/auth/AuthModal';
 import AuthStore from '@/store/authStore';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 const navLinks = [
   { href: '/', label: 'Search', icon: 'fa-solid fa-magnifying-glass' },
@@ -34,7 +34,7 @@ const managerNavLinks = [
 ];
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const user = AuthStore((store) => store.user);
   const token = AuthStore((store) => store.token);
   const avatarUrl =

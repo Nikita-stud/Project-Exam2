@@ -14,13 +14,13 @@ import { createManagerVenue } from '@/api/venues/createManagerVenue';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
 import SuccessMessage from '@/components/helpers/SuccessMessage';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function CreateVenuePage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [canSubmit, setCanSubmit] = useState(true);
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
   const [brokenImageUrl, setBrokenImageUrl] = useState<string | null>(null);
   const router = useRouter();
 
@@ -469,7 +469,10 @@ export default function CreateVenuePage() {
                   className="cta-secondary-form"
                 >
                   Cancel
-                  <i className="fa-solid fa-xmark ml-[5px]" aria-hidden="true"></i>
+                  <i
+                    className="fa-solid fa-xmark ml-[5px]"
+                    aria-hidden="true"
+                  ></i>
                 </button>
                 <button
                   type="submit"

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function UserBookings({ name }: { name: string }) {
   const [bookings, setBookings] = useState<Booking[]>([]);

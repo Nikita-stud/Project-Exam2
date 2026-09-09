@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SaveVenueButton from './SaveVenueButton';
 import SearchStore from '@/store/searchStore';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function VenueCard({ venue }: { venue: Venue }) {
   const formData = SearchStore((store) => store.formData);

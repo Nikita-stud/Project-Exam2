@@ -17,8 +17,8 @@ export default function EventBooking({
   venueName: string;
   imageUrl: string;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const token = AuthStore((store) => store.token);

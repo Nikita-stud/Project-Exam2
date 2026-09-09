@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
@@ -8,7 +7,7 @@ import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
 
 export default function VenuesSearchLandingPage() {
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const dateFieldRef = useRef<HTMLDivElement>(null);
 
   const formData = SearchStore((store) => store.formData);
@@ -74,6 +73,7 @@ export default function VenuesSearchLandingPage() {
             type="text"
             id="destination"
             name="destination"
+            autoComplete="off"
             minLength={2}
             maxLength={30}
             placeholder="Search..."

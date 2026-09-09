@@ -4,7 +4,7 @@ import type { Venue } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function ManagerVenues({ name }: { name: string }) {
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -32,44 +32,46 @@ export default function ManagerVenues({ name }: { name: string }) {
             <LoadingContainer />
           </>
         ) : null}
-        {!loading && (venues.length === 0 ? (
-          <Link
-            href={`/profile/venues/create`}
-            className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] md:mb-[50px] md:py-[80px]"
-          >
-            <p>You have not created a venue yet.</p>
-            <button className="cta-primary mt-[20px]">
-              Create now <i className="fa-solid fa-plus" aria-hidden="true"></i>
-            </button>
-          </Link>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-[20px] mb-[40px] md:mb-[50px]">
-            {venues.map((venue) => (
-              <div
-                key={venue.id}
-                className="border rounded-[10px] overflow-hidden"
-              >
-                <Link
-                  href={`/venue/${venue.id}`}
-                  className="relative w-full block h-[82px] md:h-[225px]"
+        {!loading &&
+          (venues.length === 0 ? (
+            <Link
+              href={`/profile/venues/create`}
+              className="border p-[50px] flex flex-col items-center justify-center text-center rounded-[10px] bg-[#fff] md:mb-[50px] md:py-[80px]"
+            >
+              <p>You have not created a venue yet.</p>
+              <button className="cta-primary mt-[20px]">
+                Create now{' '}
+                <i className="fa-solid fa-plus" aria-hidden="true"></i>
+              </button>
+            </Link>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[20px] mb-[40px] md:mb-[50px]">
+              {venues.map((venue) => (
+                <div
+                  key={venue.id}
+                  className="border rounded-[10px] overflow-hidden"
                 >
-                  <Image
-                    src={venue.media[0]?.url ?? '/no-photo.svg'}
-                    alt={venue.media[0]?.alt ?? 'Image not found'}
-                    fill
-                    placeholder="blur"
-                    blurDataURL={BLUR_DATA_URL}
-                    className="object-cover"
-                    onError={(e) => {
-                      e.currentTarget.srcset = '/no-photo.svg';
-                      e.currentTarget.src = '/no-photo.svg';
-                    }}
-                  />
-                </Link>
-              </div>
-            ))}
-          </div>
-        ))}
+                  <Link
+                    href={`/venue/${venue.id}`}
+                    className="relative w-full block h-[82px] md:h-[225px]"
+                  >
+                    <Image
+                      src={venue.media[0]?.url ?? '/no-photo.svg'}
+                      alt={venue.media[0]?.alt ?? 'Image not found'}
+                      fill
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
+                      className="object-cover"
+                      onError={(e) => {
+                        e.currentTarget.srcset = '/no-photo.svg';
+                        e.currentTarget.src = '/no-photo.svg';
+                      }}
+                    />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          ))}
       </div>
     </>
   );
