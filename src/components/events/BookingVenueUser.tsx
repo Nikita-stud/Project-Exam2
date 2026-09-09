@@ -1,11 +1,11 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
 import AuthStore from '@/store/authStore';
+import useClickOutside from '@/hooks/useClickOutside';
 import type { VenueBooking } from '@/types';
 
 export default function BookingVenueUser({
@@ -39,19 +39,7 @@ export default function BookingVenueUser({
     }
   }, []);
 
-  useEffect(() => {
-    if (!calendarOpen) return;
-
-    const handleClickOutside = (e: PointerEvent) => {
-      if (!dateFieldRef.current?.contains(e.target as Node)) {
-        setCalendarOpen(false);
-      }
-    };
-
-    document.addEventListener('pointerdown', handleClickOutside);
-    return () =>
-      document.removeEventListener('pointerdown', handleClickOutside);
-  }, [calendarOpen]);
+  useClickOutside(dateFieldRef, calendarOpen, setCalendarOpen);
 
   const ifBooked = (bookings ?? []).map((selected) => ({
     from: new Date(selected.dateFrom),

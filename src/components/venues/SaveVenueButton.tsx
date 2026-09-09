@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import type { Venue } from '../../types/index';
 import VenueStore from '../../store/venueStore';

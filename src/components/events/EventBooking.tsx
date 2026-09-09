@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthStore from '@/store/authStore';
@@ -28,11 +27,11 @@ export default function EventBooking({
 
   const handleBooking = async () => {
     if (!formData.selected?.from || !formData.selected?.to) {
-      setErrorMessage('Please select your dates');
+      setErrorMessage('Select minimum 2 dates');
       return;
     }
     if (!formData.guests) {
-      setErrorMessage('Please enter number of guests');
+      setErrorMessage('Enter number of guests');
       return;
     }
 
@@ -46,7 +45,7 @@ export default function EventBooking({
         venueId,
       });
 
-      const query = new URLSearchParams({
+      const params = new URLSearchParams({
         from: formData.selected.from.toLocaleDateString(),
         to: formData.selected.to.toLocaleDateString(),
         guests: formData.guests,
@@ -54,7 +53,7 @@ export default function EventBooking({
         image: imageUrl,
       }).toString();
 
-      router.push(`/venue/${venueId}/success?${query}`);
+      router.push(`/venue/${venueId}/success?${params}`);
     } catch (error) {
       setErrorMessage(
         error instanceof Error ? error.message : 'Failed to book venue',
@@ -67,7 +66,10 @@ export default function EventBooking({
   return (
     <>
       {errorMessage && (
-        <p role="alert" className="text-primary font-bold mb-[10px] text-center">
+        <p
+          role="alert"
+          className="text-primary font-bold mb-[10px] text-center"
+        >
           {errorMessage}
         </p>
       )}
@@ -81,10 +83,7 @@ export default function EventBooking({
             {isSubmitting ? 'Booking...' : 'Book now'}
           </button>
         ) : !token ? (
-          <button
-            onClick={() => setIsOpen(true)}
-            className="cta-primary-lg"
-          >
+          <button onClick={() => setIsOpen(true)} className="cta-primary-lg">
             Login
             <i
               className="fa-regular fa-circle-right text-xl"
@@ -93,10 +92,7 @@ export default function EventBooking({
           </button>
         ) : null}
         {venueManager && (
-          <Link
-            href="/profile/venues"
-            className="cta-primary-lg"
-          >
+          <Link href="/profile/venues" className="cta-primary-lg">
             Back to venues
             <i
               className="fa-regular fa-circle-right text-xl"

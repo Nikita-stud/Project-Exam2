@@ -64,9 +64,16 @@ export default function VenueList() {
   return (
     <>
       {loading ? (
-        <div className="mt-[20px] md:mt-[50px] ">
-          <LoadingContainer />
-          <LoadingContainer />
+        <div className="flex flex-col mt-[20px] md:mt-[50px] md:flex-row">
+          <div className="w-full md:w-1/3">
+            <LoadingContainer />
+          </div>
+          <div className="w-full md:w-1/3">
+            <LoadingContainer />
+          </div>
+          <div className="w-full md:w-1/3">
+            <LoadingContainer />
+          </div>
         </div>
       ) : null}
       {!loading && (
@@ -97,10 +104,7 @@ export default function VenueList() {
               </Link>
               <h3>We could not find a match</h3>
               <p>Lets clear your filers and start over</p>
-              <button
-                onClick={resetFormData}
-                className="cta-primary-lg"
-              >
+              <button onClick={resetFormData} className="cta-primary-lg">
                 <i className="fa-regular fa-trash-can" aria-hidden="true"></i>
                 Clear filter
               </button>

@@ -5,16 +5,22 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
+import ErrorMessage from '@/components/helpers/ErrorMessage';
 
 export default function UserBookings({ name }: { name: string }) {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const data = await fetchUserBookings(name);
         setBookings(data);
+      } catch (error) {
+        setError(
+          error instanceof Error ? error.message : 'Failed to load bookings',
+        );
       } finally {
         setLoading(false);
       }
@@ -27,12 +33,20 @@ export default function UserBookings({ name }: { name: string }) {
       <h3 className="font-semibold md:mb-[20px]">My Booking</h3>
       <div className="mt-[10px]">
         {loading ? (
-          <>
-            <LoadingContainer />
-            <LoadingContainer />
-          </>
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full md:w-1/2">
+              <LoadingContainer />
+            </div>
+            <div className="w-full md:w-1/2">
+              <LoadingContainer />
+            </div>
+          </div>
         ) : null}
+        {!loading && error && (
+          <ErrorMessage message={error} className="my-[50px] p-[50px]" />
+        )}
         {!loading &&
+          !error &&
           (bookings.length === 0 ? (
             <Link
               href={`/`}
