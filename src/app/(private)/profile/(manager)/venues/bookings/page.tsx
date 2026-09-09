@@ -11,6 +11,7 @@ import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
+import { getBookingsCount } from '@/utils/getBookingsCount';
 
 export default function BookingsPage() {
   const user = AuthStore((store) => store.user);
@@ -37,10 +38,7 @@ export default function BookingsPage() {
     fetchVenues();
   }, [user]);
 
-  let bookingsCount = 0;
-  for (const venue of venues) {
-    bookingsCount += venue._count?.bookings ?? 0;
-  }
+  const bookingsCount = getBookingsCount(venues);
 
   return (
     <>

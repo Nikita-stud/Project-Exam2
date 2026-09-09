@@ -11,6 +11,8 @@ import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
+import ClearFilterMessage from '@/components/helpers/ClearFilterMessage';
+import { getBookingsCount } from '@/utils/getBookingsCount';
 
 export default function VenuesPage() {
   const user = AuthStore((store) => store.user);
@@ -46,10 +48,7 @@ export default function VenuesPage() {
     return venue.name.trim().toLowerCase().includes(searched);
   });
 
-  let bookingsCount = 0;
-  for (const venue of venues) {
-    bookingsCount += venue._count?.bookings ?? 0;
-  }
+  const bookingsCount = getBookingsCount(venues);
 
   return (
     <>
@@ -88,15 +87,7 @@ export default function VenuesPage() {
           ) : (
             <div className="px-[20px] pb-[30px] max-w-[450px] mx-auto md:px-0 md:max-w-none">
               {filteredVenues.length === 0 ? (
-                <div className="flex flex-col items-center justify-center mt-[20px] border bg-[#fff] p-[50px] rounded-[10px]">
-                  <p className="text-calm mt-[10px]">
-                    No venues match your
-                    <span className="font-bold mx-[5px]">
-                      &quot;{search}&quot;
-                    </span>
-                    search.
-                  </p>
-                </div>
+                <ClearFilterMessage onClear={() => setSearch('')} />
               ) : (
                 <div className="grid grid-cols-1 gap-[20px] mt-[10px] md:grid-cols-2 md:gap-[50px] md:mt-[20px] lg:grid-cols-3">
                   {filteredVenues.map((venue) => (

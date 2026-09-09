@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useParams, useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDebounce } from 'use-debounce';
 import Image from 'next/image';
 import BackNav from '@/components/ui/BackNav';
 import {
@@ -17,6 +16,7 @@ import FieldError from '@/components/helpers/FieldError';
 import SuccessMessage from '@/components/helpers/SuccessMessage';
 import ManagerVenuesStore from '@/store/managerVenuesStore';
 import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
+import { fillFormValues } from '@/utils/fillFormValues';
 
 export default function EditVenuePage() {
   const { venueId } = useParams<{ venueId: string }>();
@@ -29,7 +29,6 @@ export default function EditVenuePage() {
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [canSubmit, setCanSubmit] = useState<boolean>(true);
-  const [brokenImageUrl, setBrokenImageUrl] = useState<string | null>(null);
   const router = useRouter();
 
   const {
@@ -50,28 +49,7 @@ export default function EditVenuePage() {
 
   useEffect(() => {
     if (!venue) return;
-    reset({
-      media:
-        venue.media.length > 0
-          ? venue.media.map((item) => ({ url: item.url ?? '', alt: item.alt }))
-          : [{ url: '' }],
-      name: venue.name,
-      description: venue.description,
-      maxGuests: venue.maxGuests,
-      price: venue.price,
-      meta: {
-        wifi: venue.meta.wifi,
-        parking: venue.meta.parking,
-        breakfast: venue.meta.breakfast,
-        pets: venue.meta.pets,
-      },
-      location: {
-        address: venue.location.address,
-        city: venue.location.city,
-        zip: venue.location.zip,
-        country: venue.location.country,
-      },
-    });
+    reset(fillFormValues(venue));
   }, [venue, reset]);
 
   const { fields, append, remove } = useFieldArray({ control, name: 'media' });
@@ -99,8 +77,6 @@ export default function EditVenuePage() {
     'location.country',
     'media',
   ]);
-
-  const [debouncedImageUrl] = useDebounce(firstImageUrl, 500);
 
   const isEmpty =
     !name ||
@@ -183,19 +159,17 @@ export default function EditVenuePage() {
         <div className="md:px-[50px] md:mt-[50px] md:grid md:grid-cols-6 md:gap-x-[30px] md:gap-y-[20px] md:items-stretch">
           <div className="relative h-[200px] mb-[-5px] md:mb-0 md:h-full md:w-full md:col-start-1 md:col-span-3 md:row-start-1">
             <Image
-              src={
-                /^https?:\/\/./.test(debouncedImageUrl ?? '') &&
-                debouncedImageUrl !== brokenImageUrl
-                  ? debouncedImageUrl
-                  : '/no-photo.svg'
-              }
-              alt={'New venue image'}
+              src={firstImageUrl || '/no-photo.svg'}
+              alt={name || 'New venue image'}
               fill
               sizes="(min-width: 744px) 50vw, 100vw"
               loading="eager"
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
-              onError={() => setBrokenImageUrl(debouncedImageUrl)}
+              onError={(e) => {
+                e.currentTarget.srcset = '/no-photo.svg';
+                e.currentTarget.src = '/no-photo.svg';
+              }}
               className="object-cover rounded-[10px]"
             />
           </div>

@@ -13,6 +13,7 @@ import VenueImages from '@/components/venues/VenueImages';
 import OwnerAvatar from '@/components/helpers/OwnerAvatar';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
+import { includedFilter } from '@/utils/includedFilter';
 
 export default function BookingDetailsPage() {
   const { bookingId } = useParams<{ bookingId: string }>();
@@ -128,18 +129,11 @@ export default function BookingDetailsPage() {
                   <div className="flex flex-col gap-[10px]">
                     <p>
                       <strong>Location:</strong> {venue.location.address},
-                      {venue.location.zip}
-                      {venue.location.address}
+                      {venue.location.zip} {venue.location.city}
                     </p>
                     <p>
                       <strong>Included:</strong>
-                      {Object.entries(venue.meta)
-                        .filter(([, included]) => included)
-                        .map(
-                          ([text]) =>
-                            text.charAt(0).toUpperCase() + text.slice(1),
-                        )
-                        .join(', ') || 'None'}
+                      {includedFilter(venue.meta)}
                     </p>
                     <p>
                       <strong>Details:</strong> {venue.description}

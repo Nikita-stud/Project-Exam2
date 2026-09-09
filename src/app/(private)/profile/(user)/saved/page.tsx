@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AuthStore from '@/store/authStore';
@@ -18,12 +17,10 @@ export default function SavedVenuesPage() {
     if (!user) {
       return;
     }
-
     const fetchBookings = async () => {
       const bookings = await fetchUserBookings(user.name);
       setBookingsCount(bookings.length);
     };
-
     fetchBookings();
   }, [user]);
 

@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import SearchStore from '@/store/searchStore';
 import fetchVenues from '@/api/venues/fetchVenues';
@@ -9,6 +7,7 @@ import type { Venue } from '../../types/index';
 import VenueCard from './VenueCard';
 import PaginationControls from '../helpers/PaginationControls';
 import { LoadingContainer } from '../ui/LoadingContainer';
+import ClearFilterMessage from '../helpers/ClearFilterMessage';
 
 export default function VenueList() {
   const formData = SearchStore((store) => store.formData);
@@ -92,23 +91,7 @@ export default function VenueList() {
               />
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-[50px] my-[50px] text-center">
-              <Link href="/">
-                <Image
-                  className="w-auto"
-                  src="/text-logo.png"
-                  alt="Logo"
-                  width={300}
-                  height={200}
-                />
-              </Link>
-              <h3>We could not find a match</h3>
-              <p>Lets clear your filers and start over</p>
-              <button onClick={resetFormData} className="cta-primary-lg">
-                <i className="fa-regular fa-trash-can" aria-hidden="true"></i>
-                Clear filter
-              </button>
-            </div>
+            <ClearFilterMessage onClear={resetFormData} />
           )}
         </section>
       )}
