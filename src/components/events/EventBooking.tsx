@@ -8,7 +8,15 @@ import { createBooking } from '@/api/bookings/createBooking';
 import AuthModal from '../auth/AuthModal';
 import Link from 'next/link';
 
-export default function EventBooking({ venueId }: { venueId: string }) {
+export default function EventBooking({
+  venueId,
+  venueName,
+  imageUrl,
+}: {
+  venueId: string;
+  venueName: string;
+  imageUrl: string;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -42,6 +50,8 @@ export default function EventBooking({ venueId }: { venueId: string }) {
         from: formData.selected.from.toLocaleDateString(),
         to: formData.selected.to.toLocaleDateString(),
         guests: formData.guests,
+        name: venueName,
+        image: imageUrl,
       }).toString();
 
       router.push(`/venue/${venueId}/success?${query}`);

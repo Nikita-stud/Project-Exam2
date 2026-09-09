@@ -14,6 +14,7 @@ import EditProfileData from '@/components/profile/EditProfileData';
 import ProfileHeroImages from '@/components/profile/ProfileHeroImages';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
+import SuccessMessage from '@/components/helpers/SuccessMessage';
 
 export default function EditProfilePage() {
   const user = AuthStore((store) => store.user);
@@ -167,15 +168,11 @@ export default function EditProfilePage() {
             <ErrorMessage message={errorMessage} className="md:col-start-3" />
 
             {isSaved ? (
-              <div className="p-[20px] mb-[20px] mt-[10px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse md:col-start-3 md:mb-[50px]">
-                <p
-                  role="status"
-                  className="text-black font-bold text-center text-xl"
-                >
-                  Profile Updated Successfully!
-                </p>
-                <p className="m-auto  ">Redirecting to Profile Page...</p>
-              </div>
+              <SuccessMessage
+                message="Profile Updated Successfully!"
+                redMessage="Redirecting to Profile Page..."
+                className="mb-[20px] mt-[10px] md:col-start-3 md:mb-[50px]"
+              />
             ) : (
               <button
                 type="submit"

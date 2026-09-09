@@ -8,6 +8,7 @@ import {
 } from '@/schemas/registerFormSchema';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
+import SuccessMessage from '@/components/helpers/SuccessMessage';
 
 export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -56,12 +57,10 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
   return (
     <>
       {isSuccess && (
-        <div className="p-[20px] bg-icons border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse w-full max-w-125 mx-auto">
-          <p role="status" className="text-black font-bold text-center text-xl">
-            Registration Successful!
-          </p>
-          <p className="m-auto">Redirecting to Login...</p>
-        </div>
+        <SuccessMessage
+          message="Registration Successful!"
+          redMessage="Redirecting to Login..."
+        />
       )}
       <ErrorMessage
         message={errorMessage}

@@ -13,6 +13,7 @@ import {
 import { createManagerVenue } from '@/api/venues/createManagerVenue';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
+import SuccessMessage from '@/components/helpers/SuccessMessage';
 
 export default function CreateVenuePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -449,30 +450,31 @@ export default function CreateVenuePage() {
             />
 
             {isSaved ? (
-              <div className="p-[20px] bg-icons  border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse md:col-start-1 md:col-span-6 md:row-start-4 md:mb-[50px]">
-                <p
-                  role="status"
-                  className="text-black font-bold text-center text-xl"
-                >
-                  Venue Created Successfully!
-                </p>
-                <p className="m-auto  ">Redirecting to Venues Page...</p>
-              </div>
+              <SuccessMessage
+                message="Venue Created Successfully!"
+                redMessage="Redirecting to Venues Page..."
+                className="md:col-start-1 md:col-span-6 md:row-start-4 md:mb-[50px]"
+              />
             ) : (
               <div className="flex justify-end gap-[15px] mt-[15px] mb-[10px] md:col-start-1 md:col-span-6 md:row-start-4 md:mb-[50px]">
                 <button
                   type="button"
                   onClick={() => router.push('/profile')}
-                  className="flex-1 h-[58px] border rounded-[10px] font-bold color-calm md:flex-none md:h-[48px] md:w-[179px]"
+                  className="flex-1 h-[58px] border rounded-[10px] font-bold color-calm bg-[#fff] flex items-center justify-center md:flex-none md:h-[48px] md:w-[179px]"
                 >
                   Cancel
+                  <i className="fa-solid fa-xmark ml-[5px]" aria-hidden="true"></i>
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting || hasErrors || isEmpty || !canSubmit}
-                  className="continue-auth-cta flex-1 font-bold disabled:opacity-50 md:flex-none md:h-[48px] md:w-[179px] disabled:cursor-not-allowed"
+                  className="continue-auth-cta flex-1 font-bold flex items-center justify-center disabled:opacity-50 md:flex-none md:h-[48px] md:w-[179px] disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Creating...' : 'Create'}
+                  <i
+                    className="fa-regular fa-floppy-disk text-[20px] ml-[5px]"
+                    aria-hidden="true"
+                  ></i>
                 </button>
               </div>
             )}

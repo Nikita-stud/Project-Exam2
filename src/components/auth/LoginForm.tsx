@@ -7,6 +7,7 @@ import { loginFormSchema, type LoginData } from '@/schemas/loginFormSchema';
 import { LoginFormProps } from '@/types';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
+import SuccessMessage from '@/components/helpers/SuccessMessage';
 
 export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
   const router = useRouter();
@@ -56,13 +57,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
 
   return (
     <>
-      {isSuccess && (
-        <div className="p-[20px] bg-icons border rounded-[10px] flex flex-col gap-2 justify-center align-middle animate-pulse w-full max-w-125 mx-auto">
-          <p role="status" className="text-black font-bold text-center text-xl">
-            Login Successful!
-          </p>
-        </div>
-      )}
+      {isSuccess && <SuccessMessage message="Login Successful!" />}
       <ErrorMessage
         message={errorMessage}
         className="w-full max-w-125 mx-auto"
