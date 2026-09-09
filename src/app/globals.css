@@ -257,22 +257,63 @@
   }
 }
 
-/* Utility classes */
-
-/* CTA utility classes */
-@utility continue-auth-cta {
-  @apply bg-[var(--color-primary)] text-[var(--color-white)] w-full max-w-[380px] h-[58px] rounded-[10px];
+@utility cta-continue-auth {
+  @apply bg-[var(--color-primary)] text-[var(--color-white)] w-full max-w-[380px] h-[58px] rounded-[10px] flex items-center justify-center font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed;
 
   @media (min-width: 744px) {
     @apply w-[320px] max-w-none;
   }
 }
-@utility login-cta {
+@utility cta-login {
   @apply w-auto h-auto gap-1;
 
   @media (min-width: 744px) {
-    @apply bg-[var(--color-primary)] text-[var(--color-white)] rounded-[10px] w-[179px] h-[48px];
+    @apply bg-[var(--color-primary)] text-[var(--color-white)] rounded-[10px] w-[179px] h-[48px] hover:opacity-90;
   }
+}
+@utility cta-primary {
+  @apply bg-[var(--color-primary)] text-[var(--color-white)] rounded-[10px] font-bold flex items-center justify-center gap-2 w-[166px] h-[43px] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed;
+
+  @media (min-width: 744px) {
+    @apply w-[320px] h-[58px];
+  }
+}
+@utility cta-primary-lg {
+  @apply bg-[var(--color-primary)] text-[var(--color-white)] rounded-[10px] font-bold flex items-center justify-center gap-2 w-[320px] h-[58px] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+@utility cta-primary-full {
+  @apply bg-[var(--color-primary)] text-[var(--color-white)] rounded-[10px] flex items-center justify-center w-full max-w-[350px] h-[58px] hover:opacity-90;
+}
+@utility cta-secondary-form {
+  @apply flex-1 h-[58px] border rounded-[10px] font-bold bg-[#fff] flex items-center justify-center transition-colors duration-500 hover:bg-text hover:text-white;
+
+  @media (min-width: 744px) {
+    @apply flex-none h-[48px] w-[179px];
+  }
+}
+@utility cta-add-image {
+  @apply self-end px-[15px] py-[8px] border rounded-[10px] text-sm font-semibold bg-calm text-white hover:opacity-90;
+}
+@utility cta-remove-image {
+  @apply flex items-center gap-[10px] text-primary text-sm font-semibold;
+}
+@utility cta-password-toggle {
+  @apply absolute right-4 top-1/2 -translate-y-1/2 text-calm;
+}
+@utility cta-auth-switch {
+  @apply text-secondary hover:opacity-80 hover:underline;
+}
+@utility cta-pagination {
+  @apply bg-calm hover:opacity-90 text-white rounded-[10px] w-[179px] h-[48px] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed!;
+}
+@utility cta-image-nav {
+  @apply absolute flex items-center justify-center w-[50px] h-[50px] bg-calm rounded-full top-1/2 -translate-y-1/2 hover:opacity-90;
+}
+@utility cta-card-action {
+  @apply flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full border rounded-[10px] bg-[#fff] transition-colors duration-500 hover:bg-text hover:text-white disabled:opacity-50;
+}
+@utility cta-card-action-solid {
+  @apply flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full bg-calm text-white rounded-[10px] hover:opacity-90;
 }
 .rdp-root.venue-search-calendar {
   @apply absolute z-50 top-[55px] left-0 overflow-x-auto p-[10px] bg-[#fff] border rounded-[10px] shadow-lg;

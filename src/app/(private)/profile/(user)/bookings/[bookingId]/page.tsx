@@ -79,7 +79,7 @@ export default function BookingDetailsPage() {
           <ErrorMessage message={errorMessage} />
           <Link
             href="/"
-            className="login-cta bg-primary w-full max-w-[350px] h-[58px] rounded-[10px] text-white flex items-center justify-center hover:opacity-90"
+            className="cta-primary-full"
           >
             Back to venues page
             <i
@@ -170,7 +170,7 @@ export default function BookingDetailsPage() {
                     type="button"
                     onClick={handleCancel}
                     disabled={cancelling}
-                    className="flex items-center bg-[#fff] justify-center max-w-[166px] h-[43px] font-bold w-full border rounded-[10px] hover:opacity-90 disabled:opacity-50"
+                    className="cta-card-action"
                   >
                     {cancelling ? 'Cancelling...' : 'Cancel'}
                     <i

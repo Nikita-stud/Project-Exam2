@@ -51,9 +51,9 @@ export default function AuthModal({ onClose }: PopupProps) {
           <p>
             Copyright {new Date().getFullYear()}
             <i
-              className="fa-solid fa-minus text-[10px]! align-[20%]"
+              className="fa-solid fa-minus text-[10px]! mr-[5px] align-[20%]"
               aria-hidden="true"
-            ></i>{' '}
+            ></i>
             Holidaze
           </p>
         </div>

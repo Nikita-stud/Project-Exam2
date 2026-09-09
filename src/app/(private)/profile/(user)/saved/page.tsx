@@ -41,7 +41,7 @@ export default function SavedVenuesPage() {
             >
               <p>You have not saved any venues yet.</p>
 
-              <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90 md:w-[320px] md:h-[58px]">
+              <button className="cta-primary mt-[20px]">
                 Search now <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </Link>

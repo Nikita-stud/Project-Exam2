@@ -66,7 +66,7 @@ export default function VenuesPage() {
               >
                 <p>There are no venues to manage.</p>
 
-                <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90 md:w-[320px] md:h-[58px]">
+                <button className="cta-primary mt-[20px]">
                   Create now <i className="fa-solid fa-plus"></i>
                 </button>
               </Link>
@@ -76,8 +76,10 @@ export default function VenuesPage() {
               {filteredVenues.length === 0 ? (
                 <div className="flex flex-col items-center justify-center mt-[20px] border bg-[#fff] p-[50px] rounded-[10px]">
                   <p className="text-calm mt-[10px]">
-                    No venues match your{' '}
-                    <span className="font-bold">&quot;{search}&quot;</span>{' '}
+                    No venues match your
+                    <span className="font-bold mx-[5px]">
+                      &quot;{search}&quot;
+                    </span>
                     search.
                   </p>
                 </div>
@@ -126,7 +128,7 @@ export default function VenuesPage() {
                       <div className="flex justify-between gap-[20px] mt-[10px]">
                         <Link
                           href={`/venue/${venue.id}`}
-                          className="flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full border rounded-[10px] hover:opacity-90"
+                          className="cta-card-action"
                         >
                           View
                           <i
@@ -139,7 +141,7 @@ export default function VenuesPage() {
                           onClick={() =>
                             user && setManagerVenue(user.name, venue)
                           }
-                          className="flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full bg-calm text-white rounded-[10px] hover:opacity-90"
+                          className="cta-card-action-solid"
                         >
                           Edit
                           <i

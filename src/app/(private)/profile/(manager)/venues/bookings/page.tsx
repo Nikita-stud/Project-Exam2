@@ -56,7 +56,7 @@ export default function BookingsPage() {
               >
                 <p>There are no bookings yet.</p>
 
-                <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90 md:w-[320px] md:h-[58px]">
+                <button className="cta-primary mt-[20px]">
                   Create Venue <i className="fa-solid fa-plus"></i>
                 </button>
               </Link>
@@ -75,7 +75,6 @@ export default function BookingsPage() {
                           className="w-full h-[174px] border rounded-[10px] p-[20px] bg-[#fff] flex flex-col justify-between gap-[20px]"
                         >
                           <div className="flex justify-between gap-[5px]">
-                            {' '}
                             <div className="flex items-center gap-[5px]">
                               <Image
                                 src={
@@ -99,17 +98,17 @@ export default function BookingsPage() {
                               </p>
                             </div>
                             <p className="text-calm">
-                              Guests:{' '}
-                              <span className="font-bold underline">
+                              Guests:
+                              <span className="font-bold underline ml-[5px]">
                                 {booking.guests}
                               </span>
                             </p>
                           </div>
 
                           <p className="text-calm">
-                            {new Date(booking.dateFrom).toLocaleDateString()}{' '}
+                            {new Date(booking.dateFrom).toLocaleDateString()}
                             <i
-                              className="fa-solid fa-minus"
+                              className="fa-solid fa-minus ml-[5px]"
                               aria-hidden="true"
                             ></i>
                             {new Date(booking.dateTo).toLocaleDateString()}

@@ -99,9 +99,9 @@ export default function VenueList() {
               <p>Lets clear your filers and start over</p>
               <button
                 onClick={resetFormData}
-                className="flex items-center justify-center gap-2 bg-primary w-[320px] h-[58px] text-white rounded-[10px]"
+                className="cta-primary-lg"
               >
-                <i className="fa-regular fa-trash-can" aria-hidden="true"></i>{' '}
+                <i className="fa-regular fa-trash-can" aria-hidden="true"></i>
                 Clear filter
               </button>
             </div>

@@ -25,7 +25,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
     formState: { errors },
   } = useForm<LoginData>({
     resolver: zodResolver(loginFormSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const [email, password] = watch(['email', 'password']);
@@ -69,9 +69,9 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
         >
           <div className="relative flex flex-col gap-2 mt-[5px] w-full max-w-125">
             <label htmlFor="email" className="font-semibold">
-              Email address{' '}
+              Email address
               <i
-                className="fa-solid fa-asterisk text-[10px]! align-super"
+                className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                 aria-hidden="true"
               ></i>
             </label>
@@ -91,7 +91,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
             <label htmlFor="password" className="font-semibold">
               Password
               <i
-                className="fa-solid fa-asterisk text-[10px]! ml-1 align-super"
+                className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                 aria-hidden="true"
               ></i>
             </label>
@@ -112,7 +112,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-calm"
+                className="cta-password-toggle"
               >
                 <i
                   className={`fa-regular ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}
@@ -124,7 +124,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
           <button
             type="submit"
             disabled={isSubmitting || isEmpty || hasErrors || !canSubmit}
-            className="continue-auth-cta mt-[30px] m-auto font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="cta-continue-auth mt-[30px] m-auto"
           >
             Login
           </button>
@@ -137,11 +137,7 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
           <p>or</p>
           <hr className="w-[70px] border-calm" />
         </div>
-        <button
-          type="button"
-          onClick={onSwitch}
-          className="color-secondary hover:opacity-80 hover:underline"
-        >
+        <button type="button" onClick={onSwitch} className="cta-auth-switch">
           Create new account
         </button>
       </div>
