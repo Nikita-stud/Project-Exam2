@@ -78,7 +78,7 @@ export default function VenuesSearchLandingPage() {
             maxLength={30}
             placeholder="Search..."
             value={formData.destination}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ destination: e.target.value });
               syncUrl(e.target.value, formData.guests);
             }}
@@ -149,7 +149,7 @@ export default function VenuesSearchLandingPage() {
               max={10}
               placeholder="0"
               value={formData.guests}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setFormData({ guests: e.target.value });
                 syncUrl(formData.destination, e.target.value);
               }}

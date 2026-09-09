@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 export default function UserBookings({ name }: { name: string }) {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -61,8 +62,11 @@ export default function UserBookings({ name }: { name: string }) {
                       src={booking.venue.media[0]?.url ?? '/no-photo.svg'}
                       alt={booking.venue.media[0]?.alt ?? 'Image not found'}
                       fill
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                       className="object-cover"
                       onError={(e) => {
+                        e.currentTarget.srcset = '/no-photo.svg';
                         e.currentTarget.src = '/no-photo.svg';
                       }}
                     />

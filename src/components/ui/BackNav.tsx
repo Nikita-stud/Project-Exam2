@@ -9,11 +9,14 @@ export default function BackNav() {
   useEffect(() => {
     const handleScroll = () => setIsVisible(window.scrollY > 50);
     handleScroll();
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!isVisible) return null;
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div className="fixed w-full z-1002  bg-white shadow md:hidden">

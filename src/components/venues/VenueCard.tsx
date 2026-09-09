@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SaveVenueButton from './SaveVenueButton';
 import SearchStore from '@/store/searchStore';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 export default function VenueCard({ venue }: { venue: Venue }) {
   const formData = SearchStore((store) => store.formData);
@@ -29,8 +30,11 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             alt={venue.media[0]?.alt || venue.name || 'No Image'}
             width={350}
             height={174}
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
             className="w-full h-[174px] object-cover rounded-[10px] border-[1px] border-black"
             onError={(e) => {
+              e.currentTarget.srcset = '/no-photo.svg';
               e.currentTarget.src = '/no-photo.svg';
             }}
           />

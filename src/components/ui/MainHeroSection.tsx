@@ -25,6 +25,7 @@ export default function MainHeroSection() {
             sizes="101px"
             loading="eager"
             className="object-fill"
+            priority
           />
         </div>
       </div>

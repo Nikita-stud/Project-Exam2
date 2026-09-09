@@ -14,6 +14,7 @@ import { createManagerVenue } from '@/api/venues/createManagerVenue';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
 import SuccessMessage from '@/components/helpers/SuccessMessage';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 export default function CreateVenuePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,6 +134,8 @@ export default function CreateVenuePage() {
               fill
               sizes="(min-width: 744px) 50vw, 100vw"
               loading="eager"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
               onError={() => setBrokenImageUrl(debouncedImageUrl)}
               className="object-cover rounded-[10px]"
             />

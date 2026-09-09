@@ -10,6 +10,7 @@ import type { Booking } from '@/types';
 import BackNav from '@/components/ui/BackNav';
 import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 export default function BookingPage() {
   const user = AuthStore((store) => store.user);
@@ -97,8 +98,11 @@ export default function BookingPage() {
                         alt={booking.venue.media[0]?.alt ?? 'Image not found'}
                         width={350}
                         height={174}
+                        placeholder="blur"
+                        blurDataURL={BLUR_DATA_URL}
                         className="w-full border h-[174px] object-cover rounded-[10px]"
                         onError={(e) => {
+                          e.currentTarget.srcset = '/no-photo.svg';
                           e.currentTarget.src = '/no-photo.svg';
                         }}
                       />
