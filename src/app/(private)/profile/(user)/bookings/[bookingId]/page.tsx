@@ -10,6 +10,7 @@ import { cancelBooking } from '@/api/bookings/cancelBooking';
 import type { Booking } from '@/types';
 import BackNav from '@/components/ui/BackNav';
 import VenueImages from '@/components/venues/VenueImages';
+import OwnerAvatar from '@/components/helpers/OwnerAvatar';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 
@@ -113,14 +114,9 @@ export default function BookingDetailsPage() {
                   </p>
                 </div>
                 <div className="flex my-[20px]">
-                  <Image
-                    src={venue.owner?.avatar.url || '/no-photo.svg'}
-                    alt={
-                      venue.owner?.avatar.alt || venue.owner?.name || 'Owner'
-                    }
-                    width={40}
-                    height={40}
-                    className="w-[40px] h-[40px] rounded-full object-cover"
+                  <OwnerAvatar
+                    image={venue.owner?.avatar.url}
+                    alt={venue.owner?.avatar.alt || 'Profile image'}
                   />
                   <div className="ml-[10px]">
                     <p className="text-calm">Owner</p>

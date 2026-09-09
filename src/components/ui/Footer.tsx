@@ -1,9 +1,7 @@
 'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 import AuthStore from '@/store/authStore';
 
 const serviceLinks = [
@@ -79,10 +77,7 @@ export default function Footer() {
         </nav>
       </div>
       <p className="absolute bottom-[50px]">
-        <i
-          className="fa-regular fa-copyright mr-[5px]"
-          aria-hidden="true"
-        ></i>
+        <i className="fa-regular fa-copyright mr-[5px]" aria-hidden="true"></i>
         {new Date().getFullYear()} Holidaze. All rights reserved.
       </p>
     </footer>

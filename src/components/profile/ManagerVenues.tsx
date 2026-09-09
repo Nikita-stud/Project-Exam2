@@ -4,6 +4,7 @@ import type { Venue } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 export default function ManagerVenues({ name }: { name: string }) {
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -56,8 +57,11 @@ export default function ManagerVenues({ name }: { name: string }) {
                     src={venue.media[0]?.url ?? '/no-photo.svg'}
                     alt={venue.media[0]?.alt ?? 'Image not found'}
                     fill
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
                     className="object-cover"
                     onError={(e) => {
+                      e.currentTarget.srcset = '/no-photo.svg';
                       e.currentTarget.src = '/no-photo.svg';
                     }}
                   />

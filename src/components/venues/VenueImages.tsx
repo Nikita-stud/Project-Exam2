@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import type { Venue } from '@/types';
 import SaveVenueButton from './SaveVenueButton';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 export default function VenueImages({
   venue,
@@ -38,7 +39,13 @@ export default function VenueImages({
         width={350}
         height={260}
         sizes="100vw"
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
         className="w-full h-[260px] object-cover rounded-[10px] lg:h-[463px]"
+        onError={(e) => {
+          e.currentTarget.srcset = '/no-photo.svg';
+          e.currentTarget.src = '/no-photo.svg';
+        }}
       />
       <SaveVenueButton venue={venue} />
       {images.length > 1 && (

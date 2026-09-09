@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 
 import AuthModal from '@/components/auth/AuthModal';
 import AuthStore from '@/store/authStore';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 const navLinks = [
   { href: '/', label: 'Search', icon: 'fa-solid fa-magnifying-glass' },
@@ -101,6 +102,8 @@ export default function Header() {
                     alt={avatarAlt}
                     width={20}
                     height={20}
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
                   />
                   {user?.name?.slice(0, 6)}
                 </Link>

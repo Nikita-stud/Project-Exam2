@@ -127,7 +127,9 @@ export default function BookingVenueUser({
           max={maxGuests}
           placeholder={`Max ${maxGuests} guests`}
           value={formData.guests}
-          onChange={(e) => setFormData({ guests: e.target.value })}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFormData({ guests: e.target.value })
+          }
           className="w-full px-[50px] truncate"
         />
       </div>

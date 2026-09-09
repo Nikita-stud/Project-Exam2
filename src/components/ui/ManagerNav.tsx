@@ -29,7 +29,9 @@ export default function ManagerNav({
             placeholder="Search your venues..."
             className="w-full px-[50px] truncate"
             value={searchValue}
-            onChange={(e) => onSearchChange(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onSearchChange(e.target.value)
+            }
           />
         </div>
 

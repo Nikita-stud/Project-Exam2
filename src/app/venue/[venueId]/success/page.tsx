@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { BookingSuccessPageType } from '@/types';
 import BackNav from '@/components/ui/BackNav';
+import SuccessVenueImage from '@/components/helpers/SuccessVenueImage';
 
 export const metadata: Metadata = {
   title: 'Success Page || Holidaze',
@@ -32,13 +33,7 @@ export default async function BookingSuccessPage({
             Your booking has been confirmed
           </h1>
           <div className="relative h-[260px] mb-[20px] md:mb-0 md:h-full md:col-start-1 md:row-start-1 md:row-span-4">
-            <Image
-              src={image || '/no-photo.svg'}
-              alt="Venue image"
-              fill
-              sizes="(min-width: 744px) 50vw, 100vw"
-              className="object-cover rounded-[10px] border-[1px] border-black"
-            />
+            <SuccessVenueImage image={image} />
           </div>
           <div className="md:col-start-2 md:row-start-3">
             <h2 className="my-[20px]">Successful reservation</h2>

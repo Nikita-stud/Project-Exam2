@@ -9,6 +9,7 @@ import type { Venue } from '@/types';
 import BackNav from '@/components/ui/BackNav';
 import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
+import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
 
 export default function BookingsPage() {
   const user = AuthStore((store) => store.user);
@@ -86,8 +87,11 @@ export default function BookingsPage() {
                                 }
                                 width={25}
                                 height={25}
+                                placeholder="blur"
+                                blurDataURL={BLUR_DATA_URL}
                                 className="h-[25px] w-[25px] rounded-full mr-[0px]"
                                 onError={(e) => {
+                                  e.currentTarget.srcset = '/no-photo.svg';
                                   e.currentTarget.src = '/no-photo.svg';
                                 }}
                               />
