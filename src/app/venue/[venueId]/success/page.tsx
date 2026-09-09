@@ -61,7 +61,7 @@ export default async function BookingSuccessPage({
           <div className="flex justify-center mb-[10px] md:mb-0  md:col-start-2 md:row-start-4 ">
             <Link
               href="/"
-              className="login-cta mt-[20px] bg-primary w-full max-w-[350px] h-[58px] rounded-[10px] text-white flex items-center justify-center hover:opacity-90"
+              className="cta-primary-full mt-[20px]"
             >
               Back to Home
               <i

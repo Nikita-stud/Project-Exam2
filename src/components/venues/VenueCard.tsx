@@ -40,7 +40,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
                 {venue.name || 'No name'}
               </h2>
               <p>
-                <i className="fa-solid fa-star" aria-hidden="true"></i>{' '}
+                <i className="fa-solid fa-star mr-[5px]" aria-hidden="true"></i>
                 {venue.rating === 0 ? ' None' : venue.rating}
               </p>
             </div>
@@ -48,8 +48,8 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             <p className="grey">Max guests: {venue.maxGuests}</p>
 
             <p className="font-bold flex justify-between mt-auto">
-              Price per night:{' '}
-              <span className="underline">{venue.price} NOK</span>
+              Price per night:
+              <span className="underline ml-[5px]">{venue.price} NOK</span>
             </p>
           </div>
         </Link>

@@ -10,7 +10,10 @@ export default function ErrorMessage({
     <div
       className={`p-[20px] bg-primary/10 border border-primary rounded-[10px] flex flex-col gap-2 justify-center align-middle ${className}`}
     >
-      <p role="alert" className="text-primary font-bold text-center text-xl">
+      <p
+        role="alert"
+        className="text-primary font-bold text-center text-xl wrap-break-word"
+      >
         {message}
       </p>
     </div>

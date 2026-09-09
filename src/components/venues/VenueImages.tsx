@@ -46,7 +46,7 @@ export default function VenueImages({
           <button
             type="button"
             onClick={goBack}
-            className="absolute flex items-center justify-center w-[50px] h-[50px] bg-calm rounded-full top-1/2 -translate-y-1/2 left-[20px]"
+            className="cta-image-nav left-[20px]"
           >
             <i
               className="fa-solid fa-chevron-left text-white"
@@ -56,7 +56,7 @@ export default function VenueImages({
           <button
             type="button"
             onClick={showNext}
-            className="absolute flex items-center justify-center w-[50px] h-[50px] bg-calm rounded-full top-1/2 -translate-y-1/2 right-[20px]"
+            className="cta-image-nav right-[20px]"
           >
             <i
               className="fa-solid fa-chevron-right text-white"

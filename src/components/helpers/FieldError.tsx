@@ -11,7 +11,7 @@ export default function FieldError({
   const className =
     variant === 'textarea'
       ? 'text-primary flex justify-end mt-[-8px] text-sm mb-[-20px]'
-      : 'text-primary absolute top-full end-0 text-sm mb-0';
+      : 'text-primary absolute top-full end-0 w-full text-right text-sm mb-0';
   return (
     <p id={id} role="alert" className={className}>
       {message}

@@ -89,14 +89,14 @@ export default function EditProfilePage() {
                   {user.name.length > 9
                     ? `${user.name.slice(0, 9)}...`
                     : user.name}
-                </h1>{' '}
+                </h1>
                 <p className="text-[#455a61]">{user.email}</p>
               </div>
             </div>
             <div className="mt-[8px] absolute right-[20px] md:right-[50px] flex items-center gap-[10px]">
               <h2 className="md:mr-[15px]">
                 {user.venueManager ? 'MANAGER' : 'USER'}
-              </h2>{' '}
+              </h2>
             </div>
           </section>
         </section>
@@ -177,7 +177,7 @@ export default function EditProfilePage() {
               <button
                 type="submit"
                 disabled={isSubmitting || isEmpty || hasErrors || !canSubmit}
-                className="continue-auth-cta flex items-center justify-center gap-[10px] m-auto mt-[15px] mb-[10px] font-bold disabled:opacity-50 disabled:cursor-not-allowed md:col-start-3 md:mx-0 md:justify-self-end md:mt-[10px] md:mb-[50px]"
+                className="cta-continue-auth gap-[10px] m-auto mt-[15px] mb-[10px] md:col-start-3 md:mx-0 md:justify-self-end md:mt-[10px] md:mb-[50px]"
               >
                 {isSubmitting ? 'Saving...' : 'Save'}
                 <i

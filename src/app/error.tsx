@@ -25,7 +25,7 @@ export default function Error({
       />
       <h1 className="text-dark mt-[20px]">Something went wrong!</h1>
       <button
-        className="login-cta mt-[20px] flex h-[43px] w-[166px] items-center justify-center rounded-[10px] bg-primary font-semibold text-white transition-colors hover:opacity-90 md:h-[58px] md:w-[320px] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        className="cta-primary mt-[20px] transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         onClick={() => reset()}
       >
         Try again

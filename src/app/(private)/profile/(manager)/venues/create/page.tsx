@@ -155,10 +155,10 @@ export default function CreateVenuePage() {
                       htmlFor={`image-${index}`}
                       className="font-semibold text-text"
                     >
-                      Image {index + 1}{' '}
+                      Image {index + 1}
                       {index === 0 && (
                         <i
-                          className="fa-solid fa-asterisk text-[10px]! align-super"
+                          className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                           aria-hidden="true"
                         ></i>
                       )}
@@ -168,7 +168,7 @@ export default function CreateVenuePage() {
                         type="button"
                         onClick={() => remove(index)}
                         aria-label={`Remove image ${index + 1}`}
-                        className="flex items-center gap-[10px] text-primary text-sm font-semibold"
+                        className="cta-remove-image"
                       >
                         <i className="fa-solid fa-xmark" aria-hidden="true"></i>
                         Remove
@@ -194,7 +194,7 @@ export default function CreateVenuePage() {
                 <button
                   type="button"
                   onClick={() => append({ url: '', alt: '' })}
-                  className="self-end px-[15px] py-[8px] border rounded-[10px] text-sm font-semibold bg-calm text-white"
+                  className="cta-add-image"
                 >
                   + Add more images?
                 </button>
@@ -207,9 +207,9 @@ export default function CreateVenuePage() {
                   Venue Details
                 </h3>
                 <label htmlFor="name" className="font-semibold text-text">
-                  Venue Name{' '}
+                  Venue Name
                   <i
-                    className="fa-solid fa-asterisk text-[10px]! align-super"
+                    className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                     aria-hidden="true"
                   ></i>
                 </label>
@@ -231,9 +231,9 @@ export default function CreateVenuePage() {
                     htmlFor="maxGuests"
                     className="font-semibold text-text"
                   >
-                    Max Guests{' '}
+                    Max Guests
                     <i
-                      className="fa-solid fa-asterisk text-[10px]! align-super"
+                      className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                       aria-hidden="true"
                     ></i>
                   </label>
@@ -254,9 +254,9 @@ export default function CreateVenuePage() {
                 </div>
                 <div className="relative flex flex-col gap-2 flex-1">
                   <label htmlFor="price" className="font-semibold text-text">
-                    Price per night{' '}
+                    Price per night
                     <i
-                      className="fa-solid fa-asterisk text-[10px]! align-super"
+                      className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                       aria-hidden="true"
                     ></i>
                   </label>
@@ -282,9 +282,9 @@ export default function CreateVenuePage() {
                   htmlFor="description"
                   className="font-semibold text-text"
                 >
-                  Description{' '}
+                  Description
                   <i
-                    className="fa-solid fa-asterisk text-[10px]! align-super"
+                    className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                     aria-hidden="true"
                   ></i>
                 </label>
@@ -350,9 +350,9 @@ export default function CreateVenuePage() {
                 <h3 className="font-semibold color-calm mb-[10px]">Location</h3>
 
                 <label htmlFor="address" className="font-semibold text-text">
-                  Address{' '}
+                  Address
                   <i
-                    className="fa-solid fa-asterisk text-[10px]! align-super"
+                    className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                     aria-hidden="true"
                   ></i>
                 </label>
@@ -373,10 +373,13 @@ export default function CreateVenuePage() {
 
               <div className="flex gap-[15px]">
                 <div className="relative flex flex-col gap-2 flex-1">
-                  <label htmlFor="zip" className="font-semibold text-text">
-                    Post code{' '}
+                  <label
+                    htmlFor="zip"
+                    className="font-semibold text-text md:whitespace-nowrap lg:whitespace-normal"
+                  >
+                    Post code
                     <i
-                      className="fa-solid fa-asterisk text-[10px]! align-super"
+                      className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                       aria-hidden="true"
                     ></i>
                   </label>
@@ -397,9 +400,9 @@ export default function CreateVenuePage() {
                 </div>
                 <div className="relative flex flex-col gap-2 flex-1">
                   <label htmlFor="city" className="font-semibold text-text">
-                    City{' '}
+                    City
                     <i
-                      className="fa-solid fa-asterisk text-[10px]! align-super"
+                      className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                       aria-hidden="true"
                     ></i>
                   </label>
@@ -422,9 +425,9 @@ export default function CreateVenuePage() {
 
               <div className="relative flex flex-col gap-2 w-full">
                 <label htmlFor="country" className="font-semibold text-text">
-                  Country{' '}
+                  Country
                   <i
-                    className="fa-solid fa-asterisk text-[10px]! align-super"
+                    className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                     aria-hidden="true"
                   ></i>
                 </label>
@@ -460,7 +463,7 @@ export default function CreateVenuePage() {
                 <button
                   type="button"
                   onClick={() => router.push('/profile')}
-                  className="flex-1 h-[58px] border rounded-[10px] font-bold color-calm bg-[#fff] flex items-center justify-center md:flex-none md:h-[48px] md:w-[179px]"
+                  className="cta-secondary-form"
                 >
                   Cancel
                   <i className="fa-solid fa-xmark ml-[5px]" aria-hidden="true"></i>
@@ -468,7 +471,7 @@ export default function CreateVenuePage() {
                 <button
                   type="submit"
                   disabled={isSubmitting || hasErrors || isEmpty || !canSubmit}
-                  className="continue-auth-cta flex-1 font-bold flex items-center justify-center disabled:opacity-50 md:flex-none md:h-[48px] md:w-[179px] disabled:cursor-not-allowed"
+                  className="cta-continue-auth flex-1 md:flex-none md:h-[48px] md:w-[179px]"
                 >
                   {isSubmitting ? 'Creating...' : 'Create'}
                   <i

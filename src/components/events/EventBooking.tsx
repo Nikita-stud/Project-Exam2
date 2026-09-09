@@ -76,14 +76,14 @@ export default function EventBooking({
           <button
             onClick={handleBooking}
             disabled={isSubmitting}
-            className="bg-primary w-[166px] h-[43px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px] disabled:opacity-50 md:w-[320px] md:h-[58px]"
+            className="cta-primary"
           >
             {isSubmitting ? 'Booking...' : 'Book now'}
           </button>
         ) : !token ? (
           <button
             onClick={() => setIsOpen(true)}
-            className="bg-primary w-[320px] h-[58px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px]"
+            className="cta-primary-lg"
           >
             Login
             <i
@@ -95,7 +95,7 @@ export default function EventBooking({
         {venueManager && (
           <Link
             href="/profile/venues"
-            className="bg-primary w-[320px] h-[58px] font-bold rounded-[10px] text-white flex items-center justify-center gap-[8px]"
+            className="cta-primary-lg"
           >
             Back to venues
             <i

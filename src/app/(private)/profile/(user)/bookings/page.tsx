@@ -71,7 +71,7 @@ export default function BookingPage() {
               >
                 <p>You have not bookings yet.</p>
 
-                <button className="login-cta bg-primary w-[166px] h-[43px] rounded-[10px] text-white flex items-center justify-center mt-[20px] hover:opacity-90 md:w-[320px] md:h-[58px]">
+                <button className="cta-primary mt-[20px]">
                   Search now <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
               </Link>
@@ -108,7 +108,11 @@ export default function BookingPage() {
                       </p>
                       <p className="font-bold flex justify-between">
                         <span>
-                          {new Date(booking.dateFrom).toLocaleDateString()} -{' '}
+                          {new Date(booking.dateFrom).toLocaleDateString()}
+                          <i
+                            className="fa-solid fa-minus align-[-5%] mx-[5px]"
+                            aria-hidden="true"
+                          ></i>
                           {new Date(booking.dateTo).toLocaleDateString()}
                         </span>
                       </p>
@@ -118,7 +122,7 @@ export default function BookingPage() {
                         type="button"
                         onClick={() => handleCancel(booking.id)}
                         disabled={cancellingId === booking.id}
-                        className="flex items-center justify-center max-w-[166px] h-[43px] font-bold w-full border rounded-[10px] hover:opacity-90 disabled:opacity-50"
+                        className="cta-card-action"
                       >
                         {cancellingId === booking.id
                           ? 'Cancelling...'
@@ -130,7 +134,7 @@ export default function BookingPage() {
                       </button>
                       <Link
                         href={`/profile/bookings/${booking.id}`}
-                        className="flex items-center justify-center align-top max-w-[166px] h-[43px] font-bold w-full bg-calm text-white rounded-[10px] hover:opacity-90"
+                        className="cta-card-action-solid"
                       >
                         Details
                         <i

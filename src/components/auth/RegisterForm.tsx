@@ -73,9 +73,9 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         >
           <div className="relative flex flex-col gap-2 w-full max-w-125 md:max-w-none md:col-start-1 md:row-start-1">
             <label htmlFor="name" className="font-semibold">
-              Name{' '}
+              Name
               <i
-                className="fa-solid fa-asterisk text-[10px]! align-super"
+                className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                 aria-hidden="true"
               ></i>
             </label>
@@ -93,9 +93,9 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
 
           <div className="relative flex flex-col gap-2 mt-[5px] w-full max-w-125 md:mt-0 md:max-w-none md:col-start-2 md:row-start-1">
             <label htmlFor="email" className="font-semibold">
-              Email address{' '}
+              Email address
               <i
-                className="fa-solid fa-asterisk text-[10px]! align-super"
+                className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                 aria-hidden="true"
               ></i>
             </label>
@@ -115,7 +115,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
             <label htmlFor="password" className="font-semibold">
               Password
               <i
-                className="fa-solid fa-asterisk text-[10px]! ml-1 align-super"
+                className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                 aria-hidden="true"
               ></i>
             </label>
@@ -136,7 +136,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-calm"
+                className="cta-password-toggle"
               >
                 <i
                   className={`fa-regular ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}
@@ -147,9 +147,9 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
 
           <div className="flex flex-col gap-2 w-full max-w-125 mt-[5px] md:mt-0 md:max-w-none md:col-start-1 md:row-start-2 ">
             <p className="font-semibold text-calm md:text-base">
-              Role{' '}
+              Role
               <i
-                className="fa-solid fa-asterisk text-[10px]! align-super"
+                className="fa-solid fa-asterisk text-[10px]! ml-[5px] align-super"
                 aria-hidden="true"
               ></i>
             </p>
@@ -179,7 +179,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
           <button
             type="submit"
             disabled={isSubmitting || isEmpty || hasErrors || !canSubmit}
-            className="continue-auth-cta mt-[30px] m-auto font-bold md:col-span-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="cta-continue-auth mt-[30px] m-auto md:col-span-2"
           >
             Register
           </button>
@@ -195,7 +195,7 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         <button
           type="button"
           onClick={onSwitch}
-          className="color-secondary hover:opacity-80 hover:underline"
+          className="cta-auth-switch"
         >
           Log in instead
         </button>

@@ -71,7 +71,7 @@ export default function Header() {
                     <Image src="/auth-logo.png" alt="" width={18} height={18} />
                   ) : (
                     <i className={link.icon} aria-hidden="true"></i>
-                  )}{' '}
+                  )}
                   <span>{link.label}</span>
                 </>
               );
@@ -101,15 +101,15 @@ export default function Header() {
                     alt={avatarAlt}
                     width={20}
                     height={20}
-                  />{' '}
+                  />
                   {user?.name?.slice(0, 6)}
                 </Link>
               ) : (
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="login-cta justify-center"
+                  className="cta-login justify-center"
                 >
-                  <i className="fa-regular fa-user" aria-hidden="true"></i>{' '}
+                  <i className="fa-regular fa-user" aria-hidden="true"></i>
                   Login
                 </button>
               )}
