@@ -1,14 +1,14 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
+import useClickOutside from '@/hooks/useClickOutside';
 
 export default function VenuesSearchLandingPage() {
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const dateFieldRef = useRef<HTMLDivElement>(null);
 
   const formData = SearchStore((store) => store.formData);
@@ -17,45 +17,37 @@ export default function VenuesSearchLandingPage() {
 
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     resetFormData();
     router.replace(pathname, { scroll: false });
   }, []);
 
-  useEffect(() => {
-    if (!calendarOpen) return;
+  useClickOutside(dateFieldRef, calendarOpen, setCalendarOpen);
 
-    const handleClickOutside = (e: PointerEvent) => {
-      if (!dateFieldRef.current?.contains(e.target as Node)) {
-        setCalendarOpen(false);
-      }
-    };
+  const syncUrl = useDebouncedCallback(() => {
+    const { destination, selected, guests } = SearchStore.getState().formData;
 
-    document.addEventListener('pointerdown', handleClickOutside);
-    return () =>
-      document.removeEventListener('pointerdown', handleClickOutside);
-  }, [calendarOpen]);
-
-  const syncUrl = useDebouncedCallback((destination, guests) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams();
     if (destination) {
       params.set('destination', destination);
-    } else {
-      params.delete('destination');
+    }
+    if (selected?.from && selected?.to) {
+      params.set('from', selected.from.toISOString());
+      params.set('to', selected.to.toISOString());
     }
     if (guests) {
       params.set('guests', guests);
-    } else {
-      params.delete('guests');
     }
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+
+    const queryString = params.toString();
+    router.replace(`${pathname}${queryString ? `?${queryString}` : ''}`, {
+      scroll: false,
+    });
   }, 300);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    syncUrl.flush();
   };
 
   return (
@@ -74,13 +66,14 @@ export default function VenuesSearchLandingPage() {
             type="text"
             id="destination"
             name="destination"
+            autoComplete="off"
             minLength={2}
             maxLength={30}
             placeholder="Search..."
             value={formData.destination}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ destination: e.target.value });
-              syncUrl(e.target.value, formData.guests);
+              syncUrl();
             }}
             className="w-full px-[50px] truncate"
           />
@@ -113,7 +106,10 @@ export default function VenuesSearchLandingPage() {
               <DayPicker
                 mode="range"
                 selected={formData.selected}
-                onSelect={(e) => setFormData({ selected: e })}
+                onSelect={(e) => {
+                  setFormData({ selected: e });
+                  syncUrl();
+                }}
                 excludeDisabled
                 disabled={{ before: new Date() }}
                 numberOfMonths={1}
@@ -151,7 +147,7 @@ export default function VenuesSearchLandingPage() {
               value={formData.guests}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setFormData({ guests: e.target.value });
-                syncUrl(formData.destination, e.target.value);
+                syncUrl();
               }}
               className="w-full px-[50px] truncate"
             />

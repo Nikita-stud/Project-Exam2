@@ -13,7 +13,7 @@ export default function ProtectedLayout({
   const user = AuthStore((store) => store.user);
 
   const router = useRouter();
-  const [zustandLoad, setZustandLoad] = useState(() =>
+  const [zustandLoad, setZustandLoad] = useState<boolean>(() =>
     AuthStore.persist.hasHydrated(),
   );
 

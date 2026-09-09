@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import type { Venue } from '@/types';
 import SaveVenueButton from './SaveVenueButton';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function VenueImages({
   venue,
@@ -12,7 +12,7 @@ export default function VenueImages({
   venue: Venue;
   images: Venue['media'];
 }) {
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState<number>(0);
   const activeImage = images[position];
 
   const goBack = () => {

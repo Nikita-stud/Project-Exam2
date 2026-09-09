@@ -1,22 +1,24 @@
 'use client';
-
 import type { Venue } from '../../types/index';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import SaveVenueButton from './SaveVenueButton';
-import SearchStore from '@/store/searchStore';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function VenueCard({ venue }: { venue: Venue }) {
-  const formData = SearchStore((store) => store.formData);
+  const searchParams = useSearchParams();
 
   const query = new URLSearchParams();
-  if (formData.selected?.from && formData.selected?.to) {
-    query.set('from', formData.selected.from.toISOString());
-    query.set('to', formData.selected.to.toISOString());
+  const from = searchParams.get('from');
+  const to = searchParams.get('to');
+  const guests = searchParams.get('guests');
+  if (from && to) {
+    query.set('from', from);
+    query.set('to', to);
   }
-  if (formData.guests) {
-    query.set('guests', formData.guests);
+  if (guests) {
+    query.set('guests', guests);
   }
   const queryString = query.toString();
   const href = `/venue/${venue.id}${queryString ? `?${queryString}` : ''}`;

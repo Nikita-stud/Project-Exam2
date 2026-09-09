@@ -21,7 +21,7 @@ export default function BookingDetailsPage() {
   const [booking, setBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [cancelling, setCancelling] = useState(false);
+  const [cancelling, setCancelling] = useState<boolean>(false);
 
   useEffect(() => {
     if (!user) {

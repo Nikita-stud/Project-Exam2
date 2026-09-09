@@ -16,7 +16,7 @@ import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
 import SuccessMessage from '@/components/helpers/SuccessMessage';
 import ManagerVenuesStore from '@/store/managerVenuesStore';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function EditVenuePage() {
   const { venueId } = useParams<{ venueId: string }>();
@@ -24,11 +24,11 @@ export default function EditVenuePage() {
   const venue = venues?.find((item) => item.id === venueId) ?? null;
   const setVenues = ManagerVenuesStore((store) => store.setVenues);
   const managerUser = ManagerVenuesStore((store) => store.user);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [canSubmit, setCanSubmit] = useState(true);
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
   const [brokenImageUrl, setBrokenImageUrl] = useState<string | null>(null);
   const router = useRouter();
 
@@ -529,7 +529,10 @@ export default function EditVenuePage() {
                   className="cta-secondary-form"
                 >
                   {isDeleting ? 'Deleting...' : 'Delete'}
-                  <i className="fa-solid fa-xmark ml-[5px]" aria-hidden="true"></i>
+                  <i
+                    className="fa-solid fa-xmark ml-[5px]"
+                    aria-hidden="true"
+                  ></i>
                 </button>
                 <button
                   type="submit"

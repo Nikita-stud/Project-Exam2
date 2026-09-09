@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import type { Venue } from '../../types/index';
 import VenueStore from '../../store/venueStore';
@@ -12,7 +11,7 @@ export default function SaveVenueButton({ venue }: { venue: Venue }) {
   const removeVenue = VenueStore((state) => state.removeVenue);
   const token = AuthStore((store) => store.token);
   const venueManager = AuthStore((store) => store.user?.venueManager);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   if (venueManager) {
     return null;

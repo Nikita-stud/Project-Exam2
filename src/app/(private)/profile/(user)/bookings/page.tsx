@@ -10,13 +10,15 @@ import type { Booking } from '@/types';
 import BackNav from '@/components/ui/BackNav';
 import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
+import ErrorMessage from '@/components/helpers/ErrorMessage';
 
 export default function BookingPage() {
   const user = AuthStore((store) => store.user);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) {
@@ -27,6 +29,10 @@ export default function BookingPage() {
       try {
         const bookings = await fetchUserBookings(user.name);
         setBookings(bookings);
+      } catch (error) {
+        setError(
+          error instanceof Error ? error.message : 'Failed to load bookings',
+        );
       } finally {
         setLoading(false);
       }
@@ -58,12 +64,20 @@ export default function BookingPage() {
       <section className="pt-[20px] md:p-[50px]">
         <h1 className="pl-[20px] pb-[10px] md:hidden">Upcoming Bookings</h1>
         {loading ? (
-          <>
-            <LoadingContainer />
-            <LoadingContainer />
-          </>
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full md:w-1/2">
+              <LoadingContainer />
+            </div>
+            <div className="w-full md:w-1/2">
+              <LoadingContainer />
+            </div>
+          </div>
         ) : null}
+        {!loading && error && (
+          <ErrorMessage message={error} className="my-[50px] p-[50px]" />
+        )}
         {!loading &&
+          !error &&
           (bookings.length === 0 ? (
             <div className="px-[20px]">
               <Link

@@ -9,12 +9,14 @@ import type { Venue } from '@/types';
 import BackNav from '@/components/ui/BackNav';
 import HeroSection from '@/components/ui/HeroSection';
 import { LoadingContainer } from '@/components/ui/LoadingContainer';
-import { BLUR_DATA_URL } from '@/components/helpers/blurDataUrl';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
+import ErrorMessage from '@/components/helpers/ErrorMessage';
 
 export default function BookingsPage() {
   const user = AuthStore((store) => store.user);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) {
@@ -24,6 +26,10 @@ export default function BookingsPage() {
       try {
         const venues = await fetchManagerVenues(user.name);
         setVenues(venues);
+      } catch (error) {
+        setError(
+          error instanceof Error ? error.message : 'Failed to load bookings',
+        );
       } finally {
         setLoading(false);
       }
@@ -43,12 +49,20 @@ export default function BookingsPage() {
       <section className="pt-[20px] md:p-[50px]">
         <h1 className="pl-[20px] pb-[10px] md:hidden">View Bookings</h1>
         {loading ? (
-          <>
-            <LoadingContainer />
-            <LoadingContainer />
-          </>
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full md:w-1/2">
+              <LoadingContainer />
+            </div>
+            <div className="w-full md:w-1/2">
+              <LoadingContainer />
+            </div>
+          </div>
         ) : null}
+        {!loading && error && (
+          <ErrorMessage message={error} className="my-[50px] p-[50px]" />
+        )}
         {!loading &&
+          !error &&
           (!venues.some((v) => (v.bookings ?? []).length > 0) ? (
             <div className="px-[20px]">
               <Link

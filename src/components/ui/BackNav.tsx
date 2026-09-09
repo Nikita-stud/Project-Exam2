@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 export default function BackNav() {
   const router = useRouter();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => setIsVisible(window.scrollY > 50);

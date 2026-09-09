@@ -18,10 +18,10 @@ import SuccessMessage from '@/components/helpers/SuccessMessage';
 
 export default function EditProfilePage() {
   const user = AuthStore((store) => store.user);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [canSubmit, setCanSubmit] = useState(true);
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
   const router = useRouter();
 
   const {

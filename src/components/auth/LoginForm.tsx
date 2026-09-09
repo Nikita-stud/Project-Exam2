@@ -12,11 +12,11 @@ import SuccessMessage from '@/components/helpers/SuccessMessage';
 export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [canSubmit, setCanSubmit] = useState(true);
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
 
   const {
     register,
