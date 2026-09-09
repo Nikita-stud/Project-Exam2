@@ -21,7 +21,6 @@ export default function CreateVenuePage() {
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [canSubmit, setCanSubmit] = useState<boolean>(true);
-  const [brokenImageUrl, setBrokenImageUrl] = useState<string | null>(null);
   const router = useRouter();
 
   const {
@@ -124,19 +123,17 @@ export default function CreateVenuePage() {
         <div className="md:px-[50px] md:mt-[50px] md:grid md:grid-cols-6 md:gap-x-[30px] md:gap-y-[20px] md:items-stretch">
           <div className="relative h-[200px] mb-[-5px] md:mb-0 md:h-full md:w-full md:col-start-1 md:col-span-3 md:row-start-1">
             <Image
-              src={
-                /^https?:\/\/./.test(debouncedImageUrl ?? '') &&
-                debouncedImageUrl !== brokenImageUrl
-                  ? debouncedImageUrl
-                  : '/no-photo.svg'
-              }
+              src={debouncedImageUrl || '/no-photo.svg'}
               alt={'New venue image'}
               fill
               sizes="(min-width: 744px) 50vw, 100vw"
               loading="eager"
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
-              onError={() => setBrokenImageUrl(debouncedImageUrl)}
+              onError={(e) => {
+                e.currentTarget.srcset = '/no-photo.svg';
+                e.currentTarget.src = '/no-photo.svg';
+              }}
               className="object-cover rounded-[10px]"
             />
           </div>

@@ -5,6 +5,7 @@ import BookingVenueUser from '@/components/events/BookingVenueUser';
 import BackNav from '@/components/ui/BackNav';
 import VenueImages from '@/components/venues/VenueImages';
 import OwnerAvatar from '@/components/helpers/OwnerAvatar';
+import { includedFilter } from '@/utils/includedFilter';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -54,18 +55,11 @@ export default async function VenuePage({ params }: VenuePageType) {
                 <div className="flex flex-col gap-[10px]">
                   <p>
                     <strong>Location:</strong> {venue.location.address},
-                    {venue.location.zip}
-                    {venue.location.address}
+                    {venue.location.zip} {venue.location.city}
                   </p>
                   <p>
                     <strong>Included:</strong>
-                    {Object.entries(venue.meta)
-                      .filter(([, included]) => included)
-                      .map(
-                        ([text]) =>
-                          text.charAt(0).toUpperCase() + text.slice(1),
-                      )
-                      .join(', ') || 'None'}
+                    {includedFilter(venue.meta)}
                   </p>
                   <p>
                     <strong>Details:</strong> {venue.description}
