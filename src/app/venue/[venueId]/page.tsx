@@ -84,7 +84,11 @@ export default async function VenuePage({ params }: VenuePageType) {
                   bookings={venue.bookings}
                 />
               </div>
-              <EventBooking venueId={venue.id} />
+              <EventBooking
+                venueId={venue.id}
+                venueName={venue.name}
+                imageUrl={venue.media[0]?.url || '/no-photo.svg'}
+              />
             </section>
           </div>
         </div>

@@ -95,7 +95,13 @@ export interface VenuePageType {
 
 export interface BookingSuccessPageType {
   params: Promise<{ venueId: string }>;
-  searchParams: Promise<{ from?: string; to?: string; guests?: string }>;
+  searchParams: Promise<{
+    from?: string;
+    to?: string;
+    guests?: string;
+    name?: string;
+    image?: string;
+  }>;
 }
 
 interface Media {
