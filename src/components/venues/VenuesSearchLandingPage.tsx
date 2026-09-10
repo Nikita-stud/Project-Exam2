@@ -1,7 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import { useDebouncedCallback } from 'use-debounce';
+import { useRef, useState } from 'react';
 import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
@@ -13,38 +11,8 @@ export default function VenuesSearchLandingPage() {
 
   const formData = SearchStore((store) => store.formData);
   const setFormData = SearchStore((store) => store.setFormData);
-  const resetFormData = SearchStore((store) => store.resetFormData);
-
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    resetFormData();
-    router.replace(pathname, { scroll: false });
-  }, []);
 
   useClickOutside(dateFieldRef, calendarOpen, setCalendarOpen);
-
-  const syncUrl = useDebouncedCallback(() => {
-    const { destination, selected, guests } = SearchStore.getState().formData;
-
-    const params = new URLSearchParams();
-    if (destination) {
-      params.set('destination', destination);
-    }
-    if (selected?.from && selected?.to) {
-      params.set('from', selected.from.toISOString());
-      params.set('to', selected.to.toISOString());
-    }
-    if (guests) {
-      params.set('guests', guests);
-    }
-
-    const queryString = params.toString();
-    router.replace(`${pathname}${queryString ? `?${queryString}` : ''}`, {
-      scroll: false,
-    });
-  }, 300);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,7 +41,6 @@ export default function VenuesSearchLandingPage() {
             value={formData.destination}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ destination: e.target.value });
-              syncUrl();
             }}
             className="w-full px-[50px] truncate"
           />
@@ -109,7 +76,6 @@ export default function VenuesSearchLandingPage() {
                 selected={formData.selected}
                 onSelect={(e) => {
                   setFormData({ selected: e });
-                  syncUrl();
                 }}
                 excludeDisabled
                 disabled={{ before: new Date() }}
@@ -148,7 +114,6 @@ export default function VenuesSearchLandingPage() {
               value={formData.guests}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setFormData({ guests: e.target.value });
-                syncUrl();
               }}
               className="w-full px-[50px] truncate"
             />
