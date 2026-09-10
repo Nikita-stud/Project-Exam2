@@ -10,14 +10,14 @@ export default function MainHeroSection() {
         loading="eager"
         sizes="100vw"
         priority
-        className="brightness-40 object-cover object-center"
+        className="brightness-0 object-cover object-center"
       ></Image>
       <div className="absolute text-white bottom-[30%] left-[50px] max-w-[600px]">
         <div>
-          <h1 className="font-bold shadow-1xl">
+          <h1 className="font-bold shadow-1xl text-white">
             Book your next stay today with HOLIDAZE
           </h1>
-          <h2 className="flex justify-end font-bold shadow-1xl">
+          <h2 className="flex justify-end font-bold shadow-1xl text-white">
             Choose the best one
           </h2>
         </div>
