@@ -11,11 +11,18 @@ export default function VenuesSearchLandingPage() {
 
   const formData = SearchStore((store) => store.formData);
   const setFormData = SearchStore((store) => store.setFormData);
+  const resetFormData = SearchStore((store) => store.resetFormData);
 
   useClickOutside(dateFieldRef, calendarOpen, setCalendarOpen);
 
+  const hasSearchValue =
+    formData.destination || formData.selected?.from || formData.guests;
+
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (hasSearchValue) {
+      resetFormData();
+    }
   };
 
   return (
@@ -109,7 +116,6 @@ export default function VenuesSearchLandingPage() {
               id="guests"
               name="guests"
               min={1}
-              max={10}
               placeholder="0"
               value={formData.guests}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,12 +128,12 @@ export default function VenuesSearchLandingPage() {
               className="hidden md:block absolute right-[5px] top-1/2 -translate-y-1/2 w-[166px] h-[43px] bg-calm text-white rounded-[10px] hover:opacity-90 disabled:opacity-70"
             >
               <i
-                className="fa-solid fa-magnifying-glass pr-[8px]"
+                className={`${hasSearchValue ? 'fa-solid fa-xmark' : 'fa-solid fa-magnifying-glass'} pr-[8px]`}
                 aria-hidden="true"
               >
                 <span className="hidden">hidden</span>
               </i>
-              Search
+              {hasSearchValue ? 'Clear' : 'Search'}
             </button>
           </div>
         </div>
@@ -136,12 +142,12 @@ export default function VenuesSearchLandingPage() {
           className="mt-[10px] w-full h-[48px] bg-calm text-white rounded-[10px] md:hidden hover:opacity-90 disabled:opacity-70"
         >
           <i
-            className="fa-solid fa-magnifying-glass pr-[8px]"
+            className={`${hasSearchValue ? 'fa-solid fa-xmark' : 'fa-solid fa-magnifying-glass'} pr-[8px]`}
             aria-hidden="true"
           >
             <span className="hidden">hidden</span>
           </i>
-          Search
+          {hasSearchValue ? 'Clear' : 'Search'}
         </button>
       </form>
     </div>
