@@ -4,7 +4,6 @@ import { useSearchParams } from 'next/navigation';
 import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
-import AuthStore from '@/store/authStore';
 import useClickOutside from '@/hooks/useClickOutside';
 import type { VenueBooking } from '@/types';
 
@@ -20,8 +19,6 @@ export default function BookingVenueUser({
   const formData = SearchStore((store) => store.formData);
   const setFormData = SearchStore((store) => store.setFormData);
   const resetFormData = SearchStore((store) => store.resetFormData);
-  const token = AuthStore((store) => store.token);
-  const venueManager = AuthStore((store) => store.user?.venueManager);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -46,9 +43,6 @@ export default function BookingVenueUser({
     to: new Date(selected.dateTo),
   }));
 
-  if (!token || venueManager) {
-    return null;
-  }
   return (
     <div className="flex flex-col gap-[10px] mb-[20px] lg:flex-row">
       <div
