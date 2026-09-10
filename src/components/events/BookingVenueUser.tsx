@@ -94,7 +94,7 @@ export default function BookingVenueUser({
               range_end: 'booking-range-end',
               disabled: 'booking-disabled',
             }}
-            className="venue-search-calendar"
+            className="venue-search-calendar booking-calendar"
           />
         )}
       </div>

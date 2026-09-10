@@ -34,7 +34,7 @@ export default function SaveVenueButton({ venue }: { venue: Venue }) {
         }}
         className="absolute flex items-center  justify-center w-[50px] h-[50px] bg-calm  rounded-full top-[20px] right-[20px]"
       >
-        <span className="hidden">
+        <span className="sr-only">
           {isSaved ? 'Remove from saved' : 'Save venue'}
         </span>
         <i

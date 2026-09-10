@@ -60,7 +60,7 @@ export default function Header() {
             height={40}
           />
         </Link>
-        <nav>
+        <nav aria-label="Main">
           <ul>
             {links.map((link) => {
               const linkContent = (

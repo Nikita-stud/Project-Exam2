@@ -35,7 +35,7 @@ export default function Footer() {
             height={40}
           />
         </Link>
-        <nav className="flex gap-[20px]">
+        <nav aria-label="Footer" className="flex gap-[20px]">
           <div className="flex flex-col gap-[20px]">
             <p className="font-bold underline">Service</p>
             <ul className="flex flex-col gap-[20px]">
