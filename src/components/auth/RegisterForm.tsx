@@ -138,8 +138,12 @@ export default function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
                 onClick={() => setShowPassword(!showPassword)}
                 className="cta-password-toggle"
               >
+                <span className="hidden">
+                  {showPassword ? 'Hide password' : 'Show password'}
+                </span>
                 <i
                   className={`fa-regular ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}
+                  aria-hidden="true"
                 ></i>
               </button>
             </div>
