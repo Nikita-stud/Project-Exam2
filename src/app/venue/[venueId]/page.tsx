@@ -29,7 +29,7 @@ export default async function VenuePage({ params }: VenuePageType) {
           </div>
 
           <div className="mt-[20px] lg:mt-0 lg:flex lg:flex-col lg:flex-1">
-            <section>
+            <div>
               <div className="flex items-baseline justify-between mb-[10px]">
                 <h1>{venue.name || 'No name'}</h1>
                 <p>
@@ -66,7 +66,7 @@ export default async function VenuePage({ params }: VenuePageType) {
                   </p>
                 </div>
               </section>
-            </section>
+            </div>
 
             <section className="bg-calm/20 flex flex-col gap-[20px] px-[20px] my-[20px] rounded-[10px] pb-[20px] lg:w-full lg:mt-auto">
               <div className="mt-[20px] mb-[-20px]">

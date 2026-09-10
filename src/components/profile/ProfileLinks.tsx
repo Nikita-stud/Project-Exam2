@@ -35,7 +35,7 @@ export default function ProfileLinks({
   ];
 
   const links = (
-    <nav>
+    <nav aria-label="User menu">
       <ul className="flex flex-col justify-between gap-[30px] mt-[30px] mb-[10px]">
         {navLinks.map((link) => (
           <li key={link.href}>

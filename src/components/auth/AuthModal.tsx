@@ -19,7 +19,7 @@ export default function AuthModal({ onClose }: PopupProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <p className="flex cursor-pointer justify-end" onClick={onClose}>
-          <span className="hidden">Close</span>
+          <span className="sr-only">Close</span>
           <i className="fa-solid fa-xmark text-[35px]!" aria-hidden="true"></i>
         </p>
         <div className="flex flex-col items-center gap-4 mb-[20px]">

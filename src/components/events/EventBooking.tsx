@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthStore from '@/store/authStore';
 import SearchStore from '@/store/searchStore';
@@ -19,19 +19,27 @@ export default function EventBooking({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
 
   const token = AuthStore((store) => store.token);
   const venueManager = AuthStore((store) => store.user?.venueManager);
   const formData = SearchStore((store) => store.formData);
   const router = useRouter();
 
+  useEffect(() => {
+    setErrorMessage(null);
+    setCanSubmit(true);
+  }, [formData.selected, formData.guests]);
+
   const handleBooking = async () => {
     if (!formData.selected?.from || !formData.selected?.to) {
       setErrorMessage('Select minimum 2 dates');
+      setCanSubmit(false);
       return;
     }
     if (!formData.guests) {
       setErrorMessage('Enter number of guests');
+      setCanSubmit(false);
       return;
     }
 
@@ -58,6 +66,7 @@ export default function EventBooking({
       setErrorMessage(
         error instanceof Error ? error.message : 'Failed to book venue',
       );
+      setCanSubmit(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -68,7 +77,7 @@ export default function EventBooking({
       {errorMessage && (
         <p
           role="alert"
-          className="text-primary font-bold mb-[10px] text-center"
+          className="text-primary font-bold  my-[-10px] text-center lg:text-right"
         >
           {errorMessage}
         </p>
@@ -77,7 +86,7 @@ export default function EventBooking({
         {token && !venueManager ? (
           <button
             onClick={handleBooking}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !canSubmit}
             className="cta-primary"
           >
             {isSubmitting ? 'Booking...' : 'Book now'}

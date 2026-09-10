@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function MainHeroSection() {
   return (
@@ -7,19 +8,26 @@ export default function MainHeroSection() {
         src={`/hero-photo.jpg`}
         alt="Page landing image of a hotel room, "
         fill
+        loading="eager"
         sizes="100vw"
         priority
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
         className="brightness-40 object-cover object-center"
       ></Image>
-      <div className="absolute text-white bottom-[30%] left-[50px] max-w-[560px]">
+      <div className="absolute text-white bottom-[30%] left-[50px] max-w-[600px]">
         <div>
-          <h1 className="">Book your next stay today with HOLIDAZE</h1>
-          <h2 className="flex justify-end">Choose the best one</h2>
+          <h1 className="font-bold shadow-1xl text-white">
+            Book your next stay today with HOLIDAZE
+          </h1>
+          <h2 className="flex justify-end font-bold shadow-1xl text-white">
+            Choose the best one
+          </h2>
         </div>
         <div className="absolute top-[-62px] w-[101px] h-[217px]">
           <Image
             src={`/hero-square.png`}
-            alt="Decorative teal frame accent"
+            alt=""
             fill
             sizes="101px"
             loading="eager"
