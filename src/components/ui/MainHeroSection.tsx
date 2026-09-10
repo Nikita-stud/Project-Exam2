@@ -9,7 +9,7 @@ export default function MainHeroSection() {
         fill
         sizes="100vw"
         priority
-        className="brightness-40 object-cover object-center"
+        className="brightness-30 object-cover object-center"
       ></Image>
       <div className="absolute text-white bottom-[30%] left-[50px] max-w-[560px]">
         <div>

@@ -1,10 +1,8 @@
 'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-
 import AuthModal from '@/components/auth/AuthModal';
 import AuthStore from '@/store/authStore';
 import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
@@ -18,7 +16,6 @@ const navLinks = [
     icon: 'fa-regular fa-calendar',
   },
 ];
-
 const managerNavLinks = [
   {
     href: '/profile/venues/create',
@@ -58,7 +55,7 @@ export default function Header() {
           <Image
             className="h-[50px] w-auto"
             src="/text-logo.png"
-            alt="Logo"
+            alt="Logo icon"
             width={160}
             height={40}
           />
@@ -110,7 +107,7 @@ export default function Header() {
               ) : (
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="cta-login justify-center"
+                  className="cta-login font-bold justify-center"
                 >
                   <i className="fa-regular fa-user" aria-hidden="true"></i>
                   Login
