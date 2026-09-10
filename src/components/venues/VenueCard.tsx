@@ -2,20 +2,17 @@
 import type { Venue } from '../../types/index';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import SearchStore from '@/store/searchStore';
 import SaveVenueButton from './SaveVenueButton';
 import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function VenueCard({ venue }: { venue: Venue }) {
-  const searchParams = useSearchParams();
+  const { selected, guests } = SearchStore((store) => store.formData);
 
   const query = new URLSearchParams();
-  const from = searchParams.get('from');
-  const to = searchParams.get('to');
-  const guests = searchParams.get('guests');
-  if (from && to) {
-    query.set('from', from);
-    query.set('to', to);
+  if (selected?.from && selected?.to) {
+    query.set('from', selected.from.toISOString());
+    query.set('to', selected.to.toISOString());
   }
   if (guests) {
     query.set('guests', guests);
