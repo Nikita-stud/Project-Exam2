@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 
 export default function MainHeroSection() {
   return (
@@ -10,7 +11,9 @@ export default function MainHeroSection() {
         loading="eager"
         sizes="100vw"
         priority
-        className="brightness-0 object-cover object-center"
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
+        className="brightness-40 object-cover object-center"
       ></Image>
       <div className="absolute text-white bottom-[30%] left-[50px] max-w-[600px]">
         <div>
@@ -24,7 +27,7 @@ export default function MainHeroSection() {
         <div className="absolute top-[-62px] w-[101px] h-[217px]">
           <Image
             src={`/hero-square.png`}
-            alt="Decorative teal frame accent"
+            alt=""
             fill
             sizes="101px"
             loading="eager"
