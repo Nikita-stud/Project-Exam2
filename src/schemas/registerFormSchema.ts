@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const STRING_REGEX = /^[A-Za-z_]+$/;
+const NAME_REGEX = /^[A-Za-z0-9_]+$/;
 
 export const registerFormSchema = z.object({
   name: z
@@ -8,8 +8,8 @@ export const registerFormSchema = z.object({
     .trim()
     .min(1, { message: 'Name is required' })
     .max(50, { message: 'Name can be max 50 characters' })
-    .regex(STRING_REGEX, {
-      message: 'Only use letters and underscore',
+    .regex(NAME_REGEX, {
+      message: 'Name can only use a-Z, 0-9, and _',
     }),
   email: z
     .string()
@@ -18,7 +18,7 @@ export const registerFormSchema = z.object({
     .max(100, { message: 'Email max 100 characters' })
     .email('Invalid email format')
     .endsWith('@stud.noroff.no', {
-      message: 'Must be stud.noroff.no address',
+      message: '@stud.noroff.no only',
     }),
   password: z
     .string()

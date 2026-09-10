@@ -26,6 +26,7 @@ export default function ManagerNav({
             type="text"
             id="venueSearch"
             name="venueSearch"
+            autoComplete="off"
             placeholder="Search your venues..."
             className="w-full px-[50px] truncate"
             value={searchValue}

@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDebounce } from 'use-debounce';
-import Image from 'next/image';
 import BackNav from '@/components/ui/BackNav';
 import {
   createVenueFormSchema,
@@ -14,7 +12,7 @@ import { createManagerVenue } from '@/api/venues/createManagerVenue';
 import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
 import SuccessMessage from '@/components/helpers/SuccessMessage';
-import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
+import VenueImagePreview from '@/components/venues/VenueImagePreview';
 
 export default function CreateVenuePage() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -63,8 +61,6 @@ export default function CreateVenuePage() {
     'location.country',
     'media',
   ]);
-
-  const [debouncedImageUrl] = useDebounce(firstImageUrl, 500);
 
   const isEmpty =
     !name ||
@@ -121,22 +117,7 @@ export default function CreateVenuePage() {
       <h1 className="pl-[20px] pt-[20px] md:hidden">Create Venue</h1>
       <div className="p-[20px] md:p-0">
         <div className="md:px-[50px] md:mt-[50px] md:grid md:grid-cols-6 md:gap-x-[30px] md:gap-y-[20px] md:items-stretch">
-          <div className="relative h-[200px] mb-[-5px] md:mb-0 md:h-full md:w-full md:col-start-1 md:col-span-3 md:row-start-1">
-            <Image
-              src={debouncedImageUrl || '/no-photo.svg'}
-              alt={'New venue image'}
-              fill
-              sizes="(min-width: 744px) 50vw, 100vw"
-              loading="eager"
-              placeholder="blur"
-              blurDataURL={BLUR_DATA_URL}
-              onError={(e) => {
-                e.currentTarget.srcset = '/no-photo.svg';
-                e.currentTarget.src = '/no-photo.svg';
-              }}
-              className="object-cover rounded-[10px]"
-            />
-          </div>
+          <VenueImagePreview src={firstImageUrl} alt="New venue image" />
 
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -187,6 +168,7 @@ export default function CreateVenuePage() {
                   <FieldError
                     id={`image-${index}-error`}
                     message={errors.media?.[index]?.url?.message}
+                    className="md:static lg:absolute"
                   />
                 </div>
               ))}
@@ -396,6 +378,7 @@ export default function CreateVenuePage() {
                   <FieldError
                     id="zip-error"
                     message={errors.location?.zip?.message}
+                    className="md:static lg:absolute"
                   />
                 </div>
                 <div className="relative flex flex-col gap-2 flex-1">
@@ -419,6 +402,7 @@ export default function CreateVenuePage() {
                   <FieldError
                     id="city-error"
                     message={errors.location?.city?.message}
+                    className="md:static lg:absolute"
                   />
                 </div>
               </div>

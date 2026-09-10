@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useParams, useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
 import BackNav from '@/components/ui/BackNav';
 import {
   createVenueFormSchema,
@@ -15,14 +14,16 @@ import ErrorMessage from '@/components/helpers/ErrorMessage';
 import FieldError from '@/components/helpers/FieldError';
 import SuccessMessage from '@/components/helpers/SuccessMessage';
 import ManagerVenuesStore from '@/store/managerVenuesStore';
-import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
+import VenueImagePreview from '@/components/venues/VenueImagePreview';
 import { fillFormValues } from '@/utils/fillFormValues';
 
 export default function EditVenuePage() {
   const { venueId } = useParams<{ venueId: string }>();
+
   const venues = ManagerVenuesStore((store) => store.venues);
   const venue = venues?.find((item) => item.id === venueId) ?? null;
   const setVenues = ManagerVenuesStore((store) => store.setVenues);
+
   const managerUser = ManagerVenuesStore((store) => store.user);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -137,6 +138,7 @@ export default function EditVenuePage() {
     setIsDeleting(true);
     setErrorMessage(null);
     try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       await deleteManagerVenue(venue.id);
       setVenues(
         managerUser ?? '',
@@ -155,24 +157,16 @@ export default function EditVenuePage() {
     <>
       <BackNav />
       <h1 className="pl-[20px] pt-[20px] md:hidden">Edit Venue</h1>
-      <div className="p-[20px] md:p-0">
+      <div
+        className={`overflow-hidden transition-all duration-2000 p-[20px] md:p-0 ${
+          isDeleting ? 'opacity-0 scale-50' : 'opacity-100'
+        }`}
+      >
         <div className="md:px-[50px] md:mt-[50px] md:grid md:grid-cols-6 md:gap-x-[30px] md:gap-y-[20px] md:items-stretch">
-          <div className="relative h-[200px] mb-[-5px] md:mb-0 md:h-full md:w-full md:col-start-1 md:col-span-3 md:row-start-1">
-            <Image
-              src={firstImageUrl || '/no-photo.svg'}
-              alt={name || 'New venue image'}
-              fill
-              sizes="(min-width: 744px) 50vw, 100vw"
-              loading="eager"
-              placeholder="blur"
-              blurDataURL={BLUR_DATA_URL}
-              onError={(e) => {
-                e.currentTarget.srcset = '/no-photo.svg';
-                e.currentTarget.src = '/no-photo.svg';
-              }}
-              className="object-cover rounded-[10px]"
-            />
-          </div>
+          <VenueImagePreview
+            src={firstImageUrl}
+            alt={name || 'New venue image'}
+          />
 
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -223,6 +217,7 @@ export default function EditVenuePage() {
                   <FieldError
                     id={`image-${index}-error`}
                     message={errors.media?.[index]?.url?.message}
+                    className="md:static lg:absolute"
                   />
                 </div>
               ))}
@@ -432,6 +427,7 @@ export default function EditVenuePage() {
                   <FieldError
                     id="zip-error"
                     message={errors.location?.zip?.message}
+                    className="md:static lg:absolute"
                   />
                 </div>
                 <div className="relative flex flex-col gap-2 flex-1">
@@ -455,6 +451,7 @@ export default function EditVenuePage() {
                   <FieldError
                     id="city-error"
                     message={errors.location?.city?.message}
+                    className="md:static lg:absolute"
                   />
                 </div>
               </div>

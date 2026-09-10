@@ -63,6 +63,11 @@ export interface LoginResponse {
   meta: unknown;
 }
 
+export interface RegisterResponse {
+  data: Omit<LoginResponseData, 'accessToken'>;
+  meta: unknown;
+}
+
 export type LoginFormProps = {
   onClose: () => void;
   onSwitch: () => void;
