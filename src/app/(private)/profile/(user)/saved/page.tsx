@@ -29,7 +29,7 @@ export default function SavedVenuesPage() {
       <BackNav />
       <HeroSection bookingsCount={bookingsCount} />
       <section className="pt-[20px] md:p-[50px]">
-        <h1 className="pl-[20px] md:hidden">Saved Venues</h1>
+        <h1 className="pl-[20px] mb-[20px] md:mb-0 md:hidden">Saved Venues</h1>
         {items.length === 0 ? (
           <div className="px-[20px] my-[20px]">
             <Link

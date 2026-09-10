@@ -1,8 +1,10 @@
 import { REGISTER_API_URL } from '../../constants/api';
 import createPostRequest from '../helpers/createPostRequest';
-import type { RegisterUser } from '@/types';
+import type { RegisterUser, RegisterResponse } from '@/types';
 
-export default async function registerUser(user: RegisterUser) {
+export default async function registerUser(
+  user: RegisterUser,
+): Promise<RegisterResponse> {
   try {
     const postData = createPostRequest(user);
     const response = await fetch(REGISTER_API_URL, postData);

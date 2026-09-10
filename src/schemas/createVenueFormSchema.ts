@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const STRING_REGEX = /^[A-Za-z_]+$/;
+const STRING_REGEX = /^[\p{L}_]+$/u;
 const NUMBER_REGEX = /^[0-9]+$/;
 
 const mediaItemSchema = z.object({

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { BookingSuccessPageType } from '@/types';
 import BackNav from '@/components/ui/BackNav';
-import SuccessVenueImage from '@/components/helpers/SuccessVenueImage';
+import SuccessVenueImage from '@/components/venues/SuccessVenueImage';
 
 export const metadata: Metadata = {
   title: 'Success Page || Holidaze',
@@ -54,10 +54,7 @@ export default async function BookingSuccessPage({
             </p>
           </div>
           <div className="flex justify-center mb-[10px] md:mb-0  md:col-start-2 md:row-start-4 ">
-            <Link
-              href="/"
-              className="cta-primary-full mt-[20px]"
-            >
+            <Link href="/" className="cta-primary-full mt-[20px]">
               Back to Home
               <i
                 className="fa-regular fa-circle-right ml-[5px]"
