@@ -55,6 +55,7 @@ export default function VenueImages({
             onClick={goBack}
             className="cta-image-nav left-[20px]"
           >
+            <span className="hidden">Previous image</span>
             <i
               className="fa-solid fa-chevron-left text-white"
               aria-hidden="true"
@@ -65,6 +66,7 @@ export default function VenueImages({
             onClick={showNext}
             className="cta-image-nav right-[20px]"
           >
+            <span className="hidden">Next image</span>
             <i
               className="fa-solid fa-chevron-right text-white"
               aria-hidden="true"

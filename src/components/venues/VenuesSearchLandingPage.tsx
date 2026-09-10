@@ -93,6 +93,7 @@ export default function VenuesSearchLandingPage() {
             </label>
             <button
               type="button"
+              id="date"
               onClick={() => setCalendarOpen(!calendarOpen)}
               className="w-full px-[50px] truncate text-left focus:outline-none"
             >
