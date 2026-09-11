@@ -9,7 +9,7 @@ export async function deleteManagerVenue(venueId: string): Promise<void> {
     );
 
     if (!response.ok) {
-      throw new Error('Failed to cancel booking');
+      throw new Error('Failed to delete venue');
     }
   } catch (error) {
     throw error instanceof Error ? error : new Error('Failed to delete venue');

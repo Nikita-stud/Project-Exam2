@@ -9,16 +9,16 @@ import { BLUR_DATA_URL } from '@/components/helpers/BlurDataUrl';
 export default function VenueCard({ venue }: { venue: Venue }) {
   const { selected, guests } = SearchStore((store) => store.formData);
 
-  const query = new URLSearchParams();
+  const params = new URLSearchParams();
   if (selected?.from && selected?.to) {
-    query.set('from', selected.from.toISOString());
-    query.set('to', selected.to.toISOString());
+    params.set('from', selected.from.toISOString());
+    params.set('to', selected.to.toISOString());
   }
   if (guests) {
-    query.set('guests', guests);
+    params.set('guests', guests);
   }
-  const queryString = query.toString();
-  const href = `/venue/${venue.id}${queryString ? `?${queryString}` : ''}`;
+  const query = params.toString();
+  const href = `/venue/${venue.id}${query ? `?${query}` : ''}`;
 
   return (
     <div className="card rounded-[10px] overflow-hidden">

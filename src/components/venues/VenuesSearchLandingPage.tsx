@@ -1,5 +1,6 @@
 'use client';
 import { useRef, useState } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { DayPicker } from '@daypicker/react';
 import '@daypicker/react/style.css';
 import SearchStore from '@/store/searchStore';
@@ -13,6 +14,10 @@ export default function VenuesSearchLandingPage() {
   const setFormData = SearchStore((store) => store.setFormData);
   const resetFormData = SearchStore((store) => store.resetFormData);
 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   useClickOutside(dateFieldRef, calendarOpen, setCalendarOpen);
 
   const hasSearchValue =
@@ -22,6 +27,10 @@ export default function VenuesSearchLandingPage() {
     e.preventDefault();
     if (hasSearchValue) {
       resetFormData();
+      const params = new URLSearchParams(searchParams);
+      params.delete('page');
+      const query = params.toString();
+      router.push(`${pathname}${query ? `?${query}` : ''}`);
     }
   };
 
@@ -42,8 +51,6 @@ export default function VenuesSearchLandingPage() {
             id="destination"
             name="destination"
             autoComplete="off"
-            minLength={2}
-            maxLength={30}
             placeholder="Search..."
             value={formData.destination}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,8 +122,7 @@ export default function VenuesSearchLandingPage() {
               type="number"
               id="guests"
               name="guests"
-              min={1}
-              placeholder="0"
+              placeholder="Min 1"
               value={formData.guests}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setFormData({ guests: e.target.value });

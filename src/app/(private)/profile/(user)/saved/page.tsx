@@ -18,8 +18,12 @@ export default function SavedVenuesPage() {
       return;
     }
     const fetchBookings = async () => {
-      const bookings = await fetchUserBookings(user.name);
-      setBookingsCount(bookings.length);
+      try {
+        const bookings = await fetchUserBookings(user.name);
+        setBookingsCount(bookings.length);
+      } catch {
+        setBookingsCount(0);
+      }
     };
     fetchBookings();
   }, [user]);

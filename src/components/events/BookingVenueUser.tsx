@@ -16,9 +16,11 @@ export default function BookingVenueUser({
 }) {
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const dateFieldRef = useRef<HTMLDivElement>(null);
+
   const formData = SearchStore((store) => store.formData);
   const setFormData = SearchStore((store) => store.setFormData);
   const resetFormData = SearchStore((store) => store.resetFormData);
+
   const searchParams = useSearchParams();
 
   useEffect(() => {

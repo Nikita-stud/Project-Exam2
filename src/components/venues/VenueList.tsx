@@ -1,6 +1,7 @@
 'use client';
+import { useMemo, useEffect, useState, useCallback } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-import { useEffect, useState } from 'react';
 import SearchStore from '@/store/searchStore';
 import fetchVenues from '@/api/venues/fetchVenues';
 import type { Venue } from '../../types/index';
@@ -14,9 +15,14 @@ export default function VenueList() {
   const resetFormData = SearchStore((store) => store.resetFormData);
 
   const itemsPerPage = 12;
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const currentPage = Number(searchParams.get('page') ?? 1);
 
   useEffect(() => {
     const loadVenues = async () => {
@@ -32,33 +38,48 @@ export default function VenueList() {
 
   const { from, to } = formData.selected ?? {};
 
-  const filtered = venues.filter((venue) => {
-    const destination = formData.destination.trim().toLowerCase();
-    const matchesName = venue.name.trim().toLowerCase().includes(destination);
-    const matchesGuests = Number(formData.guests) <= venue.maxGuests;
-    const matchesDates =
-      !from ||
-      !to ||
-      !venue.bookings?.some((booking) => {
-        const bookingStart = new Date(booking.dateFrom);
-        const bookingEnd = new Date(booking.dateTo);
-        return from < bookingEnd && to > bookingStart;
-      });
-    return matchesName && matchesGuests && matchesDates;
-  });
+  const filtered = useMemo(() => {
+    return venues.filter((venue) => {
+      const destination = formData.destination.trim().toLowerCase();
+      const matchesName = venue.name.trim().toLowerCase().includes(destination);
+      const matchesGuests = Number(formData.guests) <= venue.maxGuests;
+      const matchesDates =
+        !from ||
+        !to ||
+        !venue.bookings?.some((booking) => {
+          const bookingStart = new Date(booking.dateFrom);
+          const bookingEnd = new Date(booking.dateTo);
+          return from < bookingEnd && to > bookingStart;
+        });
+      return matchesName && matchesGuests && matchesDates;
+    });
+  }, [venues, formData, from, to]);
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
-  if (currentPage > totalPages && totalPages > 0) {
-    setCurrentPage(1);
-  }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filtered.slice(indexOfFirstItem, indexOfLastItem);
 
-  function onPageChange(page: number) {
-    setCurrentPage(page);
-  }
+  const onPageChange = useCallback(
+    (page: number) => {
+      const params = new URLSearchParams(searchParams);
+      params.set('page', String(page));
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [searchParams, router, pathname],
+  );
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      onPageChange(1);
+    }
+  }, [currentPage, totalPages, onPageChange]);
+
+  const handleClearFilter = () => {
+    resetFormData();
+    onPageChange(1);
+  };
 
   return (
     <>
@@ -91,7 +112,7 @@ export default function VenueList() {
               />
             </>
           ) : (
-            <ClearFilterMessage onClear={resetFormData} />
+            <ClearFilterMessage onClear={handleClearFilter} />
           )}
         </section>
       )}
