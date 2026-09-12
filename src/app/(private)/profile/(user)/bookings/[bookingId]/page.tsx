@@ -22,6 +22,7 @@ export default function BookingDetailsPage() {
   const [booking, setBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [cancelError, setCancelError] = useState<string | null>(null);
   const [cancelling, setCancelling] = useState<boolean>(false);
 
   useEffect(() => {
@@ -48,12 +49,13 @@ export default function BookingDetailsPage() {
   const handleCancel = async () => {
     if (!booking) return;
     setCancelling(true);
+    setCancelError(null);
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       await cancelBooking(booking.id);
       router.push('/profile/bookings');
     } catch (error) {
-      setErrorMessage(
+      setCancelError(
         error instanceof Error ? error.message : 'Failed to cancel booking',
       );
       setCancelling(false);
@@ -79,10 +81,7 @@ export default function BookingDetailsPage() {
             className="w-[120px] h-[130px]"
           />
           <ErrorMessage message={errorMessage} />
-          <Link
-            href="/"
-            className="cta-primary-full"
-          >
+          <Link href="/" className="cta-primary-full">
             Back to venues page
             <i
               className="fa-regular fa-circle-right ml-[5px]"
@@ -143,6 +142,7 @@ export default function BookingDetailsPage() {
               </section>
 
               <section className="bg-calm/20 flex flex-col gap-[10px] p-[20px] my-[20px] rounded-[10px] lg:w-full lg:mt-auto">
+                <ErrorMessage message={cancelError} />
                 <h2>Your booking</h2>
                 <p className="font-bold">
                   {new Date(booking.dateFrom).toLocaleDateString()}

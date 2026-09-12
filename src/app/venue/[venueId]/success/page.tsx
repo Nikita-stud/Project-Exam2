@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import type { BookingSuccessPageType } from '@/types';
 import BackNav from '@/components/ui/BackNav';
 import SuccessVenueImage from '@/components/venues/SuccessVenueImage';
+import ResetSearchHelper from '@/components/helpers/ResetSearchHelper';
 
 export const metadata: Metadata = {
   title: 'Success Page || Holidaze',
@@ -19,6 +20,7 @@ export default async function BookingSuccessPage({
   return (
     <>
       <BackNav />
+      <ResetSearchHelper />
       <div className="p-[20px] md:p-[0px]">
         <div className="md:px-[50px] md:my-[50px] md:grid md:grid-cols-2 md:gap-x-[30px] md:gap-y-[20px] md:items-stretch">
           <Image

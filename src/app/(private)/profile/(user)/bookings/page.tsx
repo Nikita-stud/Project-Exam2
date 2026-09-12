@@ -19,6 +19,8 @@ export default function BookingPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [cancelErrorId, setCancelErrorId] = useState<string | null>(null);
+  const [cancelError, setCancelError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) {
@@ -46,12 +48,19 @@ export default function BookingPage() {
       return;
     }
     setCancellingId(bookingId);
+    setCancelErrorId(null);
+    setCancelError(null);
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       await cancelBooking(bookingId);
 
       setBookings((prev) => prev.filter((b) => b.id !== bookingId));
+    } catch (error) {
+      setCancelErrorId(bookingId);
+      setCancelError(
+        error instanceof Error ? error.message : 'Failed to cancel booking',
+      );
     } finally {
       setCancellingId(null);
     }
@@ -120,20 +129,29 @@ export default function BookingPage() {
                           e.currentTarget.src = '/no-photo.svg';
                         }}
                       />
-                      <h2 className="mt-[10px]">{booking.venue.name}</h2>
-                      <p className="text-calm">
-                        Expected guests: {booking.guests} adults
-                      </p>
-                      <p className="font-bold flex justify-between">
-                        <span>
-                          {new Date(booking.dateFrom).toLocaleDateString()}
-                          <i
-                            className="fa-solid fa-minus align-[-5%] mx-[5px]"
-                            aria-hidden="true"
-                          ></i>
-                          {new Date(booking.dateTo).toLocaleDateString()}
-                        </span>
-                      </p>
+                      {cancelErrorId === booking.id && cancelError ? (
+                        <ErrorMessage
+                          message={cancelError}
+                          className="mt-[10px]"
+                        />
+                      ) : (
+                        <>
+                          <h2 className="mt-[10px]">{booking.venue.name}</h2>
+                          <p className="text-calm">
+                            Expected guests: {booking.guests} adults
+                          </p>
+                          <p className="font-bold flex justify-between">
+                            <span>
+                              {new Date(booking.dateFrom).toLocaleDateString()}
+                              <i
+                                className="fa-solid fa-minus align-[-5%] mx-[5px]"
+                                aria-hidden="true"
+                              ></i>
+                              {new Date(booking.dateTo).toLocaleDateString()}
+                            </span>
+                          </p>
+                        </>
+                      )}
                     </Link>
                     <div className="flex justify-between gap-[20px] mt-[10px]">
                       <button
